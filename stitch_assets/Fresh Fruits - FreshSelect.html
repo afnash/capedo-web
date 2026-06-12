@@ -1,359 +1,462 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Capedo Impex - Fresh Fruits</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Capedo Impex - Fresh Fruits</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
         tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-secondary-fixed-variant": "#444749",
-                      "on-tertiary": "#ffffff",
-                      "surface-container-high": "#e2e8fc",
-                      "on-background": "#151b29",
-                      "secondary-container": "#e0e3e5",
-                      "secondary-fixed-dim": "#c4c7c9",
-                      "primary-fixed": "#67ff8c",
-                      "on-primary-container": "#005622",
-                      "on-primary-fixed": "#002109",
-                      "on-tertiary-container": "#614400",
-                      "outline": "#6c7b6b",
-                      "primary-fixed-dim": "#41e272",
-                      "surface-container-low": "#f1f3ff",
-                      "primary-container": "#2dd466",
-                      "on-surface-variant": "#3d4a3c",
-                      "on-primary-fixed-variant": "#005321",
-                      "surface-container-lowest": "#ffffff",
-                      "surface-bright": "#faf8ff",
-                      "secondary": "#5c5f61",
-                      "error-container": "#ffdad6",
-                      "on-surface": "#151b29",
-                      "surface-container": "#e9edff",
-                      "outline-variant": "#bbcbb9",
-                      "surface-container-highest": "#dde2f6",
-                      "on-secondary-container": "#626567",
-                      "primary": "#006e2e",
-                      "surface-tint": "#006e2e",
-                      "on-error-container": "#93000a",
-                      "on-tertiary-fixed-variant": "#5e4200",
-                      "on-secondary-fixed": "#191c1e",
-                      "tertiary-container": "#f0ad00",
-                      "on-tertiary-fixed": "#271900",
-                      "on-primary": "#ffffff",
-                      "secondary-fixed": "#e0e3e5",
-                      "tertiary-fixed": "#ffdea8",
-                      "inverse-primary": "#41e272",
-                      "tertiary": "#7c5800",
-                      "tertiary-fixed-dim": "#ffba20",
-                      "on-secondary": "#ffffff",
-                      "error": "#ba1a1a",
-                      "surface": "#faf8ff",
-                      "on-error": "#ffffff",
-                      "background": "#faf8ff",
-                      "surface-variant": "#dde2f6"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "lg": "40px",
-                      "sm": "16px",
-                      "xs": "8px",
-                      "margin-desktop": "48px",
-                      "md": "24px",
-                      "margin-mobile": "16px",
-                      "base": "4px",
-                      "xl": "64px",
-                      "gutter": "20px"
-              },
-              "fontFamily": {
-                      "headline-lg": ["Inter"],
-                      "body-lg": ["Inter"],
-                      "caption": ["Inter"],
-                      "headline-lg-mobile": ["Inter"],
-                      "label-md": ["Inter"],
-                      "headline-md": ["Inter"],
-                      "display-lg": ["Inter"],
-                      "body-md": ["Inter"]
-              },
-              "fontSize": {
-                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                      "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
-                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
-                      "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
-                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
-              }
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#444749",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e2e8fc",
+                        "on-background": "#151b29",
+                        "secondary-container": "#e0e3e5",
+                        "secondary-fixed-dim": "#c4c7c9",
+                        "primary-fixed": "#67ff8c",
+                        "on-primary-container": "#005622",
+                        "on-primary-fixed": "#002109",
+                        "on-tertiary-container": "#614400",
+                        "outline": "#6c7b6b",
+                        "primary-fixed-dim": "#41e272",
+                        "surface-container-low": "#f1f3ff",
+                        "primary-container": "#2dd466",
+                        "on-surface-variant": "#3d4a3c",
+                        "on-primary-fixed-variant": "#005321",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "secondary": "#5c5f61",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#151b29",
+                        "surface-container": "#e9edff",
+                        "outline-variant": "#bbcbb9",
+                        "surface-container-highest": "#dde2f6",
+                        "on-secondary-container": "#626567",
+                        "primary": "#006e2e",
+                        "surface-tint": "#006e2e",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#5e4200",
+                        "on-secondary-fixed": "#191c1e",
+                        "tertiary-container": "#f0ad00",
+                        "on-tertiary-fixed": "#271900",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#e0e3e5",
+                        "tertiary-fixed": "#ffdea8",
+                        "inverse-primary": "#41e272",
+                        "tertiary": "#7c5800",
+                        "tertiary-fixed-dim": "#ffba20",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#faf8ff",
+                        "on-error": "#ffffff",
+                        "background": "#faf8ff",
+                        "surface-variant": "#dde2f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "margin-desktop": "48px",
+                        "md": "24px",
+                        "margin-mobile": "16px",
+                        "base": "4px",
+                        "xl": "64px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "caption": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                },
             },
-          },
         }
     </script>
-<style>
-        body { font-family: 'Inter', sans-serif; }
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             display: inline-block;
             vertical-align: middle;
         }
+
         .product-card-shadow {
             box-shadow: 0px 4px 20px rgba(18, 24, 38, 0.04);
         }
+
         .product-card-shadow:hover {
             box-shadow: 0px 10px 30px rgba(18, 24, 38, 0.08);
             transform: translateY(-2px);
         }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
+
 <body class="bg-background text-on-background min-h-screen">
-<!-- TopNavBar -->
-<header class="fixed top-0 w-full z-50 bg-surface dark:bg-inverse-surface shadow-sm h-20">
-<nav class="max-w-[1280px] mx-auto h-full flex justify-between items-center px-margin-desktop">
-<div class="flex items-center gap-xl">
-<a class="flex items-center gap-2 group" href="#">
-<img alt="Capedo Impex Logo" class="w-10 h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"/>
-<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Capedo Impex</span>
-</a>
-<div class="hidden md:flex items-center gap-md">
-<a class="font-body-md text-body-md text-primary dark:text-primary-fixed border-b-2 border-primary font-bold pb-1" href="#">Fruits</a>
-<a class="font-body-md text-body-md text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-200" href="#">Vegetables</a>
-<a class="font-body-md text-body-md text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-200" href="#">Fish</a>
-<a class="font-body-md text-body-md text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-200" href="#">Meat</a>
-<a class="font-body-md text-body-md text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-200" href="#">Desserts</a>
-</div>
-</div>
-<div class="flex items-center gap-md">
-<div class="relative hidden lg:block">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-label-md focus:outline-none focus:ring-2 focus:ring-primary/20 w-64" placeholder="Search for fresh produce..." type="text"/>
-</div>
-<button class="flex items-center justify-center p-2 text-on-surface-variant hover:text-primary transition-colors scale-95 transition-transform duration-150">
-<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
-</button>
-<button class="flex items-center justify-center p-2 text-on-surface-variant hover:text-primary transition-colors scale-95 transition-transform duration-150">
-<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-</button>
-</div>
-</nav>
-</header>
-<main class="pt-20 max-w-[1280px] mx-auto px-margin-desktop flex flex-col md:flex-row gap-lg">
-<!-- Sidebar Filters -->
-<aside class="w-full md:w-64 flex-shrink-0 py-lg space-y-lg sticky top-20 self-start">
-<div class="space-y-md">
-<h3 class="font-label-md text-label-md text-on-surface tracking-wider uppercase">Availability</h3>
-<div class="space-y-xs">
-<label class="flex items-center gap-3 cursor-pointer group">
-<input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary/20" type="checkbox"/>
-<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-primary transition-colors">In Stock</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer group">
-<input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary/20" type="checkbox"/>
-<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-primary transition-colors">On Sale</span>
-</label>
-</div>
-</div>
-<div class="space-y-md">
-<h3 class="font-label-md text-label-md text-on-surface tracking-wider uppercase">Price Range</h3>
-<div class="px-2">
-<input class="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" max="20" min="0" type="range" value="10"/>
-<div class="flex justify-between mt-2 font-caption text-caption text-on-surface-variant">
-<span>£0</span>
-<span>£20+</span>
-</div>
-</div>
-</div>
-<div class="space-y-md">
-<h3 class="font-label-md text-label-md text-on-surface tracking-wider uppercase">Dietary</h3>
-<div class="flex flex-wrap gap-2">
-<button class="px-3 py-1 bg-primary/10 text-primary font-label-md text-label-md rounded-full border border-primary/20">Organic</button>
-<button class="px-3 py-1 bg-surface-container-low text-on-surface-variant font-label-md text-label-md rounded-full border border-outline-variant hover:bg-surface-container-high transition-colors">Eco-Friendly</button>
-<button class="px-3 py-1 bg-surface-container-low text-on-surface-variant font-label-md text-label-md rounded-full border border-outline-variant hover:bg-surface-container-high transition-colors">Local</button>
-</div>
-</div>
-</aside>
-<!-- Product Grid Content -->
-<section class="flex-1 py-lg">
-<div class="flex items-center justify-between mb-lg">
-<h1 class="font-headline-lg text-headline-lg text-on-background">Fresh Fruits</h1>
-<p class="font-body-md text-body-md text-on-surface-variant">24 products found</p>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md">
-<!-- Product Card 1 -->
-<article class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
-<div class="relative aspect-square overflow-hidden bg-surface-container-low">
-<img alt="Gala Apples" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional studio photograph of organic Gala apples with glossy red and yellow skins, arranged neatly on a clean white marble surface. The lighting is soft and natural, emphasizing the fresh, crisp texture and vibrant colors of the fruit. The aesthetic is bright and minimalist, perfectly fitting a high-end organic grocery brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3WmH98jgcuY79JG_mXizOiFUE1E_1UahsYJD-1D77Sz2ANhgvEo67utc-8Cm6mSd1hJr4l7F2REFASPsPjC7hNJDv4JtA88LcIKES32XeQIoox5UNWAlELMfag3RtleA7QhZZBpKHycpL2QaiaY3c4QrPHAIRtNtV9exaPID6rP_XGeQufGA_-ynzYAppNyQdCiF_v8pEdZqRl3ovBoCkw6j32U3GuCxLwdrOMNz9pfLZ35Z08s1ohdij5qOfausD-gfhTCeDSich"/>
-<span class="absolute top-3 left-3 px-2 py-1 bg-primary text-on-primary font-label-md text-caption rounded-lg">Organic</span>
-</div>
-<div class="p-sm flex flex-col flex-1">
-<div class="flex justify-between items-start mb-base">
-<h2 class="font-headline-sm text-label-md font-bold text-on-surface">Gala Apples</h2>
-<span class="font-headline-md text-headline-md text-primary font-bold">£2.49</span>
-</div>
-<p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: 1kg (Approx 6-7 apples)</p>
-<div class="mt-auto flex items-center justify-between gap-sm">
-<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">remove</span></button>
-<span class="px-3 font-label-md text-label-md text-on-surface">1</span>
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">add</span></button>
-</div>
-<button class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick Add</button>
-</div>
-</div>
-</article>
-<!-- Product Card 2 -->
-<article class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
-<div class="relative aspect-square overflow-hidden bg-surface-container-low">
-<img alt="Fairtrade Bananas" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A high-quality close-up of a bunch of vibrant yellow, perfectly ripe bananas with smooth skins. They are positioned against a neutral, softly lit background that enhances their natural color and curved shape. The mood is clean and healthy, following a contemporary organic minimalist style with bright, even illumination." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAldNK4sx8nDVWNLwfZ4XFHCRbN4C7S4tktXgBKLj66DttSSRtnzxv7s3rluisISXHYxCTTmlMfv47pn-Ofah1YS3ZFB5W8EJYSphI4zN9ohzcKEEtv7GU5VB4Thhd-mBn9xdugZINw4gTWqomdMgq60eUPA1VZhT2r4Wvl9wb5lpyspZ3X5bzraE8lXhrLI8sVGCLx_c5av9faiH9MWJyYjxGIZUoOb6CYjy-M3NFQE9gsAuDXWtZ-6ByiftwpN-j-VjG9ghb1kf8M"/>
-</div>
-<div class="p-sm flex flex-col flex-1">
-<div class="flex justify-between items-start mb-base">
-<h2 class="font-headline-sm text-label-md font-bold text-on-surface">Fairtrade Bananas</h2>
-<span class="font-headline-md text-headline-md text-primary font-bold">£1.10</span>
-</div>
-<p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: 5-6 Pack</p>
-<div class="mt-auto flex items-center justify-between gap-sm">
-<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">remove</span></button>
-<span class="px-3 font-label-md text-label-md text-on-surface">1</span>
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">add</span></button>
-</div>
-<button class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick Add</button>
-</div>
-</div>
-</article>
-<!-- Product Card 3 -->
-<article class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
-<div class="relative aspect-square overflow-hidden bg-surface-container-low">
-<img alt="Honey Mango" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A stunning gourmet photography of a sliced open honey mango, revealing its juicy, deep orange flesh and large central pit. The fruit sits on a rustic but clean ceramic plate under bright, airy sunlight. The scene suggests tropical freshness and premium quality, with a color palette dominated by vibrant orange and warm neutrals." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7x4Fv5Voknokw5DVGkOsQyPbYPEc6vuDrdGnAvSrxauxS9JCEBcqQGGQaJNT7DWFqkhZaDocEIMsdXr06qdPpCXiF9Q3ftuc0Ow9uceLXy5Qn4MVr0QDsWRYkIZxMr1yIrxBXyHnQIhrX4dWCS1b00hQQoudzoyJeXIsQrSR1yqXiWvWd2NMPHfY8jyx04cDnrOFWJqtQhGb6--0E0LnhqNKbVRAbLqDK_KKVpMnULrIGgmscm2edJERixrMAElemBa-VKj8-wKlU"/>
-<span class="absolute top-3 left-3 px-2 py-1 bg-tertiary-container text-on-tertiary-container font-label-md text-caption rounded-lg">Bestseller</span>
-</div>
-<div class="p-sm flex flex-col flex-1">
-<div class="flex justify-between items-start mb-base">
-<h2 class="font-headline-sm text-label-md font-bold text-on-surface">Honey Mango</h2>
-<span class="font-headline-md text-headline-md text-primary font-bold">£3.95</span>
-</div>
-<p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: Each</p>
-<div class="mt-auto flex items-center justify-between gap-sm">
-<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">remove</span></button>
-<span class="px-3 font-label-md text-label-md text-on-surface">1</span>
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">add</span></button>
-</div>
-<button class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick Add</button>
-</div>
-</div>
-</article>
-<!-- Product Card 4 -->
-<article class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
-<div class="relative aspect-square overflow-hidden bg-surface-container-low">
-<img alt="Fresh Strawberries" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A high-resolution shot of premium, bright red strawberries in a minimalist punnet. Each berry is speckled with seeds and has fresh green leaves still attached. The lighting is crisp and diffused, casting gentle shadows that give the fruit volume. The overall vibe is one of morning freshness and organic purity, with a clean, high-key white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_fBvaQ0wEjkAIsEurXnnI7Ym_MP8yclS8vL_2jpAotZZXRiSUzz1R7TfAHIrblndm7BxeTkTsUFR_QX7s-RpTYSWdWn23wB94ZIWFKuK_4eaLyDQKoQRWbqujgUm_Anf8Q9PKlgBdZTzQNa6TeLl8ZhpDUCXOmemZTxmeAuUgVaeMQF_MErtQv-0lKWTCTY7F10AphQGUsgaXGQf_1PvB0iqLBjhXneYm6yIycHLj53EsxOR-W-vOdROVqeVlmNo7o6PNriYrRual"/>
-</div>
-<div class="p-sm flex flex-col flex-1">
-<div class="flex justify-between items-start mb-base">
-<h2 class="font-headline-sm text-label-md font-bold text-on-surface">Fresh Strawberries</h2>
-<span class="font-headline-md text-headline-md text-primary font-bold">£2.99</span>
-</div>
-<p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: 400g Punnet</p>
-<div class="mt-auto flex items-center justify-between gap-sm">
-<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">remove</span></button>
-<span class="px-3 font-label-md text-label-md text-on-surface">1</span>
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">add</span></button>
-</div>
-<button class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick Add</button>
-</div>
-</div>
-</article>
-<!-- Product Card 5 -->
-<article class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
-<div class="relative aspect-square overflow-hidden bg-surface-container-low">
-<img alt="Navel Oranges" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A bright and zesty professional photograph of whole and halved Navel oranges. The juicy interior texture is illuminated by a warm, sunny light, highlighting the vibrant citrus segments. The fruits are presented on a minimalist wooden board, creating a natural and inviting scene that evokes freshness and vitamin-rich vitality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs-xrAk8WHOitl1b3mPT2VewR2HsTtXNr_yz0kBnhdprEfAO4YX_M2Rly16E1a52yioifKfleZYKVRewTITWahwF6m36gvIRXORsEZyRInTHuAc9w8GtfZDPVdJKCyQUyj5uBk3aXjCtYHgc9rJCAjdJWgrn9d3KlAq3h0sreHDaQXifyYLea-ZnmbAtclGhuukUQM8Ou6ydBFiECwqcF3JC1ugMKRyyMpTa5vVVKWIb-Kdu6rqUPHeLx6WsnlKq_QkkR-QiqKB00j"/>
-</div>
-<div class="p-sm flex flex-col flex-1">
-<div class="flex justify-between items-start mb-base">
-<h2 class="font-headline-sm text-label-md font-bold text-on-surface">Navel Oranges</h2>
-<span class="font-headline-md text-headline-md text-primary font-bold">£3.25</span>
-</div>
-<p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: 1.5kg Bag</p>
-<div class="mt-auto flex items-center justify-between gap-sm">
-<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">remove</span></button>
-<span class="px-3 font-label-md text-label-md text-on-surface">1</span>
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">add</span></button>
-</div>
-<button class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick Add</button>
-</div>
-</div>
-</article>
-<!-- Product Card 6 -->
-<article class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
-<div class="relative aspect-square overflow-hidden bg-surface-container-low">
-<img alt="Blueberries" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A beautiful macro photograph of fresh, organic blueberries in a glass bowl. The berries have a characteristic dusty blue wax coating and are plump and perfectly round. Soft, natural light creates high-key highlights on the berries' surface, conveying a sense of premium quality and crisp, healthy eating in a minimalist setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAXHI5Zewl0piG1ik70yJ7kHRm5a9xpx_gTrOnQvS7ZDZpxB3z49zBBda-1hCRKWLzgZImzpVwe_qh-5Mx3a0KR2rHU72UpAeq4WkKELnAHSR5VHBuS_vw5dquaCOOGDdObrlwBXbvUxCe-HAl9vkMlBQaraTPqg_YmKmUhjZYb-mslg3pKsLauPeCBaL43WcphiPeyozfSTeYfOT_JvGzoZfmMpUW3w-ycyReN9rfuh__uXXLPnIvQAQcxBwpz57CunZ4jrr-e-Wm"/>
-<span class="absolute top-3 right-3 px-2 py-1 bg-error-container text-on-error-container font-label-md text-caption rounded-lg">Low Stock</span>
-</div>
-<div class="p-sm flex flex-col flex-1">
-<div class="flex justify-between items-start mb-base">
-<h2 class="font-headline-sm text-label-md font-bold text-on-surface">Organic Blueberries</h2>
-<span class="font-headline-md text-headline-md text-primary font-bold">£3.50</span>
-</div>
-<p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: 150g Punnet</p>
-<div class="mt-auto flex items-center justify-between gap-sm">
-<div class="flex items-center bg-surface-container rounded-full px-2 py-1">
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">remove</span></button>
-<span class="px-3 font-label-md text-label-md text-on-surface">1</span>
-<button class="p-1 text-primary hover:opacity-70 transition-opacity"><span class="material-symbols-outlined text-[20px]">add</span></button>
-</div>
-<button class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick Add</button>
-</div>
-</div>
-</article>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-surface-container-lowest dark:bg-surface-dim border-t border-outline-variant dark:border-outline mt-xl">
-<div class="max-w-[1280px] mx-auto py-xl px-margin-desktop grid grid-cols-1 md:grid-cols-3 gap-lg">
-<div class="space-y-sm">
-<div class="flex items-center gap-2">
-<img alt="Capedo Impex Logo" class="w-8 h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"/>
-<span class="font-headline-sm text-headline-sm font-bold text-primary">Capedo Impex</span>
-</div>
-<p class="font-caption text-caption text-on-surface-variant max-w-xs">
-                    Organic Minimalism for Daily Essentials. We deliver the freshest produce straight from local farms to your doorstep.
+    <!-- TopNavBar -->
+    <header class="fixed top-0 w-full z-50 bg-surface dark:bg-inverse-surface shadow-sm h-20">
+        <nav class="max-w-[1280px] mx-auto h-full flex justify-between items-center px-margin-desktop">
+            <div class="flex items-center gap-xl">
+                <a class="flex items-center gap-2 group" href="#">
+                    <img alt="Capedo Impex Logo" class="w-10 h-10 object-contain"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh" />
+                    <span
+                        class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Capedo
+                        Impex</span>
+                </a>
+                <div class="hidden md:flex items-center gap-md">
+                    <a class="font-body-md text-body-md text-primary dark:text-primary-fixed border-b-2 border-primary font-bold pb-1"
+                        href="#">Fruits</a>
+                    <a class="font-body-md text-body-md text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-200"
+                        href="#">Vegetables</a>
+                    <a class="font-body-md text-body-md text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-200"
+                        href="#">Fish</a>
+                    <a class="font-body-md text-body-md text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-200"
+                        href="#">Meat</a>
+                    <a class="font-body-md text-body-md text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-200"
+                        href="#">Desserts</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-md">
+                <div class="relative hidden lg:block">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                    <input
+                        class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-label-md focus:outline-none focus:ring-2 focus:ring-primary/20 w-64"
+                        placeholder="Search for fresh produce..." type="text" />
+                </div>
+                <button
+                    class="flex items-center justify-center p-2 text-on-surface-variant hover:text-primary transition-colors scale-95 transition-transform duration-150">
+                    <span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+                </button>
+                <button
+                    class="flex items-center justify-center p-2 text-on-surface-variant hover:text-primary transition-colors scale-95 transition-transform duration-150">
+                    <span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <main class="pt-20 max-w-[1280px] mx-auto px-margin-desktop flex flex-col md:flex-row gap-lg">
+        <!-- Sidebar Filters -->
+        <aside class="w-full md:w-64 flex-shrink-0 py-lg space-y-lg sticky top-20 self-start">
+            <div class="space-y-md">
+                <h3 class="font-label-md text-label-md text-on-surface tracking-wider uppercase">Availability</h3>
+                <div class="space-y-xs">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary/20"
+                            type="checkbox" />
+                        <span
+                            class="font-body-md text-body-md text-on-surface-variant group-hover:text-primary transition-colors">In
+                            Stock</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary/20"
+                            type="checkbox" />
+                        <span
+                            class="font-body-md text-body-md text-on-surface-variant group-hover:text-primary transition-colors">On
+                            Sale</span>
+                    </label>
+                </div>
+            </div>
+            <div class="space-y-md">
+                <h3 class="font-label-md text-label-md text-on-surface tracking-wider uppercase">Price Range</h3>
+                <div class="px-2">
+                    <input
+                        class="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary"
+                        max="20" min="0" type="range" value="10" />
+                    <div class="flex justify-between mt-2 font-caption text-caption text-on-surface-variant">
+                        <span>£0</span>
+                        <span>£20+</span>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-md">
+                <h3 class="font-label-md text-label-md text-on-surface tracking-wider uppercase">Dietary</h3>
+                <div class="flex flex-wrap gap-2">
+                    <button
+                        class="px-3 py-1 bg-primary/10 text-primary font-label-md text-label-md rounded-full border border-primary/20">Organic</button>
+                    <button
+                        class="px-3 py-1 bg-surface-container-low text-on-surface-variant font-label-md text-label-md rounded-full border border-outline-variant hover:bg-surface-container-high transition-colors">Eco-Friendly</button>
+                    <button
+                        class="px-3 py-1 bg-surface-container-low text-on-surface-variant font-label-md text-label-md rounded-full border border-outline-variant hover:bg-surface-container-high transition-colors">Local</button>
+                </div>
+            </div>
+        </aside>
+        <!-- Product Grid Content -->
+        <section class="flex-1 py-lg">
+            <div class="flex items-center justify-between mb-lg">
+                <h1 class="font-headline-lg text-headline-lg text-on-background">Fresh Fruits</h1>
+                <p class="font-body-md text-body-md text-on-surface-variant">24 products found</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md">
+                <!-- Product Card 1 -->
+                <article
+                    class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
+                    <div class="relative aspect-square overflow-hidden bg-surface-container-low">
+                        <img alt="Gala Apples"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            data-alt="A professional studio photograph of organic Gala apples with glossy red and yellow skins, arranged neatly on a clean white marble surface. The lighting is soft and natural, emphasizing the fresh, crisp texture and vibrant colors of the fruit. The aesthetic is bright and minimalist, perfectly fitting a high-end organic grocery brand."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3WmH98jgcuY79JG_mXizOiFUE1E_1UahsYJD-1D77Sz2ANhgvEo67utc-8Cm6mSd1hJr4l7F2REFASPsPjC7hNJDv4JtA88LcIKES32XeQIoox5UNWAlELMfag3RtleA7QhZZBpKHycpL2QaiaY3c4QrPHAIRtNtV9exaPID6rP_XGeQufGA_-ynzYAppNyQdCiF_v8pEdZqRl3ovBoCkw6j32U3GuCxLwdrOMNz9pfLZ35Z08s1ohdij5qOfausD-gfhTCeDSich" />
+                        <span
+                            class="absolute top-3 left-3 px-2 py-1 bg-primary text-on-primary font-label-md text-caption rounded-lg">Organic</span>
+                    </div>
+                    <div class="p-sm flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-base">
+                            <h2 class="font-headline-sm text-label-md font-bold text-on-surface">Gala Apples</h2>
+                            <span class="font-headline-md text-headline-md text-primary font-bold">£2.49</span>
+                        </div>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: 1kg (Approx 6-7 apples)
+                        </p>
+                        <div class="mt-auto flex items-center justify-between gap-sm">
+                            <div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">remove</span></button>
+                                <span class="px-3 font-label-md text-label-md text-on-surface">1</span>
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">add</span></button>
+                            </div>
+                            <button
+                                class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick
+                                Add</button>
+                        </div>
+                    </div>
+                </article>
+                <!-- Product Card 2 -->
+                <article
+                    class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
+                    <div class="relative aspect-square overflow-hidden bg-surface-container-low">
+                        <img alt="Fairtrade Bananas"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            data-alt="A high-quality close-up of a bunch of vibrant yellow, perfectly ripe bananas with smooth skins. They are positioned against a neutral, softly lit background that enhances their natural color and curved shape. The mood is clean and healthy, following a contemporary organic minimalist style with bright, even illumination."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAldNK4sx8nDVWNLwfZ4XFHCRbN4C7S4tktXgBKLj66DttSSRtnzxv7s3rluisISXHYxCTTmlMfv47pn-Ofah1YS3ZFB5W8EJYSphI4zN9ohzcKEEtv7GU5VB4Thhd-mBn9xdugZINw4gTWqomdMgq60eUPA1VZhT2r4Wvl9wb5lpyspZ3X5bzraE8lXhrLI8sVGCLx_c5av9faiH9MWJyYjxGIZUoOb6CYjy-M3NFQE9gsAuDXWtZ-6ByiftwpN-j-VjG9ghb1kf8M" />
+                    </div>
+                    <div class="p-sm flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-base">
+                            <h2 class="font-headline-sm text-label-md font-bold text-on-surface">Fairtrade Bananas</h2>
+                            <span class="font-headline-md text-headline-md text-primary font-bold">£1.10</span>
+                        </div>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: 5-6 Pack</p>
+                        <div class="mt-auto flex items-center justify-between gap-sm">
+                            <div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">remove</span></button>
+                                <span class="px-3 font-label-md text-label-md text-on-surface">1</span>
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">add</span></button>
+                            </div>
+                            <button
+                                class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick
+                                Add</button>
+                        </div>
+                    </div>
+                </article>
+                <!-- Product Card 3 -->
+                <article
+                    class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
+                    <div class="relative aspect-square overflow-hidden bg-surface-container-low">
+                        <img alt="Honey Mango"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            data-alt="A stunning gourmet photography of a sliced open honey mango, revealing its juicy, deep orange flesh and large central pit. The fruit sits on a rustic but clean ceramic plate under bright, airy sunlight. The scene suggests tropical freshness and premium quality, with a color palette dominated by vibrant orange and warm neutrals."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7x4Fv5Voknokw5DVGkOsQyPbYPEc6vuDrdGnAvSrxauxS9JCEBcqQGGQaJNT7DWFqkhZaDocEIMsdXr06qdPpCXiF9Q3ftuc0Ow9uceLXy5Qn4MVr0QDsWRYkIZxMr1yIrxBXyHnQIhrX4dWCS1b00hQQoudzoyJeXIsQrSR1yqXiWvWd2NMPHfY8jyx04cDnrOFWJqtQhGb6--0E0LnhqNKbVRAbLqDK_KKVpMnULrIGgmscm2edJERixrMAElemBa-VKj8-wKlU" />
+                        <span
+                            class="absolute top-3 left-3 px-2 py-1 bg-tertiary-container text-on-tertiary-container font-label-md text-caption rounded-lg">Bestseller</span>
+                    </div>
+                    <div class="p-sm flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-base">
+                            <h2 class="font-headline-sm text-label-md font-bold text-on-surface">Honey Mango</h2>
+                            <span class="font-headline-md text-headline-md text-primary font-bold">£3.95</span>
+                        </div>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: Each</p>
+                        <div class="mt-auto flex items-center justify-between gap-sm">
+                            <div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">remove</span></button>
+                                <span class="px-3 font-label-md text-label-md text-on-surface">1</span>
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">add</span></button>
+                            </div>
+                            <button
+                                class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick
+                                Add</button>
+                        </div>
+                    </div>
+                </article>
+                <!-- Product Card 4 -->
+                <article
+                    class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
+                    <div class="relative aspect-square overflow-hidden bg-surface-container-low">
+                        <img alt="Fresh Strawberries"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            data-alt="A high-resolution shot of premium, bright red strawberries in a minimalist punnet. Each berry is speckled with seeds and has fresh green leaves still attached. The lighting is crisp and diffused, casting gentle shadows that give the fruit volume. The overall vibe is one of morning freshness and organic purity, with a clean, high-key white background."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_fBvaQ0wEjkAIsEurXnnI7Ym_MP8yclS8vL_2jpAotZZXRiSUzz1R7TfAHIrblndm7BxeTkTsUFR_QX7s-RpTYSWdWn23wB94ZIWFKuK_4eaLyDQKoQRWbqujgUm_Anf8Q9PKlgBdZTzQNa6TeLl8ZhpDUCXOmemZTxmeAuUgVaeMQF_MErtQv-0lKWTCTY7F10AphQGUsgaXGQf_1PvB0iqLBjhXneYm6yIycHLj53EsxOR-W-vOdROVqeVlmNo7o6PNriYrRual" />
+                    </div>
+                    <div class="p-sm flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-base">
+                            <h2 class="font-headline-sm text-label-md font-bold text-on-surface">Fresh Strawberries</h2>
+                            <span class="font-headline-md text-headline-md text-primary font-bold">£2.99</span>
+                        </div>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: 400g Punnet</p>
+                        <div class="mt-auto flex items-center justify-between gap-sm">
+                            <div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">remove</span></button>
+                                <span class="px-3 font-label-md text-label-md text-on-surface">1</span>
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">add</span></button>
+                            </div>
+                            <button
+                                class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick
+                                Add</button>
+                        </div>
+                    </div>
+                </article>
+                <!-- Product Card 5 -->
+                <article
+                    class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
+                    <div class="relative aspect-square overflow-hidden bg-surface-container-low">
+                        <img alt="Navel Oranges"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            data-alt="A bright and zesty professional photograph of whole and halved Navel oranges. The juicy interior texture is illuminated by a warm, sunny light, highlighting the vibrant citrus segments. The fruits are presented on a minimalist wooden board, creating a natural and inviting scene that evokes freshness and vitamin-rich vitality."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs-xrAk8WHOitl1b3mPT2VewR2HsTtXNr_yz0kBnhdprEfAO4YX_M2Rly16E1a52yioifKfleZYKVRewTITWahwF6m36gvIRXORsEZyRInTHuAc9w8GtfZDPVdJKCyQUyj5uBk3aXjCtYHgc9rJCAjdJWgrn9d3KlAq3h0sreHDaQXifyYLea-ZnmbAtclGhuukUQM8Ou6ydBFiECwqcF3JC1ugMKRyyMpTa5vVVKWIb-Kdu6rqUPHeLx6WsnlKq_QkkR-QiqKB00j" />
+                    </div>
+                    <div class="p-sm flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-base">
+                            <h2 class="font-headline-sm text-label-md font-bold text-on-surface">Navel Oranges</h2>
+                            <span class="font-headline-md text-headline-md text-primary font-bold">£3.25</span>
+                        </div>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: 1.5kg Bag</p>
+                        <div class="mt-auto flex items-center justify-between gap-sm">
+                            <div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">remove</span></button>
+                                <span class="px-3 font-label-md text-label-md text-on-surface">1</span>
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">add</span></button>
+                            </div>
+                            <button
+                                class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick
+                                Add</button>
+                        </div>
+                    </div>
+                </article>
+                <!-- Product Card 6 -->
+                <article
+                    class="bg-surface-container-lowest rounded-xl overflow-hidden product-card-shadow transition-all duration-300 flex flex-col group">
+                    <div class="relative aspect-square overflow-hidden bg-surface-container-low">
+                        <img alt="Blueberries"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            data-alt="A beautiful macro photograph of fresh, organic blueberries in a glass bowl. The berries have a characteristic dusty blue wax coating and are plump and perfectly round. Soft, natural light creates high-key highlights on the berries' surface, conveying a sense of premium quality and crisp, healthy eating in a minimalist setting."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAXHI5Zewl0piG1ik70yJ7kHRm5a9xpx_gTrOnQvS7ZDZpxB3z49zBBda-1hCRKWLzgZImzpVwe_qh-5Mx3a0KR2rHU72UpAeq4WkKELnAHSR5VHBuS_vw5dquaCOOGDdObrlwBXbvUxCe-HAl9vkMlBQaraTPqg_YmKmUhjZYb-mslg3pKsLauPeCBaL43WcphiPeyozfSTeYfOT_JvGzoZfmMpUW3w-ycyReN9rfuh__uXXLPnIvQAQcxBwpz57CunZ4jrr-e-Wm" />
+                        <span
+                            class="absolute top-3 right-3 px-2 py-1 bg-error-container text-on-error-container font-label-md text-caption rounded-lg">Low
+                            Stock</span>
+                    </div>
+                    <div class="p-sm flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-base">
+                            <h2 class="font-headline-sm text-label-md font-bold text-on-surface">Organic Blueberries
+                            </h2>
+                            <span class="font-headline-md text-headline-md text-primary font-bold">£3.50</span>
+                        </div>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-md">Unit: 150g Punnet</p>
+                        <div class="mt-auto flex items-center justify-between gap-sm">
+                            <div class="flex items-center bg-surface-container rounded-full px-2 py-1">
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">remove</span></button>
+                                <span class="px-3 font-label-md text-label-md text-on-surface">1</span>
+                                <button class="p-1 text-primary hover:opacity-70 transition-opacity"><span
+                                        class="material-symbols-outlined text-[20px]">add</span></button>
+                            </div>
+                            <button
+                                class="flex-1 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:bg-on-primary-fixed-variant transition-all transform active:scale-95">Quick
+                                Add</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer
+        class="bg-surface-container-lowest dark:bg-surface-dim border-t border-outline-variant dark:border-outline mt-xl">
+        <div class="max-w-[1280px] mx-auto py-xl px-margin-desktop grid grid-cols-1 md:grid-cols-3 gap-lg">
+            <div class="space-y-sm">
+                <div class="flex items-center gap-2">
+                    <img alt="Capedo Impex Logo" class="w-8 h-8 object-contain"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh" />
+                    <span class="font-headline-sm text-headline-sm font-bold text-primary">Capedo Impex</span>
+                </div>
+                <p class="font-caption text-caption text-on-surface-variant max-w-xs">
+                    Organic Minimalism for Daily Essentials. We deliver the freshest produce straight from local farms
+                    to your doorstep.
                 </p>
-<p class="font-caption text-caption text-on-surface-variant">© 2024 Capedo Impex.</p>
-</div>
-<div class="space-y-sm">
-<h4 class="font-label-md text-label-md text-on-surface uppercase">Company</h4>
-<ul class="space-y-base">
-<li><a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Us</a></li>
-<li><a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors" href="#">Delivery Info</a></li>
-<li><a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a></li>
-<li><a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
-</ul>
-</div>
-<div class="space-y-sm">
-<h4 class="font-label-md text-label-md text-on-surface uppercase">Newsletter</h4>
-<p class="font-caption text-caption text-on-surface-variant">Stay updated with our latest seasonal arrivals and offers.</p>
-<div class="flex gap-2">
-<input class="flex-1 px-4 py-2 bg-surface border border-outline-variant rounded-full text-caption focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Your email" type="email"/>
-<button class="px-6 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:opacity-90 transition-opacity">Join</button>
-</div>
-</div>
-</div>
-</footer>
-<script>
+                <p class="font-caption text-caption text-on-surface-variant">© 2026 Capedo Impex.</p>
+            </div>
+            <div class="space-y-sm">
+                <h4 class="font-label-md text-label-md text-on-surface uppercase">Company</h4>
+                <ul class="space-y-base">
+                    <li><a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors"
+                            href="#">Contact Us</a></li>
+                    <li><a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors"
+                            href="#">Delivery Info</a></li>
+                    <li><a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors"
+                            href="#">Terms of Service</a></li>
+                    <li><a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-colors"
+                            href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="space-y-sm">
+                <h4 class="font-label-md text-label-md text-on-surface uppercase">Newsletter</h4>
+                <p class="font-caption text-caption text-on-surface-variant">Stay updated with our latest seasonal
+                    arrivals and offers.</p>
+                <div class="flex gap-2">
+                    <input
+                        class="flex-1 px-4 py-2 bg-surface border border-outline-variant rounded-full text-caption focus:outline-none focus:ring-1 focus:ring-primary"
+                        placeholder="Your email" type="email" />
+                    <button
+                        class="px-6 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-full hover:opacity-90 transition-opacity">Join</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
         // Micro-interactions for quantity selectors
         document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
             if (icon.innerText === 'add' || icon.innerText === 'remove') {
@@ -376,4 +479,6 @@
             });
         });
     </script>
-</body></html>
+</body>
+
+</html>

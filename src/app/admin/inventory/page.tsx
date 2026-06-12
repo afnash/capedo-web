@@ -20,7 +20,7 @@ export default function AdminInventory() {
       try {
         const { fetchItems } = await import("@/app/actions");
         const data = await fetchItems();
-        
+
         // Add dummy stock data since it's not in the items table schema
         const dataWithStock = (data || []).map((item: any) => ({
           ...item,
@@ -142,8 +142,8 @@ export default function AdminInventory() {
                   <td className="px-md py-4">
                     <div className="flex items-center gap-2">
                       <div className="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-                        <div 
-                          className={`h-full ${item.stockStatus === 'low' ? 'bg-error' : item.stockStatus === 'warning' ? 'bg-[#f0ad00]' : 'bg-primary'}`} 
+                        <div
+                          className={`h-full ${item.stockStatus === 'low' ? 'bg-error' : item.stockStatus === 'warning' ? 'bg-[#f0ad00]' : 'bg-primary'}`}
                           style={{ width: `${Math.min(100, Math.round((item.stock / item.maxStock) * 100))}%` }}
                         ></div>
                       </div>
@@ -178,7 +178,7 @@ export default function AdminInventory() {
         {/* Footer Shell */}
         <footer className="bg-surface-container-lowest border-t border-outline-variant mt-auto">
           <div className="w-full py-md px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-lg max-w-[1280px] mx-auto">
-            <p className="font-caption text-caption text-on-surface-variant">© 2024 Capedo Impex. Quality and Efficiency in Every Trade.</p>
+            <p className="font-caption text-caption text-on-surface-variant">© 2026 Capedo Impex. Quality and Efficiency in Every Trade.</p>
             <div className="flex gap-md justify-end">
               <a className="text-on-surface-variant font-caption text-caption hover:text-primary transition-colors" href="#">Terms of Service</a>
               <a className="text-on-surface-variant font-caption text-caption hover:text-primary transition-colors" href="#">Privacy Policy</a>

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import { Eye,EyeOff } from "lucide-react";
 
 const categories = [
   "Fruits",
@@ -21,6 +22,7 @@ export default function ManageInventory() {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [verifying, setVerifying] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Inventory state
   const [products, setProducts] = useState<any[]>([]);
@@ -307,14 +309,23 @@ export default function ManageInventory() {
             </div>
             <div>
               <label className="block text-xs font-bold text-on-surface-variant mb-1 uppercase tracking-wider">Password</label>
+              <div className="relative ">
               <input 
                 required
                 className="w-full px-4 py-3 bg-[#f3f7f4] border border-[#d2dfd5] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#15803d]/20 transition-all outline-none"
                 placeholder="Enter password" 
-                type="password" 
+                type={showPassword ? "text" : "password"} 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <button 
+                type="button" 
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff /> : <Eye />}
+              </button>
+              </div>
             </div>
             <button 
               className="w-full bg-[#15803d] text-white py-3 rounded-xl text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center justify-center gap-2 mt-6"

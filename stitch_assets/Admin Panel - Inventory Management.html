@@ -1,390 +1,471 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Capedo Impex Admin - Inventory Management</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "on-secondary-fixed-variant": "#444749",
-                    "on-tertiary": "#ffffff",
-                    "surface-container-high": "#e2e8fc",
-                    "on-background": "#151b29",
-                    "secondary-container": "#e0e3e5",
-                    "secondary-fixed-dim": "#c4c7c9",
-                    "primary-fixed": "#67ff8c",
-                    "on-primary-container": "#005622",
-                    "on-primary-fixed": "#002109",
-                    "on-tertiary-container": "#614400",
-                    "outline": "#6c7b6b",
-                    "primary-fixed-dim": "#41e272",
-                    "surface-container-low": "#f1f3ff",
-                    "primary-container": "#2dd466",
-                    "on-surface-variant": "#3d4a3c",
-                    "on-primary-fixed-variant": "#005321",
-                    "surface-container-lowest": "#ffffff",
-                    "surface-bright": "#faf8ff",
-                    "secondary": "#5c5f61",
-                    "error-container": "#ffdad6",
-                    "on-surface": "#151b29",
-                    "surface-container": "#e9edff",
-                    "outline-variant": "#bbcbb9",
-                    "surface-container-highest": "#dde2f6",
-                    "on-secondary-container": "#626567",
-                    "primary": "#006e2e",
-                    "surface-tint": "#006e2e",
-                    "on-error-container": "#93000a",
-                    "on-tertiary-fixed-variant": "#5e4200",
-                    "on-secondary-fixed": "#191c1e",
-                    "tertiary-container": "#f0ad00",
-                    "on-tertiary-fixed": "#271900",
-                    "on-primary": "#ffffff",
-                    "secondary-fixed": "#e0e3e5",
-                    "tertiary-fixed": "#ffdea8",
-                    "inverse-primary": "#41e272",
-                    "tertiary": "#7c5800",
-                    "tertiary-fixed-dim": "#ffba20",
-                    "on-secondary": "#ffffff",
-                    "error": "#ba1a1a",
-                    "surface": "#faf8ff",
-                    "on-error": "#ffffff",
-                    "background": "#faf8ff",
-                    "surface-variant": "#dde2f6"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "lg": "40px",
-                    "sm": "16px",
-                    "xs": "8px",
-                    "margin-desktop": "48px",
-                    "md": "24px",
-                    "margin-mobile": "16px",
-                    "base": "4px",
-                    "xl": "64px",
-                    "gutter": "20px"
-            },
-            "fontFamily": {
-                    "headline-lg": ["Inter"],
-                    "body-lg": ["Inter"],
-                    "caption": ["Inter"],
-                    "label-md": ["Inter"],
-                    "headline-md": ["Inter"],
-                    "display-lg": ["Inter"],
-                    "body-md": ["Inter"]
-            },
-            "fontSize": {
-                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
-                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Capedo Impex Admin - Inventory Management</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#444749",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e2e8fc",
+                        "on-background": "#151b29",
+                        "secondary-container": "#e0e3e5",
+                        "secondary-fixed-dim": "#c4c7c9",
+                        "primary-fixed": "#67ff8c",
+                        "on-primary-container": "#005622",
+                        "on-primary-fixed": "#002109",
+                        "on-tertiary-container": "#614400",
+                        "outline": "#6c7b6b",
+                        "primary-fixed-dim": "#41e272",
+                        "surface-container-low": "#f1f3ff",
+                        "primary-container": "#2dd466",
+                        "on-surface-variant": "#3d4a3c",
+                        "on-primary-fixed-variant": "#005321",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "secondary": "#5c5f61",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#151b29",
+                        "surface-container": "#e9edff",
+                        "outline-variant": "#bbcbb9",
+                        "surface-container-highest": "#dde2f6",
+                        "on-secondary-container": "#626567",
+                        "primary": "#006e2e",
+                        "surface-tint": "#006e2e",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#5e4200",
+                        "on-secondary-fixed": "#191c1e",
+                        "tertiary-container": "#f0ad00",
+                        "on-tertiary-fixed": "#271900",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#e0e3e5",
+                        "tertiary-fixed": "#ffdea8",
+                        "inverse-primary": "#41e272",
+                        "tertiary": "#7c5800",
+                        "tertiary-fixed-dim": "#ffba20",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#faf8ff",
+                        "on-error": "#ffffff",
+                        "background": "#faf8ff",
+                        "surface-variant": "#dde2f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "margin-desktop": "48px",
+                        "md": "24px",
+                        "margin-mobile": "16px",
+                        "base": "4px",
+                        "xl": "64px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "caption": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
             }
-          }
         }
-      }
     </script>
-<style>
-        body { font-family: 'Inter', sans-serif; }
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+
         .modal-backdrop {
             backdrop-filter: blur(12px);
             background: rgba(21, 27, 41, 0.4);
         }
+
         .product-card-hover:hover {
             box-shadow: 0px 4px 20px rgba(18, 24, 38, 0.08);
             transform: translateY(-2px);
         }
     </style>
 </head>
+
 <body class="bg-surface text-on-surface">
-<!-- SideNavBar Shell -->
-<aside class="fixed left-0 top-0 h-full flex flex-col border-r border-outline-variant bg-surface-container-low w-64 z-40">
-<div class="p-md">
-<div class="flex items-center gap-3 mb-2">
-<img alt="Capedo Impex Logo" class="w-10 h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"/>
-<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Capedo Impex</h1>
-</div>
-<p class="text-on-surface-variant font-label-md text-label-md">Admin Panel</p>
-</div>
-<nav class="flex-1 mt-md">
-<!-- Active: Inventory -->
-<a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors font-label-md text-label-md" href="#">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span>Dashboard</span>
-</a>
-<a class="bg-primary-container text-on-primary-container rounded-xl mx-2 my-1 px-4 py-3 flex items-center gap-3 font-label-md text-label-md" href="#">
-<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
-<span>Inventory</span>
-</a>
-<a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors font-label-md text-label-md" href="#">
-<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
-<span>Orders</span>
-</a>
-<a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors font-label-md text-label-md" href="#">
-<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
-<span>Banners</span>
-</a>
-</nav>
-<div class="p-md mt-auto border-t border-outline-variant">
-<div class="flex items-center gap-3 mb-md">
-<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden">
-<img alt="Admin User" class="w-full h-full object-cover" data-alt="A professional headshot of a modern warehouse manager in a clean white environment. The lighting is bright and airy, reflecting a professional and high-tech e-commerce management setting. The aesthetic is minimalist with a focus on human reliability and corporate modern style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0TMvsZ-iXZyP5v0PQLU3mp8dpHxy2EkXLWpDT52Vk6uqDpzqHPI71pXdH4uLPFUMsQnerPZchHmOh-tSI1C6lL5E-j2eXSY0m2apWUnwrgjYO9pnsMhBNtZfW_kxY0G04KygayZI4u_aiSdB1nkkFufieObAz4XheSJ37NPknv3r9QXNmbKwvjZ9BwfkLYbBT4CJ8MiopjNPayuWafisAN7aB2v9En3qYB-02hM8m-hP74x5FW3WrSNYX2tbGYRDY1FG7R2dX-q0y"/>
-</div>
-<div>
-<p class="font-label-md text-label-md">Admin User</p>
-<p class="text-caption font-caption text-on-surface-variant">Manage Capedo Impex</p>
-</div>
-</div>
-<button class="w-full py-2 border border-outline text-primary font-label-md text-label-md rounded-lg hover:bg-primary-container hover:border-primary-container transition-all">
+    <!-- SideNavBar Shell -->
+    <aside
+        class="fixed left-0 top-0 h-full flex flex-col border-r border-outline-variant bg-surface-container-low w-64 z-40">
+        <div class="p-md">
+            <div class="flex items-center gap-3 mb-2">
+                <img alt="Capedo Impex Logo" class="w-10 h-10 object-contain"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh" />
+                <h1 class="font-headline-md text-headline-md font-bold text-on-surface">Capedo Impex</h1>
+            </div>
+            <p class="text-on-surface-variant font-label-md text-label-md">Admin Panel</p>
+        </div>
+        <nav class="flex-1 mt-md">
+            <!-- Active: Inventory -->
+            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors font-label-md text-label-md"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span>Dashboard</span>
+            </a>
+            <a class="bg-primary-container text-on-primary-container rounded-xl mx-2 my-1 px-4 py-3 flex items-center gap-3 font-label-md text-label-md"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                <span>Inventory</span>
+            </a>
+            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors font-label-md text-label-md"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+                <span>Orders</span>
+            </a>
+            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors font-label-md text-label-md"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+                <span>Banners</span>
+            </a>
+        </nav>
+        <div class="p-md mt-auto border-t border-outline-variant">
+            <div class="flex items-center gap-3 mb-md">
+                <div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden">
+                    <img alt="Admin User" class="w-full h-full object-cover"
+                        data-alt="A professional headshot of a modern warehouse manager in a clean white environment. The lighting is bright and airy, reflecting a professional and high-tech e-commerce management setting. The aesthetic is minimalist with a focus on human reliability and corporate modern style."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0TMvsZ-iXZyP5v0PQLU3mp8dpHxy2EkXLWpDT52Vk6uqDpzqHPI71pXdH4uLPFUMsQnerPZchHmOh-tSI1C6lL5E-j2eXSY0m2apWUnwrgjYO9pnsMhBNtZfW_kxY0G04KygayZI4u_aiSdB1nkkFufieObAz4XheSJ37NPknv3r9QXNmbKwvjZ9BwfkLYbBT4CJ8MiopjNPayuWafisAN7aB2v9En3qYB-02hM8m-hP74x5FW3WrSNYX2tbGYRDY1FG7R2dX-q0y" />
+                </div>
+                <div>
+                    <p class="font-label-md text-label-md">Admin User</p>
+                    <p class="text-caption font-caption text-on-surface-variant">Manage Capedo Impex</p>
+                </div>
+            </div>
+            <button
+                class="w-full py-2 border border-outline text-primary font-label-md text-label-md rounded-lg hover:bg-primary-container hover:border-primary-container transition-all">
                 Logout
             </button>
-</div>
-</aside>
-<!-- Main Content Area -->
-<main class="ml-64 p-margin-desktop min-h-screen">
-<header class="flex justify-between items-center mb-lg">
-<div>
-<h2 class="font-headline-lg text-headline-lg text-on-surface">Inventory Management</h2>
-<p class="text-on-surface-variant font-body-md text-body-md">Keep your stock levels fresh and accurate.</p>
-</div>
-<button class="bg-primary text-on-primary px-md py-3 rounded-xl font-label-md text-label-md flex items-center gap-2 shadow-sm hover:bg-opacity-90 transition-all scale-95 active:scale-90" onclick="toggleModal('item-modal')">
-<span class="material-symbols-outlined" data-icon="add">add</span>
+        </div>
+    </aside>
+    <!-- Main Content Area -->
+    <main class="ml-64 p-margin-desktop min-h-screen">
+        <header class="flex justify-between items-center mb-lg">
+            <div>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">Inventory Management</h2>
+                <p class="text-on-surface-variant font-body-md text-body-md">Keep your stock levels fresh and accurate.
+                </p>
+            </div>
+            <button
+                class="bg-primary text-on-primary px-md py-3 rounded-xl font-label-md text-label-md flex items-center gap-2 shadow-sm hover:bg-opacity-90 transition-all scale-95 active:scale-90"
+                onclick="toggleModal('item-modal')">
+                <span class="material-symbols-outlined" data-icon="add">add</span>
                 Add New Item
             </button>
-</header>
-<!-- High Density Table Container -->
-<div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(18,24,38,0.04)] overflow-hidden">
-<div class="p-sm flex justify-between items-center border-b border-outline-variant">
-<div class="relative w-72">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
-<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all" placeholder="Search products..." type="text"/>
-</div>
-<div class="flex gap-xs">
-<button class="flex items-center gap-1 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md transition-colors">
-<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+        </header>
+        <!-- High Density Table Container -->
+        <div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(18,24,38,0.04)] overflow-hidden">
+            <div class="p-sm flex justify-between items-center border-b border-outline-variant">
+                <div class="relative w-72">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant"
+                        data-icon="search">search</span>
+                    <input
+                        class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all"
+                        placeholder="Search products..." type="text" />
+                </div>
+                <div class="flex gap-xs">
+                    <button
+                        class="flex items-center gap-1 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md transition-colors">
+                        <span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
                         Filter
                     </button>
-<button class="flex items-center gap-1 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md transition-colors">
-<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+                    <button
+                        class="flex items-center gap-1 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md transition-colors">
+                        <span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
                         Export
                     </button>
-</div>
-</div>
-<table class="w-full border-collapse">
-<thead>
-<tr class="bg-surface-container-low text-left">
-<th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Image</th>
-<th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Item Name</th>
-<th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Category</th>
-<th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Price (£)</th>
-<th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Stock Level</th>
-<th class="px-md py-4 font-label-md text-label-md text-on-surface-variant text-right">Actions</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant">
-<!-- Table Row 1 -->
-<tr class="hover:bg-surface-container-low transition-colors group">
-<td class="px-md py-4">
-<div class="w-12 h-12 rounded-lg bg-surface overflow-hidden border border-outline-variant">
-<img alt="Organic Strawberries" class="w-full h-full object-cover" data-alt="Macro photography of vibrant, ripe organic strawberries in a clean, minimalist wooden basket. The background is a crisp, bright white to emphasize freshness and organic quality. Soft natural lighting creates gentle shadows, highlighting the textured surface of the fruit." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbuI8q3azwvBYIOHEK-ymepdBnUNmYV-cb2yma-DM5HLP7qnkTWgLhKSXzY56fSJAuXMx6u8dQYJlDmLdwpc1Su1sT4QG1TnB-nOtiILHO8HIb0rF4e5mlGDVck9RsUfjrQruM997U0tpvS6watjBpPrd3t0ub1UJRSYE6evo9he7qZ5-kSp-TGVa25zj3BR6P07bX_zbjQ1nk-OnUhvhSJW_5-xVXM_awAkIIYOSrffhjgLGlgvNcqaHAnNh58iUmacyi50w7xvFp"/>
-</div>
-</td>
-<td class="px-md py-4 font-body-md text-body-md text-on-surface font-semibold">Organic Strawberries</td>
-<td class="px-md py-4">
-<span class="bg-primary-container/20 text-on-primary-container px-3 py-1 rounded-full text-caption font-label-md">Fruits</span>
-</td>
-<td class="px-md py-4 font-body-md text-body-md">£3.99</td>
-<td class="px-md py-4">
-<div class="flex items-center gap-2">
-<div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-<div class="bg-primary h-full w-[80%]"></div>
-</div>
-<span class="text-caption text-on-surface-variant">142 units</span>
-</div>
-</td>
-<td class="px-md py-4 text-right">
-<div class="flex justify-end gap-2">
-<button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="edit">edit</span></button>
-<button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined" data-icon="delete">delete</span></button>
-</div>
-</td>
-</tr>
-<!-- Table Row 2 -->
-<tr class="hover:bg-surface-container-low transition-colors group">
-<td class="px-md py-4">
-<div class="w-12 h-12 rounded-lg bg-surface overflow-hidden border border-outline-variant">
-<img alt="Prime Ribeye Steak" class="w-full h-full object-cover" data-alt="A premium cut of raw ribeye beef steak resting on a minimalist dark slate surface. The lighting is dramatic but clean, emphasizing the high-quality marbling of the meat. The overall aesthetic is professional, gourmet e-commerce style, with a cool-toned background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtW4uu2BwYkav_weA5jOeRV5-_SHQrcQHBfh6MR4JRJN0jRfbhB-H5hs4Dwsbo6r8tNw1kiqEH5FH4rVRZ14ApQH81SuUoQcUh951AQWBqTLX6zqOI1cWoK7hW_ETrgEQ2ks_sIY_awjoVz-anNA-gOJ9X69_i_rZVZ8zAq-deBYqC3wKb39qOQZZv7xlwCOfB2tm7pyo-2iIgFUeVaaPnbRQnRUVON0giA2SlxB0BRUq57XQBfSbKnTH6RsJ77XyTKX3J556TmKRs"/>
-</div>
-</td>
-<td class="px-md py-4 font-body-md text-body-md text-on-surface font-semibold">Prime Ribeye Steak</td>
-<td class="px-md py-4">
-<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-caption font-label-md">Meat</span>
-</td>
-<td class="px-md py-4 font-body-md text-body-md">£12.50</td>
-<td class="px-md py-4">
-<div class="flex items-center gap-2">
-<div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-<div class="bg-error h-full w-[15%]"></div>
-</div>
-<span class="text-caption text-error">Low: 12 units</span>
-</div>
-</td>
-<td class="px-md py-4 text-right">
-<div class="flex justify-end gap-2">
-<button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="edit">edit</span></button>
-<button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined" data-icon="delete">delete</span></button>
-</div>
-</td>
-</tr>
-<!-- Table Row 3 -->
-<tr class="hover:bg-surface-container-low transition-colors group">
-<td class="px-md py-4">
-<div class="w-12 h-12 rounded-lg bg-surface overflow-hidden border border-outline-variant">
-<img alt="Fresh Atlantic Salmon" class="w-full h-full object-cover" data-alt="Close-up of a fresh Atlantic salmon fillet on a bed of ice crystals. The color is a vibrant orange, with a professional high-key lighting setup that makes the product look extremely fresh and clean. The scene is shot in a minimalist studio style for a luxury grocery store inventory view." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9FRECL_S9CPZawLhHHmp2W0jMvjjICtwLl-si2b-DaLAf0Kt_9ZqGXU5aXbHqq2ztR7z06QQz11-5J7td28hdzkKrPS67kZD9T92rTtJoOXzAAa00flbuvyWQW3FL0Ydh9kEmymPH7KZDnss3Rn3Rz8SO4y4Ha5B_THrbqoTl1fBKsd5EdNF88MD24yHLhJILFJkKzeWqQwHEFTzKo99tR5nysX70jmlHGxW6K4ow_0mGh-FyNDd76SiSITKNWQiSLP9H0csNYkLB"/>
-</div>
-</td>
-<td class="px-md py-4 font-body-md text-body-md text-on-surface font-semibold">Atlantic Salmon</td>
-<td class="px-md py-4">
-<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-caption font-label-md">Fish</span>
-</td>
-<td class="px-md py-4 font-body-md text-body-md">£8.20</td>
-<td class="px-md py-4">
-<div class="flex items-center gap-2">
-<div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-<div class="bg-primary h-full w-[55%]"></div>
-</div>
-<span class="text-caption text-on-surface-variant">45 units</span>
-</div>
-</td>
-<td class="px-md py-4 text-right">
-<div class="flex justify-end gap-2">
-<button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="edit">edit</span></button>
-<button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined" data-icon="delete">delete</span></button>
-</div>
-</td>
-</tr>
-<!-- Table Row 4 -->
-<tr class="hover:bg-surface-container-low transition-colors group">
-<td class="px-md py-4">
-<div class="w-12 h-12 rounded-lg bg-surface overflow-hidden border border-outline-variant">
-<img alt="Baby Spinach" class="w-full h-full object-cover" data-alt="A heap of fresh, bright green baby spinach leaves scattered on a white surface. The lighting is soft and even, highlighting the delicate textures of the leaves. Minimalist and airy composition, perfect for a fresh food marketplace inventory dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4G1YmxgeY1MAtfsh7DvwUdAUvJEPR9Pk_N50uUIyoloFx8aY-l2udatDplWLwRnXUY24-z9IMUGUTKfMBKi3KHN_3VWR3zqQ038aMe2sSrx3n0c2PhkxsFquC7eG6ecjQM7L2RYDAOHazrsAy8WdX5Eoi4ayZeW3JOOwK5HbwvIv5MNz43nJciyDh3XEpU6PZQwxJd9Iw6lkGUrK9ABFi_pQqW8TBJzIUf8u_yImmSn5HuUDlBKjRh3LQhc-gkthvVQ442k0sai7Z"/>
-</div>
-</td>
-<td class="px-md py-4 font-body-md text-body-md text-on-surface font-semibold">Baby Spinach</td>
-<td class="px-md py-4">
-<span class="bg-primary-container/20 text-on-primary-container px-3 py-1 rounded-full text-caption font-label-md">Vegetables</span>
-</td>
-<td class="px-md py-4 font-body-md text-body-md">£1.50</td>
-<td class="px-md py-4">
-<div class="flex items-center gap-2">
-<div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-<div class="bg-tertiary-container h-full w-[30%]"></div>
-</div>
-<span class="text-caption text-on-tertiary-fixed-variant">Low: 22 units</span>
-</div>
-</td>
-<td class="px-md py-4 text-right">
-<div class="flex justify-end gap-2">
-<button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="edit">edit</span></button>
-<button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined" data-icon="delete">delete</span></button>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-<!-- Pagination -->
-<div class="p-md bg-surface-container-low flex justify-between items-center">
-<p class="text-caption font-caption text-on-surface-variant">Showing 1-10 of 124 items</p>
-<div class="flex gap-2">
-<button class="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span></button>
-<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md">1</button>
-<button class="px-4 py-2 rounded-lg hover:bg-surface-container-high font-label-md text-label-md transition-colors">2</button>
-<button class="px-4 py-2 rounded-lg hover:bg-surface-container-high font-label-md text-label-md transition-colors">3</button>
-<button class="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></button>
-</div>
-</div>
-</div>
-</main>
-<!-- Modal: Add New Item -->
-<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-margin-mobile" id="item-modal">
-<div class="modal-backdrop absolute inset-0" onclick="toggleModal('item-modal')"></div>
-<div class="relative bg-surface rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden scale-100 transition-transform duration-300">
-<div class="p-md border-b border-outline-variant flex justify-between items-center">
-<h3 class="font-headline-md text-headline-md text-on-surface">Add New Product</h3>
-<button class="text-on-surface-variant hover:text-on-surface" onclick="toggleModal('item-modal')"><span class="material-symbols-outlined" data-icon="close">close</span></button>
-</div>
-<form class="p-md space-y-md">
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-xs">Product Name</label>
-<input class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md" placeholder="e.g., Organic Avocados" type="text"/>
-</div>
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-xs">Description</label>
-<textarea class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md resize-none" placeholder="Describe the item's origin and freshness..." rows="3"></textarea>
-</div>
-<div class="grid grid-cols-2 gap-md">
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-xs">Price (£)</label>
-<input class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md" placeholder="0.00" step="0.01" type="number"/>
-</div>
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-xs">Category</label>
-<select class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md bg-surface">
-<option>Fruits</option>
-<option>Vegetables</option>
-<option>Meat</option>
-<option>Fish</option>
-<option>Desserts</option>
-</select>
-</div>
-</div>
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-xs">Product Image</label>
-<div class="border-2 border-dashed border-outline-variant rounded-xl p-lg text-center hover:border-primary hover:bg-surface-container-low transition-all cursor-pointer group">
-<span class="material-symbols-outlined text-outline text-[48px] group-hover:text-primary mb-xs" data-icon="cloud_upload">cloud_upload</span>
-<p class="font-label-md text-label-md text-on-surface-variant">Click to upload or drag and drop</p>
-<p class="text-caption font-caption text-on-surface-variant">SVG, PNG, JPG or GIF (max. 800x400px)</p>
-</div>
-</div>
-<div class="flex gap-md pt-md">
-<button class="flex-1 py-3 border border-outline text-on-surface-variant font-label-md text-label-md rounded-xl hover:bg-surface-container-high transition-colors" onclick="toggleModal('item-modal')" type="button">
+                </div>
+            </div>
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-low text-left">
+                        <th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Image</th>
+                        <th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Item Name</th>
+                        <th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Category</th>
+                        <th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Price (£)</th>
+                        <th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Stock Level</th>
+                        <th class="px-md py-4 font-label-md text-label-md text-on-surface-variant text-right">Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-outline-variant">
+                    <!-- Table Row 1 -->
+                    <tr class="hover:bg-surface-container-low transition-colors group">
+                        <td class="px-md py-4">
+                            <div class="w-12 h-12 rounded-lg bg-surface overflow-hidden border border-outline-variant">
+                                <img alt="Organic Strawberries" class="w-full h-full object-cover"
+                                    data-alt="Macro photography of vibrant, ripe organic strawberries in a clean, minimalist wooden basket. The background is a crisp, bright white to emphasize freshness and organic quality. Soft natural lighting creates gentle shadows, highlighting the textured surface of the fruit."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbuI8q3azwvBYIOHEK-ymepdBnUNmYV-cb2yma-DM5HLP7qnkTWgLhKSXzY56fSJAuXMx6u8dQYJlDmLdwpc1Su1sT4QG1TnB-nOtiILHO8HIb0rF4e5mlGDVck9RsUfjrQruM997U0tpvS6watjBpPrd3t0ub1UJRSYE6evo9he7qZ5-kSp-TGVa25zj3BR6P07bX_zbjQ1nk-OnUhvhSJW_5-xVXM_awAkIIYOSrffhjgLGlgvNcqaHAnNh58iUmacyi50w7xvFp" />
+                            </div>
+                        </td>
+                        <td class="px-md py-4 font-body-md text-body-md text-on-surface font-semibold">Organic
+                            Strawberries</td>
+                        <td class="px-md py-4">
+                            <span
+                                class="bg-primary-container/20 text-on-primary-container px-3 py-1 rounded-full text-caption font-label-md">Fruits</span>
+                        </td>
+                        <td class="px-md py-4 font-body-md text-body-md">£3.99</td>
+                        <td class="px-md py-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="bg-primary h-full w-[80%]"></div>
+                                </div>
+                                <span class="text-caption text-on-surface-variant">142 units</span>
+                            </div>
+                        </td>
+                        <td class="px-md py-4 text-right">
+                            <div class="flex justify-end gap-2">
+                                <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span
+                                        class="material-symbols-outlined" data-icon="edit">edit</span></button>
+                                <button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span
+                                        class="material-symbols-outlined" data-icon="delete">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Table Row 2 -->
+                    <tr class="hover:bg-surface-container-low transition-colors group">
+                        <td class="px-md py-4">
+                            <div class="w-12 h-12 rounded-lg bg-surface overflow-hidden border border-outline-variant">
+                                <img alt="Prime Ribeye Steak" class="w-full h-full object-cover"
+                                    data-alt="A premium cut of raw ribeye beef steak resting on a minimalist dark slate surface. The lighting is dramatic but clean, emphasizing the high-quality marbling of the meat. The overall aesthetic is professional, gourmet e-commerce style, with a cool-toned background."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtW4uu2BwYkav_weA5jOeRV5-_SHQrcQHBfh6MR4JRJN0jRfbhB-H5hs4Dwsbo6r8tNw1kiqEH5FH4rVRZ14ApQH81SuUoQcUh951AQWBqTLX6zqOI1cWoK7hW_ETrgEQ2ks_sIY_awjoVz-anNA-gOJ9X69_i_rZVZ8zAq-deBYqC3wKb39qOQZZv7xlwCOfB2tm7pyo-2iIgFUeVaaPnbRQnRUVON0giA2SlxB0BRUq57XQBfSbKnTH6RsJ77XyTKX3J556TmKRs" />
+                            </div>
+                        </td>
+                        <td class="px-md py-4 font-body-md text-body-md text-on-surface font-semibold">Prime Ribeye
+                            Steak</td>
+                        <td class="px-md py-4">
+                            <span
+                                class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-caption font-label-md">Meat</span>
+                        </td>
+                        <td class="px-md py-4 font-body-md text-body-md">£12.50</td>
+                        <td class="px-md py-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="bg-error h-full w-[15%]"></div>
+                                </div>
+                                <span class="text-caption text-error">Low: 12 units</span>
+                            </div>
+                        </td>
+                        <td class="px-md py-4 text-right">
+                            <div class="flex justify-end gap-2">
+                                <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span
+                                        class="material-symbols-outlined" data-icon="edit">edit</span></button>
+                                <button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span
+                                        class="material-symbols-outlined" data-icon="delete">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Table Row 3 -->
+                    <tr class="hover:bg-surface-container-low transition-colors group">
+                        <td class="px-md py-4">
+                            <div class="w-12 h-12 rounded-lg bg-surface overflow-hidden border border-outline-variant">
+                                <img alt="Fresh Atlantic Salmon" class="w-full h-full object-cover"
+                                    data-alt="Close-up of a fresh Atlantic salmon fillet on a bed of ice crystals. The color is a vibrant orange, with a professional high-key lighting setup that makes the product look extremely fresh and clean. The scene is shot in a minimalist studio style for a luxury grocery store inventory view."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9FRECL_S9CPZawLhHHmp2W0jMvjjICtwLl-si2b-DaLAf0Kt_9ZqGXU5aXbHqq2ztR7z06QQz11-5J7td28hdzkKrPS67kZD9T92rTtJoOXzAAa00flbuvyWQW3FL0Ydh9kEmymPH7KZDnss3Rn3Rz8SO4y4Ha5B_THrbqoTl1fBKsd5EdNF88MD24yHLhJILFJkKzeWqQwHEFTzKo99tR5nysX70jmlHGxW6K4ow_0mGh-FyNDd76SiSITKNWQiSLP9H0csNYkLB" />
+                            </div>
+                        </td>
+                        <td class="px-md py-4 font-body-md text-body-md text-on-surface font-semibold">Atlantic Salmon
+                        </td>
+                        <td class="px-md py-4">
+                            <span
+                                class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-caption font-label-md">Fish</span>
+                        </td>
+                        <td class="px-md py-4 font-body-md text-body-md">£8.20</td>
+                        <td class="px-md py-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="bg-primary h-full w-[55%]"></div>
+                                </div>
+                                <span class="text-caption text-on-surface-variant">45 units</span>
+                            </div>
+                        </td>
+                        <td class="px-md py-4 text-right">
+                            <div class="flex justify-end gap-2">
+                                <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span
+                                        class="material-symbols-outlined" data-icon="edit">edit</span></button>
+                                <button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span
+                                        class="material-symbols-outlined" data-icon="delete">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Table Row 4 -->
+                    <tr class="hover:bg-surface-container-low transition-colors group">
+                        <td class="px-md py-4">
+                            <div class="w-12 h-12 rounded-lg bg-surface overflow-hidden border border-outline-variant">
+                                <img alt="Baby Spinach" class="w-full h-full object-cover"
+                                    data-alt="A heap of fresh, bright green baby spinach leaves scattered on a white surface. The lighting is soft and even, highlighting the delicate textures of the leaves. Minimalist and airy composition, perfect for a fresh food marketplace inventory dashboard."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4G1YmxgeY1MAtfsh7DvwUdAUvJEPR9Pk_N50uUIyoloFx8aY-l2udatDplWLwRnXUY24-z9IMUGUTKfMBKi3KHN_3VWR3zqQ038aMe2sSrx3n0c2PhkxsFquC7eG6ecjQM7L2RYDAOHazrsAy8WdX5Eoi4ayZeW3JOOwK5HbwvIv5MNz43nJciyDh3XEpU6PZQwxJd9Iw6lkGUrK9ABFi_pQqW8TBJzIUf8u_yImmSn5HuUDlBKjRh3LQhc-gkthvVQ442k0sai7Z" />
+                            </div>
+                        </td>
+                        <td class="px-md py-4 font-body-md text-body-md text-on-surface font-semibold">Baby Spinach</td>
+                        <td class="px-md py-4">
+                            <span
+                                class="bg-primary-container/20 text-on-primary-container px-3 py-1 rounded-full text-caption font-label-md">Vegetables</span>
+                        </td>
+                        <td class="px-md py-4 font-body-md text-body-md">£1.50</td>
+                        <td class="px-md py-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="bg-tertiary-container h-full w-[30%]"></div>
+                                </div>
+                                <span class="text-caption text-on-tertiary-fixed-variant">Low: 22 units</span>
+                            </div>
+                        </td>
+                        <td class="px-md py-4 text-right">
+                            <div class="flex justify-end gap-2">
+                                <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span
+                                        class="material-symbols-outlined" data-icon="edit">edit</span></button>
+                                <button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span
+                                        class="material-symbols-outlined" data-icon="delete">delete</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Pagination -->
+            <div class="p-md bg-surface-container-low flex justify-between items-center">
+                <p class="text-caption font-caption text-on-surface-variant">Showing 1-10 of 124 items</p>
+                <div class="flex gap-2">
+                    <button
+                        class="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors"><span
+                            class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span></button>
+                    <button
+                        class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md">1</button>
+                    <button
+                        class="px-4 py-2 rounded-lg hover:bg-surface-container-high font-label-md text-label-md transition-colors">2</button>
+                    <button
+                        class="px-4 py-2 rounded-lg hover:bg-surface-container-high font-label-md text-label-md transition-colors">3</button>
+                    <button
+                        class="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors"><span
+                            class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Modal: Add New Item -->
+    <div class="hidden fixed inset-0 z-50 flex items-center justify-center p-margin-mobile" id="item-modal">
+        <div class="modal-backdrop absolute inset-0" onclick="toggleModal('item-modal')"></div>
+        <div
+            class="relative bg-surface rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden scale-100 transition-transform duration-300">
+            <div class="p-md border-b border-outline-variant flex justify-between items-center">
+                <h3 class="font-headline-md text-headline-md text-on-surface">Add New Product</h3>
+                <button class="text-on-surface-variant hover:text-on-surface" onclick="toggleModal('item-modal')"><span
+                        class="material-symbols-outlined" data-icon="close">close</span></button>
+            </div>
+            <form class="p-md space-y-md">
+                <div>
+                    <label class="block font-label-md text-label-md text-on-surface mb-xs">Product Name</label>
+                    <input
+                        class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md"
+                        placeholder="e.g., Organic Avocados" type="text" />
+                </div>
+                <div>
+                    <label class="block font-label-md text-label-md text-on-surface mb-xs">Description</label>
+                    <textarea
+                        class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md resize-none"
+                        placeholder="Describe the item's origin and freshness..." rows="3"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-md">
+                    <div>
+                        <label class="block font-label-md text-label-md text-on-surface mb-xs">Price (£)</label>
+                        <input
+                            class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md"
+                            placeholder="0.00" step="0.01" type="number" />
+                    </div>
+                    <div>
+                        <label class="block font-label-md text-label-md text-on-surface mb-xs">Category</label>
+                        <select
+                            class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md bg-surface">
+                            <option>Fruits</option>
+                            <option>Vegetables</option>
+                            <option>Meat</option>
+                            <option>Fish</option>
+                            <option>Desserts</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-label-md text-label-md text-on-surface mb-xs">Product Image</label>
+                    <div
+                        class="border-2 border-dashed border-outline-variant rounded-xl p-lg text-center hover:border-primary hover:bg-surface-container-low transition-all cursor-pointer group">
+                        <span class="material-symbols-outlined text-outline text-[48px] group-hover:text-primary mb-xs"
+                            data-icon="cloud_upload">cloud_upload</span>
+                        <p class="font-label-md text-label-md text-on-surface-variant">Click to upload or drag and drop
+                        </p>
+                        <p class="text-caption font-caption text-on-surface-variant">SVG, PNG, JPG or GIF (max.
+                            800x400px)</p>
+                    </div>
+                </div>
+                <div class="flex gap-md pt-md">
+                    <button
+                        class="flex-1 py-3 border border-outline text-on-surface-variant font-label-md text-label-md rounded-xl hover:bg-surface-container-high transition-colors"
+                        onclick="toggleModal('item-modal')" type="button">
                         Cancel
                     </button>
-<button class="flex-1 py-3 bg-primary text-on-primary font-label-md text-label-md rounded-xl hover:bg-opacity-90 transition-colors shadow-sm" type="submit">
+                    <button
+                        class="flex-1 py-3 bg-primary text-on-primary font-label-md text-label-md rounded-xl hover:bg-opacity-90 transition-colors shadow-sm"
+                        type="submit">
                         Create Item
                     </button>
-</div>
-</form>
-</div>
-</div>
-<!-- Footer Shell -->
-<footer class="ml-64 bg-surface-container-lowest border-t border-outline-variant">
-<div class="w-full py-md px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-lg max-w-[1280px] mx-auto">
-<p class="font-caption text-caption text-on-surface-variant">© 2024 Capedo Impex. Quality and Efficiency in Every Trade.</p>
-<div class="flex gap-md justify-end">
-<a class="text-on-surface-variant font-caption text-caption hover:text-primary transition-colors" href="#">Terms of Service</a>
-<a class="text-on-surface-variant font-caption text-caption hover:text-primary transition-colors" href="#">Privacy Policy</a>
-<a class="text-on-surface-variant font-caption text-caption hover:text-primary transition-colors" href="#">Support</a>
-</div>
-</div>
-</footer>
-<script>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Footer Shell -->
+    <footer class="ml-64 bg-surface-container-lowest border-t border-outline-variant">
+        <div class="w-full py-md px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-lg max-w-[1280px] mx-auto">
+            <p class="font-caption text-caption text-on-surface-variant">© 2026 Capedo Impex. Quality and Efficiency in
+                Every Trade.</p>
+            <div class="flex gap-md justify-end">
+                <a class="text-on-surface-variant font-caption text-caption hover:text-primary transition-colors"
+                    href="#">Terms of Service</a>
+                <a class="text-on-surface-variant font-caption text-caption hover:text-primary transition-colors"
+                    href="#">Privacy Policy</a>
+                <a class="text-on-surface-variant font-caption text-caption hover:text-primary transition-colors"
+                    href="#">Support</a>
+            </div>
+        </div>
+    </footer>
+    <script>
         function toggleModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal.classList.contains('hidden')) {
@@ -405,4 +486,6 @@
             });
         });
     </script>
-</body></html>
+</body>
+
+</html>

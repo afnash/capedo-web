@@ -246,7 +246,7 @@ export default function AdminDashboard() {
 
         <footer className="mt-xl pt-md border-t border-outline-variant">
           <div className="flex justify-between items-center text-caption font-caption text-on-surface-variant">
-            <p>© 2024 Capedo Impex. All rights reserved.</p>
+            <p>© 2026 Capedo Impex. All rights reserved.</p>
             <div className="flex gap-sm">
               <a className="hover:text-primary" href="#">Privacy Policy</a>
               <a className="hover:text-primary" href="#">Terms of Service</a>

@@ -87,10 +87,10 @@ export default function Home() {
         <nav className="hidden md:flex max-w-[1280px] mx-auto h-full justify-between items-center px-4 md:px-8 gap-4">
           <div className="flex items-center gap-8 overflow-hidden">
             <Link className="flex items-center gap-2 group shrink-0" href="/">
-              <img 
-                alt="Capedo Impex Logo" 
-                className="w-10 h-10 object-contain" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh" 
+              <img
+                alt="Capedo Impex Logo"
+                className="w-10 h-10 object-contain"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"
               />
               <span className="font-headline-md text-headline-md font-extrabold text-[#15803d] whitespace-nowrap">
                 Capedo Impex
@@ -111,9 +111,9 @@ export default function Home() {
           <div className="flex items-center shrink-0">
             <div className="relative">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#15803d]">search</span>
-              <input 
-                className="pl-9 pr-3 py-2 bg-[#f3f7f4] border border-[#d2dfd5] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#15803d]/20 w-64 outline-none transition-all" 
-                placeholder="Search produce..." 
+              <input
+                className="pl-9 pr-3 py-2 bg-[#f3f7f4] border border-[#d2dfd5] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#15803d]/20 w-64 outline-none transition-all"
+                placeholder="Search produce..."
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -127,25 +127,25 @@ export default function Home() {
           {isMobileSearchOpen ? (
             /* Mobile Search Mode Header */
             <div className="flex items-center w-full gap-2">
-              <button 
-                onClick={() => { setIsMobileSearchOpen(false); setSearchQuery(""); }} 
+              <button
+                onClick={() => { setIsMobileSearchOpen(false); setSearchQuery(""); }}
                 className="text-[#15803d] p-1 flex items-center justify-center"
               >
                 <span className="material-symbols-outlined">arrow_back</span>
               </button>
               <div className="relative flex-1">
                 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#15803d]">search</span>
-                <input 
+                <input
                   autoFocus
-                  className="pl-9 pr-8 py-2 w-full bg-[#f3f7f4] border border-[#d2dfd5] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#15803d]/20 outline-none" 
-                  placeholder="Search produce..." 
+                  className="pl-9 pr-8 py-2 w-full bg-[#f3f7f4] border border-[#d2dfd5] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#15803d]/20 outline-none"
+                  placeholder="Search produce..."
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 {searchQuery && (
-                  <button 
-                    onClick={() => setSearchQuery("")} 
+                  <button
+                    onClick={() => setSearchQuery("")}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant flex items-center justify-center"
                   >
                     <span className="material-symbols-outlined text-base">close</span>
@@ -157,24 +157,24 @@ export default function Home() {
             /* Mobile Standard Mode Header */
             <>
               <Link className="flex items-center gap-2 group shrink-0" href="/">
-                <img 
-                  alt="Capedo Impex Logo" 
-                  className="w-8 h-8 object-contain" 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh" 
+                <img
+                  alt="Capedo Impex Logo"
+                  className="w-8 h-8 object-contain"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"
                 />
                 <span className="font-bold text-[#15803d] text-base whitespace-nowrap">
                   Capedo Impex
                 </span>
               </Link>
               <div className="flex items-center gap-1">
-                <button 
-                  onClick={() => { setIsMobileSearchOpen(true); setIsMobileMenuOpen(false); }} 
+                <button
+                  onClick={() => { setIsMobileSearchOpen(true); setIsMobileMenuOpen(false); }}
                   className="text-[#15803d] p-2 flex items-center justify-center rounded-full hover:bg-[#f3f7f4] transition-colors"
                 >
                   <span className="material-symbols-outlined">search</span>
                 </button>
-                <button 
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   className="text-[#15803d] p-2 flex items-center justify-center rounded-full hover:bg-[#f3f7f4] transition-colors"
                 >
                   <span className="material-symbols-outlined">{isMobileMenuOpen ? "close" : "menu"}</span>
@@ -225,15 +225,15 @@ export default function Home() {
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
                 {searchedProducts.map((product: any, index: number) => (
-                  <article 
-                    key={product.id || index} 
+                  <article
+                    key={product.id || index}
                     className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(21,128,61,0.04)] hover:shadow-[0_12px_32px_rgba(21,128,61,0.1)] hover:-translate-y-1 transition-all duration-300 flex flex-col group border border-[#15803d]/10 hover:border-[#15803d]/30"
                   >
                     <div className="relative aspect-square w-full overflow-hidden bg-white p-3 md:p-4 border-b border-[#f3f7f4] flex items-center justify-center">
-                      <img 
-                        alt={product.name} 
-                        className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105" 
-                        src={product.image_url || "https://placehold.co/400"} 
+                      <img
+                        alt={product.name}
+                        className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                        src={product.image_url || "https://placehold.co/400"}
                       />
                     </div>
                     <div className="p-4 flex flex-col flex-1 justify-between gap-2 bg-[#fcfdfc]">
@@ -242,8 +242,8 @@ export default function Home() {
                       </h2>
                       <div className="flex justify-between items-baseline mt-1">
                         <span className="text-[#15803d] font-extrabold text-base md:text-lg whitespace-nowrap">
-                          {typeof product.price === 'number' || !isNaN(parseFloat(product.price)) 
-                            ? `£${product.price}` 
+                          {typeof product.price === 'number' || !isNaN(parseFloat(product.price))
+                            ? `£${product.price}`
                             : product.price}
                         </span>
                       </div>
@@ -265,12 +265,12 @@ export default function Home() {
                       SEASONAL SPECIAL
                     </span>
                     <h1 className="text-3xl md:text-4xl font-extrabold text-[#113a1a] mb-3 leading-tight">
-                      Harvest Moon <br/>Festival Offer
+                      Harvest Moon <br />Festival Offer
                     </h1>
                     <p className="text-sm md:text-base text-[#113a1a]/80 mb-6 max-w-[360px] leading-relaxed font-medium">
                       Celebrate the season with 30% off on all Capedo Impex organic farm-fresh selections. Straight from our soil to your doorstep.
                     </p>
-                    <button 
+                    <button
                       onClick={() => {
                         const target = document.getElementById("explore-categories");
                         if (target) target.scrollIntoView({ behavior: "smooth" });
@@ -284,10 +284,10 @@ export default function Home() {
                 </div>
                 {/* Background visual */}
                 <div className="absolute top-0 right-0 h-full w-full md:w-2/3 overflow-hidden pointer-events-none z-10">
-                  <img 
-                    alt="Vibrant organic vegetables" 
-                    className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700" 
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0ovYpvWpHJewCSCwZqpNQUK728cFh6HhOJMH4PPSxAbJQ3JIz_2re9UXS81vUhZPi4SEh0rtCX1wfVASwj-Tu0Aae1ne6qCFKmWlfJHGLZW7SfSCsYvWqd1-Dfb5pVwToiKfnBrQXkklS0kgdMEFfRDTvW-u_vSsjYkwgVYCL214ZG3aXb43Kr0mvxgWl81r5UQMwA-3yVkaoBjRekPFYtRytp7Ygwfbm36WIlnsuGFUOL_NqiEG5tY4Vm2Qa42XVEZD3CFqA5614" 
+                  <img
+                    alt="Vibrant organic vegetables"
+                    className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0ovYpvWpHJewCSCwZqpNQUK728cFh6HhOJMH4PPSxAbJQ3JIz_2re9UXS81vUhZPi4SEh0rtCX1wfVASwj-Tu0Aae1ne6qCFKmWlfJHGLZW7SfSCsYvWqd1-Dfb5pVwToiKfnBrQXkklS0kgdMEFfRDTvW-u_vSsjYkwgVYCL214ZG3aXb43Kr0mvxgWl81r5UQMwA-3yVkaoBjRekPFYtRytp7Ygwfbm36WIlnsuGFUOL_NqiEG5tY4Vm2Qa42XVEZD3CFqA5614"
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#e2ece5] via-[#e2ece5]/90 to-transparent z-10"></div>
@@ -304,16 +304,16 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
                 {categories.map((cat) => (
-                  <Link 
+                  <Link
                     href={`/${cat.slug}`}
-                    key={cat.slug} 
+                    key={cat.slug}
                     className="flex flex-col items-center gap-3 p-3 bg-white rounded-2xl shadow-[0_4px_15px_rgba(21,128,61,0.03)] border border-[#15803d]/5 hover:border-[#15803d]/20 hover:shadow-[0_8px_24px_rgba(21,128,61,0.08)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
                   >
                     <div className="w-full aspect-square bg-[#f3f7f4] rounded-xl flex items-center justify-center overflow-hidden p-2">
-                      <img 
-                        alt={cat.name} 
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" 
-                        src={cat.image} 
+                      <img
+                        alt={cat.name}
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        src={cat.image}
                       />
                     </div>
                     <span className="font-label-md text-xs md:text-sm text-on-surface group-hover:text-[#15803d] font-bold transition-colors">
@@ -330,7 +330,7 @@ export default function Home() {
                 <h2 className="text-xl md:text-2xl font-extrabold text-[#113a1a]">Weekly Featured</h2>
                 <p className="text-on-surface-variant text-sm mt-1 font-medium font-medium">Handpicked premium selections from Capedo Impex partners</p>
               </div>
-              
+
               {loading ? (
                 <div className="flex justify-center items-center py-12">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#15803d]"></div>
@@ -338,15 +338,15 @@ export default function Home() {
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
                   {featuredProducts.map((product: any, index: number) => (
-                    <article 
-                      key={product.id || index} 
+                    <article
+                      key={product.id || index}
                       className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(21,128,61,0.04)] hover:shadow-[0_12px_32px_rgba(21,128,61,0.1)] hover:-translate-y-1 transition-all duration-300 flex flex-col group border border-[#15803d]/10 hover:border-[#15803d]/30"
                     >
                       <div className="relative aspect-square w-full overflow-hidden bg-white p-3 md:p-4 border-b border-[#f3f7f4] flex items-center justify-center">
-                        <img 
-                          alt={product.name} 
-                          className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105" 
-                          src={product.image_url || "https://placehold.co/400"} 
+                        <img
+                          alt={product.name}
+                          className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                          src={product.image_url || "https://placehold.co/400"}
                         />
                       </div>
                       <div className="p-4 flex flex-col flex-1 justify-between gap-2 bg-[#fcfdfc]">
@@ -355,8 +355,8 @@ export default function Home() {
                         </h2>
                         <div className="flex justify-between items-baseline mt-1">
                           <span className="text-[#15803d] font-extrabold text-base md:text-lg whitespace-nowrap">
-                            {typeof product.price === 'number' || !isNaN(parseFloat(product.price)) 
-                              ? `£${product.price}` 
+                            {typeof product.price === 'number' || !isNaN(parseFloat(product.price))
+                              ? `£${product.price}`
                               : product.price}
                           </span>
                         </div>
@@ -376,10 +376,10 @@ export default function Home() {
           {/* Column 1: Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <img 
-                alt="Capedo Impex Logo" 
-                className="w-8 h-8 object-contain" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh" 
+              <img
+                alt="Capedo Impex Logo"
+                className="w-8 h-8 object-contain"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"
               />
               <span className="font-headline-sm text-headline-sm font-extrabold text-[#15803d]">Capedo Impex</span>
             </div>
@@ -388,7 +388,7 @@ export default function Home() {
               Organic Minimalism for Daily Essentials. We deliver the freshest produce straight from local farms to your doorstep.
             </p>
             <p className="font-caption text-caption text-on-surface-variant opacity-70">
-              © 2024 Capedo Impex. All rights reserved.
+              © 2026 Capedo Impex. All rights reserved.
             </p>
           </div>
 
