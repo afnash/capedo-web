@@ -192,7 +192,7 @@ export default function AdminInventory() {
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-margin-mobile">
           <div className="absolute inset-0 bg-[#151b29] bg-opacity-40 backdrop-blur-sm" onClick={toggleModal}></div>
-          <div className="relative bg-surface rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden scale-100 transition-transform duration-300">
+          <div className="relative bg-surface rounded-2xl w-full max-w-[512px] shadow-2xl overflow-hidden scale-100 transition-transform duration-300">
             <div className="p-md border-b border-outline-variant flex justify-between items-center">
               <h3 className="font-headline-md text-headline-md text-on-surface">Add New Product</h3>
               <button className="text-on-surface-variant hover:text-on-surface transition-colors flex items-center justify-center" onClick={toggleModal}>

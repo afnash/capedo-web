@@ -264,7 +264,7 @@ export default function CategoryPage({ params }: { params: any }) {
               Organic Minimalism for Daily Essentials. We deliver the freshest produce straight from local farms to your doorstep.
             </p>
             <p className="font-caption text-caption text-on-surface-variant opacity-70">
-              © 2024 Capedo Impex. All rights reserved.
+              © 2026 Capedo Impex. All rights reserved.
             </p>
           </div>
 
