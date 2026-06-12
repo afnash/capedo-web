@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Capedo Impex Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#444749",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e2e8fc",
+                    "on-background": "#151b29",
+                    "secondary-container": "#e0e3e5",
+                    "secondary-fixed-dim": "#c4c7c9",
+                    "primary-fixed": "#67ff8c",
+                    "on-primary-container": "#005622",
+                    "on-primary-fixed": "#002109",
+                    "on-tertiary-container": "#614400",
+                    "outline": "#6c7b6b",
+                    "primary-fixed-dim": "#41e272",
+                    "surface-container-low": "#f1f3ff",
+                    "primary-container": "#2dd466",
+                    "on-surface-variant": "#3d4a3c",
+                    "on-primary-fixed-variant": "#005321",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#faf8ff",
+                    "secondary": "#5c5f61",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#151b29",
+                    "surface-container": "#e9edff",
+                    "outline-variant": "#bbcbb9",
+                    "surface-dim": "#d4d9ed",
+                    "inverse-on-surface": "#edf0ff",
+                    "inverse-surface": "#2a303f",
+                    "surface-container-highest": "#dde2f6",
+                    "on-secondary-container": "#626567",
+                    "primary": "#006e2e",
+                    "surface-tint": "#006e2e",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#5e4200",
+                    "on-secondary-fixed": "#191c1e",
+                    "tertiary-container": "#f0ad00",
+                    "on-tertiary-fixed": "#271900",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed": "#e0e3e5",
+                    "tertiary-fixed": "#ffdea8",
+                    "inverse-primary": "#41e272",
+                    "tertiary": "#7c5800",
+                    "tertiary-fixed-dim": "#ffba20",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface": "#faf8ff",
+                    "on-error": "#ffffff",
+                    "background": "#faf8ff",
+                    "surface-variant": "#dde2f6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "40px",
+                    "sm": "16px",
+                    "xs": "8px",
+                    "margin-desktop": "48px",
+                    "md": "24px",
+                    "margin-mobile": "16px",
+                    "base": "4px",
+                    "xl": "64px",
+                    "gutter": "20px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "caption": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .card-shadow { box-shadow: 0px 4px 20px rgba(18, 24, 38, 0.04); }
+        .card-shadow:hover { box-shadow: 0px 6px 24px rgba(18, 24, 38, 0.08); transform: translateY(-2px); transition: all 0.2s ease; }
+        .glass-effect { backdrop-filter: blur(12px); background: rgba(255, 255, 255, 0.8); }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col border-r border-outline-variant dark:border-outline bg-surface-container-low dark:bg-surface-container-highest h-screen w-64 docked left-0 z-50">
+<div class="px-6 py-8">
+<div class="flex items-center gap-2 mb-2">
+<img alt="Capedo Impex Logo" class="w-10 h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"/>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface">Capedo Impex</h1>
+</div>
+<p class="text-on-surface-variant font-caption text-caption mt-1">Admin Panel</p>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<!-- Dashboard Tab (Active) -->
+<a class="bg-primary-container text-on-primary-container dark:bg-primary dark:text-on-primary rounded-xl mx-2 my-1 px-4 py-3 flex items-center gap-3 font-label-md text-label-md transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Inventory Tab -->
+<a class="text-on-surface-variant dark:text-secondary-fixed-dim mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high font-label-md text-label-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<!-- Orders Tab -->
+<a class="text-on-surface-variant dark:text-secondary-fixed-dim mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high font-label-md text-label-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span>Orders</span>
+</a>
+<!-- Banners Tab -->
+<a class="text-on-surface-variant dark:text-secondary-fixed-dim mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high font-label-md text-label-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span>Banners</span>
+</a>
+</nav>
+<div class="p-4 border-t border-outline-variant">
+<div class="flex items-center gap-3 px-2 mb-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold overflow-hidden border border-outline-variant">
+<img alt="Admin User" data-alt="A professional headshot of a modern office administrator with a clean-cut appearance. The lighting is soft and natural, coming from a large window in a bright, minimalist office setting. The person is wearing a simple, high-quality white linen shirt, reflecting the organic and fresh brand identity of a premium grocery service. The background is slightly blurred, showing hints of lush green indoor plants." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyhBWs6usLwtL-ru2ksLfQwnlSFJBLNsz4iyUptxjxnJO7xE_I6X9EUDyb1WGJC-MOk-pkM4xw84Ct51W2hqK2He0paHOs_x6MMDwMhvdcw6OZgzQmdwI1fksRv01nh0HK7yW54GgYnbQ_HgwCFdTxvlm3cHYJb3Y7seUcPus_iK2D0SoEyIKEmthW64umH0EMNmow8a86J_OZW-AdvClO89_p3fI9CKMnx3YDHM1UiasmHxlT3lYU017MiPp3b7Nw-HrdBBwfEDe0"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Admin User</p>
+<p class="text-caption font-caption text-on-surface-variant">Manage Capedo Impex</p>
+</div>
+</div>
+<button class="w-full py-2 px-4 rounded-xl border border-outline text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md">
+                Logout
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 p-margin-desktop min-h-screen pb-xl">
+<!-- Header Section -->
+<header class="flex justify-between items-end mb-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Monitor Capedo Impex performance and inventory status.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-full font-label-md text-label-md hover:brightness-110 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>Add Product</span>
+</button>
+</div>
+</header>
+<!-- Bento Grid Metrics -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md mb-lg">
+<!-- Total Sales Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl card-shadow border border-surface-container flex flex-col justify-between h-48 relative overflow-hidden">
+<div class="flex justify-between items-start z-10">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Total Sales</p>
+<h3 class="font-headline-lg text-headline-lg text-on-background">$12,480.50</h3>
+</div>
+<div class="p-2 bg-primary-container/20 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="trending_up">trending_up</span>
+</div>
+</div>
+<div class="z-10">
+<p class="text-caption font-caption text-primary flex items-center gap-1">
+<span class="font-bold">+12.5%</span> from last week
+                    </p>
+</div>
+<!-- Subtle background visual -->
+<div class="absolute -bottom-6 -right-6 opacity-5">
+<span class="material-symbols-outlined text-primary text-[120px]" data-icon="payments">payments</span>
+</div>
+</div>
+<!-- Active Orders Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl card-shadow border border-surface-container flex flex-col justify-between h-48">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Active Orders</p>
+<h3 class="font-headline-lg text-headline-lg text-on-background">42</h3>
+</div>
+<div class="p-2 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="local_shipping">local_shipping</span>
+</div>
+</div>
+<div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%]" style="width: 65%;"></div>
+</div>
+<p class="text-caption font-caption text-on-surface-variant mt-2">
+                        28 orders in delivery
+                    </p>
+</div>
+</div>
+<!-- Low Stock Alerts -->
+<div class="bg-error-container/30 p-md rounded-xl card-shadow border border-error-container/50 flex flex-col justify-between h-48">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-md text-label-md text-on-error-container mb-1">Low Stock Alerts</p>
+<h3 class="font-headline-lg text-headline-lg text-on-error-container">14</h3>
+</div>
+<div class="p-2 bg-error-container rounded-lg">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+</div>
+</div>
+<button class="text-label-md font-label-md text-error flex items-center gap-1 hover:underline">
+                    Restock now
+                    <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Recent Orders Table Section -->
+<section class="lg:col-span-2 space-y-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-background">Recent Orders</h3>
+<button class="text-primary font-label-md text-label-md hover:underline">View All</button>
+</div>
+<div class="bg-surface-container-lowest rounded-xl card-shadow overflow-hidden border border-surface-container">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low/50">
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant">Order ID</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant">Customer</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant">Status</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-body-md text-body-md text-on-surface">#ORD-2841</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold text-on-secondary-container">JS</div>
+<span class="font-body-md text-body-md text-on-surface">Jane Smith</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-primary-container/20 text-on-primary-container rounded-full text-caption font-caption">Delivered</span>
+</td>
+<td class="px-6 py-4 font-body-md text-body-md text-on-surface text-right font-bold">$142.00</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-body-md text-body-md text-on-surface">#ORD-2840</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold text-on-secondary-container">MH</div>
+<span class="font-body-md text-body-md text-on-surface">Marcus H.</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-tertiary-container/20 text-on-tertiary-fixed-variant rounded-full text-caption font-caption">Processing</span>
+</td>
+<td class="px-6 py-4 font-body-md text-body-md text-on-surface text-right font-bold">$84.50</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-body-md text-body-md text-on-surface">#ORD-2839</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold text-on-secondary-container">AL</div>
+<span class="font-body-md text-body-md text-on-surface">Anna Lee</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-caption font-caption">Shipped</span>
+</td>
+<td class="px-6 py-4 font-body-md text-body-md text-on-surface text-right font-bold">$210.15</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Quick Actions Section -->
+<aside class="space-y-md">
+<h3 class="font-headline-md text-headline-md text-on-background">Quick Actions</h3>
+<!-- Action: Banner Upload -->
+<div class="bg-surface-container-lowest p-md rounded-xl card-shadow border border-surface-container space-y-4">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary-container rounded-lg">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="add_photo_alternate">add_photo_alternate</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface">Upload New Banner</p>
+</div>
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-6 flex flex-col items-center justify-center gap-2 group hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary" data-icon="upload_file">upload_file</span>
+<p class="text-caption font-caption text-on-surface-variant">Drop image here or click to browse</p>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:brightness-110 transition-all">
+                        Publish Banner
+                    </button>
+</div>
+<!-- Action: Update Info -->
+<div class="bg-surface-container-lowest p-md rounded-xl card-shadow border border-surface-container space-y-4">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-secondary-container rounded-lg">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="local_shipping">local_shipping</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface">Update Delivery Info</p>
+</div>
+<div class="space-y-3">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Current Estimated Time</label>
+<input class="border border-outline-variant rounded-lg px-3 py-2 text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none" type="text" value="30-45 mins"/>
+</div>
+<button class="w-full py-3 border border-outline text-on-surface rounded-xl font-label-md text-label-md hover:bg-surface-container-high transition-all">
+                            Save Changes
+                        </button>
+</div>
+</div>
+</aside>
+</div>
+<footer class="mt-xl pt-md border-t border-outline-variant">
+<div class="flex justify-between items-center text-caption font-caption text-on-surface-variant">
+<p>© 2024 Capedo Impex. All rights reserved.</p>
+<div class="flex gap-sm">
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</main>
+<!-- Success Toast Notification (Hidden by default) -->
+<div class="fixed bottom-margin-mobile right-margin-mobile glass-effect border border-primary/20 px-6 py-4 rounded-xl card-shadow flex items-center gap-3 transform translate-y-24 transition-transform duration-300 pointer-events-none" id="toast">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle">check_circle</span>
+<p class="font-label-md text-label-md text-on-surface">Action completed successfully</p>
+</div>
+<script>
+        // Simple Interaction logic for demo purposes
+        const buttons = document.querySelectorAll('button');
+        const toast = document.getElementById('toast');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Show toast
+                toast.classList.remove('translate-y-24');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-24');
+                }, 3000);
+            });
+        });
+    </script>
+</body></html>

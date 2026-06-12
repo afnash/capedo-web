@@ -1,0 +1,530 @@
+[
+  {
+    "name": "Green Banana",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/green-banana1.png",
+    "discount": 0,
+    "description": "Fresh green bananas ideal for cooking traditional dishes chips and curries."
+  },
+  {
+    "name": "Nendra Banana",
+    "category": "Fruits",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/yellow-banana1.png",
+    "discount": 0,
+    "description": "Premium yellow Nendra bananas known for their rich flavor and nutritional value."
+  },
+  {
+    "name": "Njalipoovan (Rasakadhali)",
+    "category": "Fruits",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/rasakadhali1.png",
+    "discount": 0,
+    "description": "Sweet aromatic banana variety popular in South Indian households."
+  },
+  {
+    "name": "Red Poovan",
+    "category": "Fruits",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/red-poovan1.png",
+    "discount": 0,
+    "description": "Distinctive red-skinned banana with naturally sweet taste and soft texture."
+  },
+  {
+    "name": "Banana Poovan",
+    "category": "Fruits",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/banana-poovan1.png",
+    "discount": 0,
+    "description": "Popular banana variety suitable for daily consumption and desserts."
+  },
+  {
+    "name": "Banana Flower",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/banana-flower1.png",
+    "discount": 0,
+    "description": "Nutrient-rich banana blossom commonly used in traditional curries and stir-fries."
+  },
+  {
+    "name": "Banana Stem",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/banana-stem1.png",
+    "discount": 0,
+    "description": "Fiber-rich banana stem used in healthy soups juices and side dishes."
+  },
+  {
+    "name": "Banana Leaf",
+    "category": "Leafy Greens",
+    "price": "45",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/banana-leaf1.png",
+    "discount": 0,
+    "description": "Fresh banana leaves suitable for serving food wrapping and traditional cooking."
+  },
+  {
+    "name": "Shallet",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/shallet1.png",
+    "discount": 0,
+    "description": "Fresh shallots with strong flavor ideal for curries gravies and seasoning."
+  },
+  {
+    "name": "Drum Stick",
+    "category": "Vegetables",
+    "price": "As per demand",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/drumstick1.png",
+    "discount": 0,
+    "description": "Tender drumsticks rich in nutrients commonly used in sambar and curries."
+  },
+  {
+    "name": "Snake Gourd",
+    "category": "Vegetables",
+    "price": "As per demand",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/snake-gourd1.png",
+    "discount": 0,
+    "description": "Fresh snake gourd perfect for stir-fries curries and healthy meals."
+  },
+  {
+    "name": "Small Snake Gourd",
+    "category": "Vegetables",
+    "price": "As per demand",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/small-snake-gourd1.png",
+    "discount": 0,
+    "description": "Small tender snake gourd with mild flavor and crisp texture."
+  },
+  {
+    "name": "Bottle Gourd",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/bottle-gourd-green1.png",
+    "discount": 0,
+    "description": "Fresh bottle gourd ideal for soups curries and healthy recipes."
+  },
+  {
+    "name": "Ridge Gourd",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/ridge-gourd1.png",
+    "discount": 0,
+    "description": "Nutritious ridge gourd suitable for stir-fries curries and chutneys."
+  },
+  {
+    "name": "Broad Beans",
+    "category": "Vegetables",
+    "price": "As per demand",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/broad-beans1.png",
+    "discount": 0,
+    "description": "Fresh broad beans rich in protein and dietary fiber."
+  },
+  {
+    "name": "Long Beans Red",
+    "category": "Vegetables",
+    "price": "As per demand",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/long-beans-red1.png",
+    "discount": 0,
+    "description": "Red long beans with tender texture perfect for stir-fries."
+  },
+  {
+    "name": "Long Beans Green",
+    "category": "Vegetables",
+    "price": "As per demand",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/long-beans-green1.png",
+    "discount": 0,
+    "description": "Fresh green long beans suitable for curries and side dishes."
+  },
+  {
+    "name": "Salad Cucumber",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/salad-cucumber1.png",
+    "discount": 0,
+    "description": "Crisp cucumber ideal for salads sandwiches and fresh consumption."
+  },
+  {
+    "name": "Yellow Cucumber",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/yellow-cucumber1.png",
+    "discount": 0,
+    "description": "Traditional yellow cucumber with refreshing taste and soft texture."
+  },
+  {
+    "name": "Green Pumpkin",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/yellow-pumpkin1.png",
+    "discount": 0,
+    "description": "Fresh green pumpkin suitable for curries soups and stews."
+  },
+  {
+    "name": "Red Pumpkin",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/red-pumpkin1.png",
+    "discount": 0,
+    "description": "Sweet red pumpkin perfect for curries desserts and soups."
+  },
+  {
+    "name": "Bitter Gourd Green",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/butter-gourd1.png",
+    "discount": 0,
+    "description": "Nutrient-rich green bitter gourd known for its health benefits."
+  },
+  {
+    "name": "Bitter Gourd White",
+    "category": "Vegetables",
+    "price": "60",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/bitter-gourd-white1.png",
+    "discount": 0,
+    "description": "Mild white bitter gourd with unique taste and medicinal value."
+  },
+  {
+    "name": "Colocasia",
+    "category": "Root Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/colocasia1.png",
+    "discount": 0,
+    "description": "Fresh colocasia roots ideal for traditional curries and snacks."
+  },
+  {
+    "name": "Small Colocasia",
+    "category": "Root Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/small-colocasia1.png",
+    "discount": 0,
+    "description": "Tender colocasia roots with rich flavor and creamy texture."
+  },
+  {
+    "name": "Kachil",
+    "category": "Root Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/kachil1.png",
+    "discount": 0,
+    "description": "Traditional yam variety used in healthy and flavorful dishes."
+  },
+  {
+    "name": "Elephant Yam",
+    "category": "Root Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/elephant-yam1.png",
+    "discount": 0,
+    "description": "Large nutritious yam suitable for curries fries and stews."
+  },
+  {
+    "name": "Raw Mango",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/raw-mango1.png",
+    "discount": 0,
+    "description": "Fresh raw mangoes perfect for pickles chutneys and cooking."
+  },
+  {
+    "name": "Tender Coconut",
+    "category": "Fruits",
+    "price": "As per demand",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/tender-coconut1.png",
+    "discount": 0,
+    "description": "Naturally refreshing tender coconut rich in electrolytes."
+  },
+  {
+    "name": "Ash Gourd",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/ash-gourd1.png",
+    "discount": 0,
+    "description": "Fresh ash gourd ideal for curries juices and medicinal preparations."
+  },
+  {
+    "name": "Big Onion",
+    "category": "Vegetables",
+    "price": "As per demand",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/big-onion1.png",
+    "discount": 0,
+    "description": "Premium quality onions suitable for daily cooking needs."
+  },
+  {
+    "name": "Cluster Beans",
+    "category": "Vegetables",
+    "price": "As per demand",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/cluster-beans1.png",
+    "discount": 0,
+    "description": "Fresh cluster beans rich in fiber and nutrients."
+  },
+  {
+    "name": "Arbi (Chembu)",
+    "category": "Root Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/arbi1.png",
+    "discount": 0,
+    "description": "Tender arbi roots ideal for curries fries and traditional dishes."
+  },
+  {
+    "name": "Koorkkal (Chinese Potato)",
+    "category": "Root Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/koorkkal1.png",
+    "discount": 0,
+    "description": "Traditional Chinese potato variety popular in Kerala cuisine."
+  },
+  {
+    "name": "Ivy Gourd",
+    "category": "Vegetables",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/ivy-gourd1.png",
+    "discount": 0,
+    "description": "Fresh ivy gourd suitable for stir-fries curries and healthy meals."
+  },
+  {
+    "name": "Sugar Cane",
+    "category": "Fruits",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/sugar-cane1.png",
+    "discount": 0,
+    "description": "Fresh sugarcane ideal for juice extraction and direct consumption."
+  },
+  {
+    "name": "Okra (Ladies Finger)",
+    "category": "Vegetables",
+    "price": "As per demand",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/okra1.png",
+    "discount": 0,
+    "description": "Tender okra suitable for curries stir-fries and side dishes."
+  },
+  {
+    "name": "Turmeric Plant",
+    "category": "Herbs",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/turmeric-plant1.png",
+    "discount": 0,
+    "description": "Fresh turmeric roots known for culinary and medicinal uses."
+  },
+  {
+    "name": "Indian Ginger",
+    "category": "Herbs",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/indian-ginger1.png",
+    "discount": 0,
+    "description": "Premium Indian ginger with strong aroma and health benefits."
+  },
+  {
+    "name": "Palmyra Sprout",
+    "category": "Vegetables",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/palmyra-sprout1.png",
+    "discount": 0,
+    "description": "Nutritious palmyra sprouts commonly consumed as a seasonal delicacy."
+  },
+  {
+    "name": "Drumstick Leaf",
+    "category": "Leafy Greens",
+    "price": "60",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/drumstick-leaf1.png",
+    "discount": 0,
+    "description": "Nutrient-dense drumstick leaves rich in vitamins and minerals."
+  },
+  {
+    "name": "Red Thandu Keerai",
+    "category": "Leafy Greens",
+    "price": "60",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/red-thandu.png",
+    "discount": 0,
+    "description": "Fresh red spinach suitable for healthy stir-fries and curries."
+  },
+  {
+    "name": "Green Thandu Keerai",
+    "category": "Leafy Greens",
+    "price": "60",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/green-thandu1.png",
+    "discount": 0,
+    "description": "Green spinach variety packed with essential nutrients."
+  },
+  {
+    "name": "Siru Keerai",
+    "category": "Leafy Greens",
+    "price": "60",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/siru-keerai1.png",
+    "discount": 0,
+    "description": "Tropical spinach known for its tender leaves and nutritional value."
+  },
+  {
+    "name": "Gungura Leaf",
+    "category": "Leafy Greens",
+    "price": "60",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/gungura-leaf1.png",
+    "discount": 0,
+    "description": "Tangy leafy green popular in South Indian cuisine."
+  },
+  {
+    "name": "Mananthakali Keerai",
+    "category": "Leafy Greens",
+    "price": "60",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/mananthakali1.png",
+    "discount": 0,
+    "description": "Traditional medicinal leafy green used in healthy recipes."
+  },
+  {
+    "name": "Mudakathan Keerai",
+    "category": "Leafy Greens",
+    "price": "60",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/mudakathan1.png",
+    "discount": 0,
+    "description": "Herbal leafy green valued for its wellness benefits."
+  },
+  {
+    "name": "Mulai Keerai",
+    "category": "Leafy Greens",
+    "price": "60",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/mulai-keerai1.png",
+    "discount": 0,
+    "description": "Fresh spinach variety ideal for soups curries and stir-fries."
+  },
+  {
+    "name": "Neem Leaf",
+    "category": "Herbs",
+    "price": "As per demand",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/neem-leaf1.png",
+    "discount": 0,
+    "description": "Medicinal neem leaves known for traditional health applications."
+  },
+  {
+    "name": "Pirandai",
+    "category": "Herbs",
+    "price": "60",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/pirandai1.png",
+    "discount": 0,
+    "description": "Traditional medicinal vine used in chutneys and herbal preparations."
+  },
+  {
+    "name": "Maa Leaf",
+    "category": "Leafy Greens",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/maa-leaf1.png",
+    "discount": 0,
+    "description": "Fresh mango leaves suitable for rituals decorations and traditional use."
+  },
+  {
+    "name": "Amla (Gooseberry)",
+    "category": "Fruits",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/amla1.png",
+    "discount": 0,
+    "description": "Nutrient-rich gooseberries packed with vitamin C and antioxidants."
+  },
+  {
+    "name": "Totapuri Mango",
+    "category": "Fruits",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/totapuri-mango1.png",
+    "discount": 0,
+    "description": "Popular mango variety with tangy flavor suitable for fresh consumption and processing."
+  },
+  {
+    "name": "Chicku (Sapota)",
+    "category": "Fruits",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/sapota1.png",
+    "discount": 0,
+    "description": "Sweet sapota fruit with soft texture and rich flavor."
+  },
+  {
+    "name": "Apple Bore",
+    "category": "Fruits",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/apple-bore1.png",
+    "discount": 0,
+    "description": "Crisp and refreshing fruit commonly enjoyed fresh."
+  },
+  {
+    "name": "Custard Apple",
+    "category": "Fruits",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/custard-apple1.png",
+    "discount": 0,
+    "description": "Sweet creamy fruit with rich flavor and nutritional value."
+  },
+  {
+    "name": "Anar (Pomegranate)",
+    "category": "Fruits",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/anar1.png",
+    "discount": 0,
+    "description": "Juicy pomegranate rich in antioxidants and natural sweetness."
+  },
+  {
+    "name": "Guava",
+    "category": "Fruits",
+    "price": "30",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/guava1.png",
+    "discount": 0,
+    "description": "Fresh guavas packed with fiber vitamin C and natural flavor."
+  },
+  {
+    "name": "Jackfruit",
+    "category": "Fruits",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/jackfruit1.png",
+    "discount": 0,
+    "description": "Large tropical fruit known for its sweet taste and versatility."
+  },
+  {
+    "name": "Tender Jackfruit",
+    "category": "Vegetables",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/tender-jackfruit1.png",
+    "discount": 0,
+    "description": "Young jackfruit ideal as a plant-based meat alternative in curries."
+  },
+  {
+    "name": "Jack Seeds",
+    "category": "Vegetables",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/jack-seeds1.png",
+    "discount": 0,
+    "description": "Nutritious jackfruit seeds suitable for roasting and curries."
+  },
+  {
+    "name": "Jasmine",
+    "category": "Flowers",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/jasmine1.png",
+    "discount": 0,
+    "description": "Fragrant jasmine flowers widely used for decoration and worship."
+  },
+  {
+    "name": "Arali (Oleander)",
+    "category": "Flowers",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/arali1.png",
+    "discount": 0,
+    "description": "Decorative flowering plant commonly used in gardens and rituals."
+  },
+  {
+    "name": "Chamanthi",
+    "category": "Flowers",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/chamanthi1.png",
+    "discount": 0,
+    "description": "Bright chrysanthemum flowers popular for decoration and floral arrangements."
+  },
+  {
+    "name": "Avaram Poo",
+    "category": "Flowers",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/avaram-poo1.png",
+    "discount": 0,
+    "description": "Traditional medicinal flower used in herbal preparations and teas."
+  },
+  {
+    "name": "Thulasi",
+    "category": "Herbs",
+    "price": "Seasonal",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/thulasi1.png",
+    "discount": 0,
+    "description": "Holy basil plant valued for medicinal culinary and spiritual uses."
+  }
+]
