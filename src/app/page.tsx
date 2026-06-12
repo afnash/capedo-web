@@ -37,7 +37,7 @@ const categories = [
   {
     name: "Flowers",
     slug: "flowers",
-    image: "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/banana-flower1.png"
+    image: "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/arali1.png"
   }
 ];
 

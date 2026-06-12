@@ -8,9 +8,45 @@ const inter = Inter({
   weight: ["400", "500", "600", "700", "800"],
 });
 
+
 export const metadata: Metadata = {
-  title: "Capedo Impex | Organic Minimalism for Daily Essentials",
-  description: "Farm Fresh, Every Day. Organic Minimalism for Daily Essentials.",
+  metadataBase: new URL("https://capedoimpex.co.uk"),
+
+  title: "Capedo Impex | Fresh Fruits, Vegetables & Export Products",
+
+  description:
+    "Capedo Impex supplies premium fruits, vegetables, herbs, leafy greens, flowers and agricultural products for wholesale and export markets.",
+
+  icons: {
+    icon: "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/capedo-logo.png",
+  },
+
+  openGraph: {
+    title: "Capedo Impex",
+    description:
+      "Premium fruits, vegetables, herbs, flowers and agricultural products for export and wholesale distribution.",
+    url: "https://capedoimpex.co.uk",
+    siteName: "Capedo Impex",
+    images: [
+      {
+        url: "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/capedo-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Capedo Impex",
+      },
+    ],
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Capedo Impex",
+    description:
+      "Premium fruits, vegetables, herbs, flowers and agricultural products for export and wholesale distribution.",
+    images: [
+      "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/capedo-logo.png",
+    ],
+  },
 };
 
 export default function RootLayout({
