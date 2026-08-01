@@ -19,24 +19,33 @@ export async function verifyCredentials(user: string, pass: string) {
 // ITEMS / PRODUCTS ACTIONS
 // -------------------------------------------------------------
 export async function fetchItems() {
+  let supabaseItems: any[] = [];
   try {
     const { data, error } = await supabase.from('items').select('*');
     if (!error && data && data.length > 0) {
-      return data;
+      supabaseItems = data;
     }
   } catch (err) {
     console.error("Supabase items query error, falling back to JSON:", err);
   }
 
-  // Fallback to JSON file
+  // Read local JSON file for image_url fallbacks
   try {
     const filePath = path.join(process.cwd(), 'data', 'capedo_products.json');
     const fileContents = await fs.readFile(filePath, 'utf8');
-    const data = JSON.parse(fileContents);
-    return data || [];
+    const jsonItems = JSON.parse(fileContents) || [];
+
+    if (supabaseItems.length > 0) {
+      const jsonMap = new Map(jsonItems.map((j: any) => [j.name.toLowerCase(), j.image_url]));
+      return supabaseItems.map((item: any) => ({
+        ...item,
+        image_url: item.image_url || jsonMap.get(item.name?.toLowerCase()) || null,
+      }));
+    }
+    return jsonItems;
   } catch (error) {
-    console.error("Error fetching items from json:", error);
-    return [];
+    console.error("Error fetching items from json fallback:", error);
+    return supabaseItems;
   }
 }
 

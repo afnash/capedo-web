@@ -18,7 +18,9 @@ export const metadata: Metadata = {
     "Capedo Impex supplies premium fruits, vegetables, herbs, leafy greens, flowers and agricultural products for wholesale and export markets.",
 
   icons: {
-    icon: "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/capedo-logo.png",
+    icon: "/icon.png",
+    shortcut: "/favicon.ico",
+    apple: "/icon.png",
   },
 
   openGraph: {
