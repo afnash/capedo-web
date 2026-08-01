@@ -311,14 +311,16 @@ export default function AdminInventory() {
       </div>
 
       {/* Add / Edit Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-[#15803d]/20 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center border-b border-[#f0f4f1] pb-4 mb-4">
-              <h2 className="text-xl font-extrabold text-[#113a1a]">
+      {isModalOpen && (        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-3xl p-4 sm:p-6 shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto relative border border-[#15803d]/20">
+            <div className="flex justify-between items-center mb-6 pb-3 border-b border-[#f0f4f1]">
+              <h2 className="font-extrabold text-xl text-[#113a1a]">
                 {editingItem ? "Edit Product" : "Add New Product"}
               </h2>
-              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600">
+              <button
+                onClick={closeModal}
+                className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
+              >
                 <X size={20} />
               </button>
             </div>
@@ -333,12 +335,12 @@ export default function AdminInventory() {
                   type="text"
                   value={formName}
                   onChange={(e) => setFormName(e.target.value)}
-                  placeholder="e.g., Green Banana"
+                  placeholder="e.g. Green Banana"
                   className="w-full px-4 py-2.5 bg-[#f8faf8] border border-[#d2dfd5] rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#15803d]/30 focus:border-[#15803d]"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-[#113a1a] uppercase tracking-wider mb-1">
                     Category

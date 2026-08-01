@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Eye, EyeOff, Lock, User, LogOut, LayoutDashboard, Package, Image as ImageIcon } from "lucide-react";
+import { Eye, EyeOff, Lock, User, LogOut, LayoutDashboard, Package, Image as ImageIcon, Menu, X } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -14,6 +14,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [loginError, setLoginError] = useState("");
   const [verifying, setVerifying] = useState(true);
   const [loggingIn, setLoggingIn] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     async function checkSavedCreds() {
@@ -29,8 +34,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             sessionStorage.removeItem("admin_user");
             sessionStorage.removeItem("admin_pass");
           }
-        } catch (err) {
-          console.error("Error verifying admin credentials:", err);
+        } catch (_) {
+          // Silent error handling for authentication check
         }
       }
       setVerifying(false);
@@ -52,8 +57,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       } else {
         setLoginError("Invalid username or password.");
       }
-    } catch (err) {
-      console.error("Login error:", err);
+    } catch (_) {
       setLoginError("An error occurred during authentication.");
     } finally {
       setLoggingIn(false);
@@ -82,8 +86,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[#f3f7f4] flex items-center justify-center p-4">
-        <div className="bg-white max-w-md w-full rounded-3xl p-8 shadow-[0_8px_30px_rgba(21,128,61,0.08)] border border-[#15803d]/15">
-          <div className="flex flex-col items-center mb-8 text-center">
+        <div className="bg-white max-w-md w-full rounded-3xl p-6 sm:p-8 shadow-[0_8px_30px_rgba(21,128,61,0.08)] border border-[#15803d]/15">
+          <div className="flex flex-col items-center mb-6 sm:mb-8 text-center">
             <div className="w-16 h-16 rounded-2xl bg-[#e2ece5] flex items-center justify-center p-3 mb-4 border border-[#15803d]/20">
               <img
                 alt="Capedo Impex Logo"
@@ -91,8 +95,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"
               />
             </div>
-            <h1 className="font-extrabold text-2xl text-[#113a1a]">Admin Portal Login</h1>
-            <p className="text-on-surface-variant text-sm mt-1">
+            <h1 className="font-extrabold text-xl sm:text-2xl text-[#113a1a]">Admin Portal Login</h1>
+            <p className="text-on-surface-variant text-xs sm:text-sm mt-1">
               Enter your admin credentials to access Capedo Impex management.
             </p>
           </div>
@@ -176,10 +180,41 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="bg-[#f3f7f4] min-h-screen text-on-surface flex">
-      {/* Sidebar Shell */}
-      <aside className="fixed left-0 top-0 h-screen w-64 flex flex-col border-r border-[#d2dfd5] bg-white z-40">
-        <div className="p-6 border-b border-[#f0f4f1]">
+    <div className="bg-[#f3f7f4] min-h-screen text-on-surface flex flex-col md:flex-row">
+      {/* Mobile Top Header */}
+      <header className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-[#d2dfd5] z-30 px-4 flex items-center justify-between shadow-sm">
+        <Link href="/" className="flex items-center gap-2">
+          <img
+            alt="Capedo Impex Logo"
+            className="w-8 h-8 object-contain"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"
+          />
+          <span className="font-extrabold text-[#113a1a] text-base">Capedo Admin</span>
+        </Link>
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="p-2 text-[#15803d] hover:bg-[#e2ece5] rounded-lg transition-colors"
+          aria-label="Toggle Navigation Menu"
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </header>
+
+      {/* Backdrop for Mobile Sidebar Drawer */}
+      {isMobileMenuOpen && (
+        <div
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="md:hidden fixed inset-0 bg-black/40 z-40 backdrop-blur-xs transition-opacity"
+        />
+      )}
+
+      {/* Sidebar Shell (Responsive Drawer on mobile, fixed on desktop) */}
+      <aside
+        className={`fixed left-0 top-0 h-screen w-64 flex flex-col border-r border-[#d2dfd5] bg-white z-50 transition-transform duration-300 ${
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        }`}
+      >
+        <div className="p-6 border-b border-[#f0f4f1] flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <img
               alt="Capedo Impex Logo"
@@ -191,6 +226,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <p className="text-xs text-[#15803d] font-bold">Admin Panel</p>
             </div>
           </Link>
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="md:hidden p-1 text-gray-500 hover:text-[#15803d]"
+          >
+            <X size={20} />
+          </button>
         </div>
 
         <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto">
@@ -201,6 +242,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${
                   isActive
                     ? "bg-[#15803d] text-white shadow-sm"
@@ -235,9 +277,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main Content View */}
-      <div className="ml-64 flex-1 p-8 min-h-screen">
+      <div className="ml-0 md:ml-64 flex-1 p-4 sm:p-6 md:p-8 pt-20 md:pt-8 min-h-screen w-full overflow-x-hidden">
         {children}
       </div>
     </div>
   );
 }
+
