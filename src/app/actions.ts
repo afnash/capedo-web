@@ -64,15 +64,13 @@ export async function updateItems(updatedItems: any[], user: string, pass: strin
     console.error("Supabase update error:", err);
   }
 
-  // Write to local JSON
+  // Best-effort write to local JSON (gracefully skipped on Vercel read-only filesystem)
   try {
     const filePath = path.join(process.cwd(), 'data', 'capedo_products.json');
     await fs.writeFile(filePath, JSON.stringify(updatedItems, null, 2), 'utf8');
-    return { success: true };
-  } catch (error) {
-    console.error("Error writing items json:", error);
-    throw new Error("Failed to save database modifications.");
-  }
+  } catch (_) {}
+
+  return { success: true };
 }
 
 export async function saveItem(item: any, user: string, pass: string) {
@@ -154,11 +152,9 @@ export async function updateAddress(addressData: any, user: string, pass: string
   try {
     const filePath = path.join(process.cwd(), 'data', 'address.json');
     await fs.writeFile(filePath, JSON.stringify(addressData, null, 2), 'utf8');
-    return { success: true };
-  } catch (error) {
-    console.error("Error writing address json:", error);
-    throw new Error("Failed to save address.");
-  }
+  } catch (_) {}
+
+  return { success: true };
 }
 
 // -------------------------------------------------------------
@@ -198,11 +194,9 @@ export async function updateContact(contactData: any, user: string, pass: string
   try {
     const filePath = path.join(process.cwd(), 'data', 'contact.json');
     await fs.writeFile(filePath, JSON.stringify(contactData, null, 2), 'utf8');
-    return { success: true };
-  } catch (error) {
-    console.error("Error writing contact json:", error);
-    throw new Error("Failed to save contact.");
-  }
+  } catch (_) {}
+
+  return { success: true };
 }
 
 // -------------------------------------------------------------
@@ -242,11 +236,9 @@ export async function updateOffers(offersData: any, user: string, pass: string) 
   try {
     const filePath = path.join(process.cwd(), 'data', 'offers.json');
     await fs.writeFile(filePath, JSON.stringify(offersData, null, 2), 'utf8');
-    return { success: true };
-  } catch (error) {
-    console.error("Error writing offers json:", error);
-    throw new Error("Failed to save offers.");
-  }
+  } catch (_) {}
+
+  return { success: true };
 }
 
 // -------------------------------------------------------------
@@ -289,9 +281,12 @@ export async function saveBanner(banner: any, user: string, pass: string) {
   };
 
   try {
-    await supabase.from('banners').upsert([bannerToSave]);
+    const { error } = await supabase.from('banners').upsert([bannerToSave]);
+    if (error) {
+      console.error("Supabase save banner error:", error);
+    }
   } catch (err) {
-    console.error("Supabase save banner error:", err);
+    console.error("Supabase save banner exception:", err);
   }
 
   if (banner.id) {
@@ -308,11 +303,9 @@ export async function saveBanner(banner: any, user: string, pass: string) {
   try {
     const filePath = path.join(process.cwd(), 'data', 'banners.json');
     await fs.writeFile(filePath, JSON.stringify(updatedBanners, null, 2), 'utf8');
-    return { success: true, banner: bannerToSave };
-  } catch (error) {
-    console.error("Error writing banners json:", error);
-    throw new Error("Failed to save banner.");
-  }
+  } catch (_) {}
+
+  return { success: true, banner: bannerToSave };
 }
 
 export async function deleteBanner(id: string, user: string, pass: string) {
@@ -321,22 +314,22 @@ export async function deleteBanner(id: string, user: string, pass: string) {
   }
 
   try {
-    await supabase.from('banners').delete().eq('id', id);
+    const { error } = await supabase.from('banners').delete().eq('id', id);
+    if (error) {
+      console.error("Supabase delete banner error:", error);
+    }
   } catch (err) {
-    console.error("Supabase delete banner error:", err);
+    console.error("Supabase delete banner exception:", err);
   }
-
-  const existingBanners = await fetchBanners();
-  const updatedBanners = existingBanners.filter((b: any) => String(b.id) !== String(id));
 
   try {
+    const existingBanners = await fetchBanners();
+    const updatedBanners = existingBanners.filter((b: any) => String(b.id) !== String(id));
     const filePath = path.join(process.cwd(), 'data', 'banners.json');
     await fs.writeFile(filePath, JSON.stringify(updatedBanners, null, 2), 'utf8');
-    return { success: true };
-  } catch (error) {
-    console.error("Error writing banners json:", error);
-    throw new Error("Failed to delete banner.");
-  }
+  } catch (_) {}
+
+  return { success: true };
 }
 
 // -------------------------------------------------------------
