@@ -1,247 +1,454 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import React, { useState, useEffect } from "react";
+import { Plus, Search, Edit2, Trash2, X, UploadCloud, CheckCircle } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
-export default function AdminInventory() {
-  const [modalOpen, setModalOpen] = useState(false);
+const categories = [
+  "Fruits",
+  "Vegetables",
+  "Leaves",
+  "Root Vegetables",
+  "Herbs",
+  "Leafy Greens",
+  "Flowers"
+];
 
-  const toggleModal = () => {
-    setModalOpen(!modalOpen);
+export default function AdminInventory() {
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  // Modal / Form states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<any | null>(null);
+
+  // Form fields
+  const [formName, setFormName] = useState("");
+  const [formCategory, setFormCategory] = useState(categories[0]);
+  const [formPrice, setFormPrice] = useState("");
+  const [formDiscount, setFormDiscount] = useState("0");
+  const [formDescription, setFormDescription] = useState("");
+  const [formImageUrl, setFormImageUrl] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const [submitting, setSubmitting] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage("");
+    }, 3500);
   };
 
-  const [inventoryItems, setInventoryItems] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  React.useEffect(() => {
-    async function loadItems() {
-      try {
-        const { fetchItems } = await import("@/app/actions");
-        const data = await fetchItems();
-
-        // Add dummy stock data since it's not in the items table schema
-        const dataWithStock = (data || []).map((item: any) => ({
-          ...item,
-          stock: Math.floor(Math.random() * 200),
-          maxStock: 200,
-          stockStatus: "normal",
-          categoryColor: "bg-primary-container/20 text-on-primary-container"
-        }));
-        setInventoryItems(dataWithStock);
-      } catch (err) {
-        console.error("Error fetching items:", err);
-      } finally {
-        setLoading(false);
-      }
+  const loadItems = async () => {
+    setLoading(true);
+    try {
+      const { fetchItems } = await import("@/app/actions");
+      const data = await fetchItems();
+      setItems(data || []);
+    } catch (err) {
+      console.error("Error loading inventory items:", err);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
     loadItems();
   }, []);
 
+  const openAddModal = () => {
+    setEditingItem(null);
+    setFormName("");
+    setFormCategory(categories[0]);
+    setFormPrice("");
+    setFormDiscount("0");
+    setFormDescription("");
+    setFormImageUrl("");
+    setSelectedFile(null);
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (item: any) => {
+    setEditingItem(item);
+    setFormName(item.name || "");
+    setFormCategory(item.category || categories[0]);
+    setFormPrice(item.price !== undefined ? String(item.price) : "");
+    setFormDiscount(item.discount !== undefined ? String(item.discount) : "0");
+    setFormDescription(item.description || "");
+    setFormImageUrl(item.image_url || "");
+    setSelectedFile(null);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSaveItem = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    const user = sessionStorage.getItem("admin_user") || "";
+    const pass = sessionStorage.getItem("admin_pass") || "";
+
+    try {
+      let finalImageUrl = formImageUrl;
+
+      // If a new file is uploaded, push to Supabase items storage bucket
+      if (selectedFile) {
+        const fileExt = selectedFile.name.split('.').pop() || 'png';
+        const fileName = `item-${Date.now()}-${Math.random().toString(36).substring(2, 6)}.${fileExt}`;
+
+        try {
+          // Attempt bucket creation if not existing
+          try {
+            await supabase.storage.createBucket('items', { public: true });
+          } catch (_) {}
+
+          const { error: uploadErr } = await supabase.storage
+            .from('items')
+            .upload(fileName, selectedFile, { upsert: true });
+
+          if (!uploadErr) {
+            const { data: urlData } = supabase.storage.from('items').getPublicUrl(fileName);
+            finalImageUrl = urlData.publicUrl;
+          }
+        } catch (storageErr) {
+          console.error("Storage upload error:", storageErr);
+        }
+      }
+
+      const itemPayload = {
+        id: editingItem ? editingItem.id : undefined,
+        name: formName,
+        category: formCategory,
+        price: parseFloat(formPrice) || formPrice,
+        discount: parseFloat(formDiscount) || 0,
+        description: formDescription,
+        image_url: finalImageUrl || null
+      };
+
+      const { saveItem } = await import("@/app/actions");
+      await saveItem(itemPayload, user, pass);
+
+      showToast(editingItem ? "Item updated successfully!" : "New product created successfully!");
+      closeModal();
+      await loadItems();
+    } catch (err: any) {
+      console.error("Failed to save item:", err);
+      showToast(err.message || "Failed to save item.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDeleteItem = async (id: any) => {
+    if (!confirm("Are you sure you want to delete this product?")) return;
+    const user = sessionStorage.getItem("admin_user") || "";
+    const pass = sessionStorage.getItem("admin_pass") || "";
+
+    try {
+      const { deleteItem } = await import("@/app/actions");
+      await deleteItem(id, user, pass);
+      showToast("Product deleted successfully!");
+      await loadItems();
+    } catch (err: any) {
+      console.error("Failed to delete item:", err);
+      showToast(err.message || "Failed to delete item.");
+    }
+  };
+
+  // Filter items
+  const filteredItems = items.filter((item) => {
+    const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || item.category?.toLowerCase() === selectedCategory.toLowerCase();
+    return matchesSearch && matchesCategory;
+  });
+
   return (
-    <div className="bg-surface text-on-surface min-h-screen">
-      {/* SideNavBar Shell */}
-      <aside className="fixed left-0 top-0 h-screen flex flex-col border-r border-outline-variant bg-surface-container-low w-64 z-40">
-        <div className="p-md">
-          <div className="flex items-center gap-3 mb-2">
-            <img alt="Capedo Impex Logo" className="w-10 h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh" />
-            <h1 className="font-headline-md text-headline-md font-bold text-on-surface">Capedo Impex</h1>
-          </div>
-          <p className="text-on-surface-variant font-label-md text-label-md">Admin Panel</p>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-2xl font-extrabold text-[#113a1a]">Inventory Management</h1>
+          <p className="text-sm text-[#113a1a]/70 font-medium mt-1">
+            Manage product catalog, prices, and images saved to Supabase.
+          </p>
         </div>
-        <nav className="flex-1 mt-md">
-          <Link href="/admin" className="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors font-label-md text-label-md">
-            <span className="material-symbols-outlined">dashboard</span>
-            <span>Dashboard</span>
-          </Link>
-          <Link href="/admin/inventory" className="bg-primary-container text-on-primary-container rounded-xl mx-2 my-1 px-4 py-3 flex items-center gap-3 font-label-md text-label-md">
-            <span className="material-symbols-outlined">inventory_2</span>
-            <span>Inventory</span>
-          </Link>
-          <Link href="#" className="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors font-label-md text-label-md">
-            <span className="material-symbols-outlined">shopping_bag</span>
-            <span>Orders</span>
-          </Link>
-          <Link href="#" className="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors font-label-md text-label-md">
-            <span className="material-symbols-outlined">campaign</span>
-            <span>Banners</span>
-          </Link>
-        </nav>
-        <div className="p-md mt-auto border-t border-outline-variant">
-          <div className="flex items-center gap-3 mb-md">
-            <div className="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden">
-              <img alt="Admin User" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0TMvsZ-iXZyP5v0PQLU3mp8dpHxy2EkXLWpDT52Vk6uqDpzqHPI71pXdH4uLPFUMsQnerPZchHmOh-tSI1C6lL5E-j2eXSY0m2apWUnwrgjYO9pnsMhBNtZfW_kxY0G04KygayZI4u_aiSdB1nkkFufieObAz4XheSJ37NPknv3r9QXNmbKwvjZ9BwfkLYbBT4CJ8MiopjNPayuWafisAN7aB2v9En3qYB-02hM8m-hP74x5FW3WrSNYX2tbGYRDY1FG7R2dX-q0y" />
-            </div>
-            <div>
-              <p className="font-label-md text-label-md">Admin User</p>
-              <p className="text-caption font-caption text-on-surface-variant">Manage Capedo Impex</p>
-            </div>
-          </div>
-          <button className="w-full py-2 border border-outline text-primary font-label-md text-label-md rounded-lg hover:bg-primary-container hover:border-primary-container transition-all">
-            Logout
-          </button>
+        <button
+          onClick={openAddModal}
+          className="flex items-center gap-2 bg-[#15803d] text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-[#166534] transition-all shadow-sm"
+        >
+          <Plus size={16} />
+          <span>Add New Product</span>
+        </button>
+      </div>
+
+      {/* Filter & Search Toolbar */}
+      <div className="bg-white p-4 rounded-2xl border border-[#d2dfd5] shadow-sm flex flex-col sm:flex-row gap-4 justify-between items-center">
+        <div className="relative w-full sm:w-80">
+          <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#15803d]" />
+          <input
+            type="text"
+            placeholder="Search items..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 bg-[#f8faf8] border border-[#d2dfd5] rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#15803d]/30 focus:border-[#15803d]"
+          />
         </div>
-      </aside>
 
-      {/* Main Content Area */}
-      <main className="ml-64 p-margin-desktop min-h-screen flex flex-col">
-        <header className="flex justify-between items-center mb-lg">
-          <div>
-            <h2 className="font-headline-lg text-headline-lg text-on-surface">Inventory Management</h2>
-            <p className="text-on-surface-variant font-body-md text-body-md">Keep your stock levels fresh and accurate.</p>
-          </div>
-          <button onClick={toggleModal} className="bg-primary text-on-primary px-md py-3 rounded-xl font-label-md text-label-md flex items-center gap-2 shadow-sm hover:opacity-90 transition-all scale-95 active:scale-90">
-            <span className="material-symbols-outlined">add</span>
-            Add New Item
+        <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
+          <button
+            onClick={() => setSelectedCategory("All")}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              selectedCategory === "All"
+                ? "bg-[#15803d] text-white"
+                : "bg-[#f8faf8] text-[#113a1a]/70 hover:bg-[#e2ece5]"
+            }`}
+          >
+            All Categories
           </button>
-        </header>
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                selectedCategory === cat
+                  ? "bg-[#15803d] text-white"
+                  : "bg-[#f8faf8] text-[#113a1a]/70 hover:bg-[#e2ece5]"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
 
-        {/* High Density Table Container */}
-        <div className="bg-surface-container-lowest rounded-xl floating-shadow overflow-hidden flex-1 mb-xl">
-          <div className="p-sm flex justify-between items-center border-b border-outline-variant">
-            <div className="relative w-72">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-              <input className="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all" placeholder="Search products..." type="text" />
-            </div>
-            <div className="flex gap-xs">
-              <button className="flex items-center gap-1 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md transition-colors">
-                <span className="material-symbols-outlined text-[20px]">filter_list</span>
-                Filter
-              </button>
-              <button className="flex items-center gap-1 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md transition-colors">
-                <span className="material-symbols-outlined text-[20px]">download</span>
-                Export
-              </button>
-            </div>
+      {/* Products Table */}
+      <div className="bg-white rounded-2xl border border-[#d2dfd5] shadow-sm overflow-hidden">
+        {loading ? (
+          <div className="p-12 text-center text-gray-500 font-medium">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#15803d] mx-auto mb-3"></div>
+            Loading inventory products from Supabase...
           </div>
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="bg-surface-container-low text-left border-b border-outline-variant">
-                <th className="px-md py-4 font-label-md text-label-md text-on-surface-variant">Image</th>
-                <th className="px-md py-4 font-label-md text-label-md text-on-surface-variant">Item Name</th>
-                <th className="px-md py-4 font-label-md text-label-md text-on-surface-variant">Category</th>
-                <th className="px-md py-4 font-label-md text-label-md text-on-surface-variant">Price (£)</th>
-                <th className="px-md py-4 font-label-md text-label-md text-on-surface-variant">Stock Level</th>
-                <th className="px-md py-4 font-label-md text-label-md text-on-surface-variant text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-outline-variant">
-              {inventoryItems.map((item: any, index: number) => (
-                <tr key={item.id || index} className="hover:bg-surface-container-low transition-colors group cursor-pointer">
-                  <td className="px-md py-4">
-                    <div className="w-12 h-12 rounded-lg bg-surface overflow-hidden border border-outline-variant">
-                      <img alt={item.name} className="w-full h-full object-cover" src={item.image_url || "https://placehold.co/100"} />
-                    </div>
-                  </td>
-                  <td className="px-md py-4 font-body-md text-body-md text-on-surface font-semibold">{item.name}</td>
-                  <td className="px-md py-4">
-                    <span className={`px-3 py-1 rounded-full text-caption font-label-md ${item.categoryColor}`}>{item.category}</span>
-                  </td>
-                  <td className="px-md py-4 font-body-md text-body-md">£{item.price}</td>
-                  <td className="px-md py-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-24 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-                        <div
-                          className={`h-full ${item.stockStatus === 'low' ? 'bg-error' : item.stockStatus === 'warning' ? 'bg-[#f0ad00]' : 'bg-primary'}`}
-                          style={{ width: `${Math.min(100, Math.round((item.stock / item.maxStock) * 100))}%` }}
-                        ></div>
-                      </div>
-                      <span className={`text-caption ${item.stockStatus === 'low' ? 'text-error' : item.stockStatus === 'warning' ? 'text-[#5e4200]' : 'text-on-surface-variant'}`}>
-                        {item.stockStatus === 'low' || item.stockStatus === 'warning' ? `Low: ${item.stock} units` : `${item.stock} units`}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-md py-4 text-right">
-                    <div className="flex justify-end gap-2">
-                      <button className="p-2 text-on-surface-variant hover:text-primary transition-colors"><span className="material-symbols-outlined">edit</span></button>
-                      <button className="p-2 text-on-surface-variant hover:text-error transition-colors"><span className="material-symbols-outlined">delete</span></button>
-                    </div>
-                  </td>
+        ) : filteredItems.length === 0 ? (
+          <div className="p-12 text-center text-gray-500 font-medium">
+            No inventory items found matching your criteria.
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-[#f8faf8] border-b border-[#d2dfd5] text-xs font-extrabold text-[#113a1a]/70 uppercase tracking-wider">
+                  <th className="px-6 py-4">Image</th>
+                  <th className="px-6 py-4">Product Name</th>
+                  <th className="px-6 py-4">Category</th>
+                  <th className="px-6 py-4">Price</th>
+                  <th className="px-6 py-4">Discount</th>
+                  <th className="px-6 py-4 text-right">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          {/* Pagination */}
-          <div className="p-md bg-surface-container-low flex justify-between items-center border-t border-outline-variant">
-            <p className="text-caption font-caption text-on-surface-variant">Showing 1-4 of 124 items</p>
-            <div className="flex gap-2">
-              <button className="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors flex items-center justify-center"><span className="material-symbols-outlined">chevron_left</span></button>
-              <button className="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md">1</button>
-              <button className="px-4 py-2 rounded-lg hover:bg-surface-container-high font-label-md text-label-md transition-colors">2</button>
-              <button className="px-4 py-2 rounded-lg hover:bg-surface-container-high font-label-md text-label-md transition-colors">3</button>
-              <button className="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors flex items-center justify-center"><span className="material-symbols-outlined">chevron_right</span></button>
-            </div>
+              </thead>
+              <tbody className="divide-y divide-[#f0f4f1]">
+                {filteredItems.map((item: any, index: number) => (
+                  <tr key={item.id || index} className="hover:bg-[#f8faf8] transition-colors">
+                    <td className="px-6 py-3">
+                      <div className="w-12 h-12 rounded-xl bg-white border border-[#d2dfd5] overflow-hidden flex items-center justify-center p-1">
+                        <img
+                          alt={item.name}
+                          className="max-w-full max-h-full object-contain"
+                          src={item.image_url || "https://placehold.co/100"}
+                        />
+                      </div>
+                    </td>
+                    <td className="px-6 py-3 font-bold text-sm text-[#113a1a]">
+                      {item.name}
+                      {item.description && (
+                        <p className="text-xs font-normal text-gray-500 line-clamp-1 mt-0.5">
+                          {item.description}
+                        </p>
+                      )}
+                    </td>
+                    <td className="px-6 py-3">
+                      <span className="px-3 py-1 bg-[#e2ece5] text-[#15803d] rounded-full text-xs font-bold">
+                        {item.category}
+                      </span>
+                    </td>
+                    <td className="px-6 py-3 font-bold text-sm text-[#15803d]">
+                      {typeof item.price === 'number' || !isNaN(parseFloat(item.price))
+                        ? `£${item.price}`
+                        : item.price}
+                    </td>
+                    <td className="px-6 py-3 text-xs font-bold text-gray-600">
+                      {item.discount ? `${item.discount}% OFF` : "-"}
+                    </td>
+                    <td className="px-6 py-3 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => openEditModal(item)}
+                          className="p-2 text-gray-500 hover:text-[#15803d] hover:bg-[#e2ece5] rounded-xl transition-all"
+                          title="Edit Item"
+                        >
+                          <Edit2 size={16} />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteItem(item.id)}
+                          className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                          title="Delete Item"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        </div>
+        )}
+      </div>
 
-        {/* Footer Shell */}
-        <footer className="bg-surface-container-lowest border-t border-outline-variant mt-auto">
-          <div className="w-full py-md px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-lg max-w-[1280px] mx-auto">
-            <p className="font-caption text-caption text-on-surface-variant">© 2026 Capedo Impex. Quality and Efficiency in Every Trade.</p>
-            <div className="flex gap-md justify-end">
-              <a className="text-on-surface-variant font-caption text-caption hover:text-primary transition-colors" href="#">Terms of Service</a>
-              <a className="text-on-surface-variant font-caption text-caption hover:text-primary transition-colors" href="#">Privacy Policy</a>
-              <a className="text-on-surface-variant font-caption text-caption hover:text-primary transition-colors" href="#">Support</a>
-            </div>
-          </div>
-        </footer>
-      </main>
-
-      {/* Modal: Add New Item */}
-      {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-margin-mobile">
-          <div className="absolute inset-0 bg-[#151b29] bg-opacity-40 backdrop-blur-sm" onClick={toggleModal}></div>
-          <div className="relative bg-surface rounded-2xl w-full max-w-[512px] shadow-2xl overflow-hidden scale-100 transition-transform duration-300">
-            <div className="p-md border-b border-outline-variant flex justify-between items-center">
-              <h3 className="font-headline-md text-headline-md text-on-surface">Add New Product</h3>
-              <button className="text-on-surface-variant hover:text-on-surface transition-colors flex items-center justify-center" onClick={toggleModal}>
-                <span className="material-symbols-outlined">close</span>
+      {/* Add / Edit Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-[#15803d]/20 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center border-b border-[#f0f4f1] pb-4 mb-4">
+              <h2 className="text-xl font-extrabold text-[#113a1a]">
+                {editingItem ? "Edit Product" : "Add New Product"}
+              </h2>
+              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600">
+                <X size={20} />
               </button>
             </div>
-            <form className="p-md space-y-md" onSubmit={(e) => { e.preventDefault(); toggleModal(); }}>
+
+            <form onSubmit={handleSaveItem} className="space-y-4">
               <div>
-                <label className="block font-label-md text-label-md text-on-surface mb-xs">Product Name</label>
-                <input className="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md bg-transparent" placeholder="e.g., Organic Avocados" type="text" />
+                <label className="block text-xs font-bold text-[#113a1a] uppercase tracking-wider mb-1">
+                  Product Name
+                </label>
+                <input
+                  required
+                  type="text"
+                  value={formName}
+                  onChange={(e) => setFormName(e.target.value)}
+                  placeholder="e.g., Green Banana"
+                  className="w-full px-4 py-2.5 bg-[#f8faf8] border border-[#d2dfd5] rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#15803d]/30 focus:border-[#15803d]"
+                />
               </div>
-              <div>
-                <label className="block font-label-md text-label-md text-on-surface mb-xs">Description</label>
-                <textarea className="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md resize-none bg-transparent" placeholder="Describe the item's origin and freshness..." rows={3}></textarea>
-              </div>
-              <div className="grid grid-cols-2 gap-md">
+
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-label-md text-label-md text-on-surface mb-xs">Price (£)</label>
-                  <input className="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md bg-transparent" placeholder="0.00" step="0.01" type="number" />
-                </div>
-                <div>
-                  <label className="block font-label-md text-label-md text-on-surface mb-xs">Category</label>
-                  <select className="w-full px-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all outline-none font-body-md text-body-md bg-surface">
-                    <option>Fruits</option>
-                    <option>Vegetables</option>
-                    <option>Meat</option>
-                    <option>Fish</option>
-                    <option>Desserts</option>
+                  <label className="block text-xs font-bold text-[#113a1a] uppercase tracking-wider mb-1">
+                    Category
+                  </label>
+                  <select
+                    value={formCategory}
+                    onChange={(e) => setFormCategory(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-[#f8faf8] border border-[#d2dfd5] rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#15803d]/30 focus:border-[#15803d]"
+                  >
+                    {categories.map((cat) => (
+                      <option key={cat} value={cat}>{cat}</option>
+                    ))}
                   </select>
                 </div>
-              </div>
-              <div>
-                <label className="block font-label-md text-label-md text-on-surface mb-xs">Product Image</label>
-                <div className="border-2 border-dashed border-outline-variant rounded-xl p-lg text-center hover:border-primary hover:bg-surface-container-low transition-all cursor-pointer group">
-                  <span className="material-symbols-outlined text-outline text-[48px] group-hover:text-primary mb-xs">cloud_upload</span>
-                  <p className="font-label-md text-label-md text-on-surface-variant">Click to upload or drag and drop</p>
-                  <p className="text-caption font-caption text-on-surface-variant">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#113a1a] uppercase tracking-wider mb-1">
+                    Price (£ or Text)
+                  </label>
+                  <input
+                    required
+                    type="text"
+                    value={formPrice}
+                    onChange={(e) => setFormPrice(e.target.value)}
+                    placeholder="e.g. 30 or As per demand"
+                    className="w-full px-4 py-2.5 bg-[#f8faf8] border border-[#d2dfd5] rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#15803d]/30 focus:border-[#15803d]"
+                  />
                 </div>
               </div>
-              <div className="flex gap-md pt-md">
-                <button className="flex-1 py-3 border border-outline text-on-surface-variant font-label-md text-label-md rounded-xl hover:bg-surface-container-high transition-colors" onClick={toggleModal} type="button">
+
+              <div>
+                <label className="block text-xs font-bold text-[#113a1a] uppercase tracking-wider mb-1">
+                  Discount (%)
+                </label>
+                <input
+                  type="number"
+                  value={formDiscount}
+                  onChange={(e) => setFormDiscount(e.target.value)}
+                  placeholder="0"
+                  className="w-full px-4 py-2.5 bg-[#f8faf8] border border-[#d2dfd5] rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#15803d]/30 focus:border-[#15803d]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#113a1a] uppercase tracking-wider mb-1">
+                  Description
+                </label>
+                <textarea
+                  rows={3}
+                  value={formDescription}
+                  onChange={(e) => setFormDescription(e.target.value)}
+                  placeholder="Enter product description..."
+                  className="w-full px-4 py-2.5 bg-[#f8faf8] border border-[#d2dfd5] rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#15803d]/30 focus:border-[#15803d]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#113a1a] uppercase tracking-wider mb-1">
+                  Image Upload or URL
+                </label>
+                <div className="space-y-2">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setSelectedFile(e.target.files ? e.target.files[0] : null)}
+                    className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#e2ece5] file:text-[#15803d] hover:file:bg-[#15803d] hover:file:text-white transition-all cursor-pointer"
+                  />
+                  <input
+                    type="url"
+                    value={formImageUrl}
+                    onChange={(e) => setFormImageUrl(e.target.value)}
+                    placeholder="Or paste public image URL"
+                    className="w-full px-4 py-2 bg-[#f8faf8] border border-[#d2dfd5] rounded-xl text-xs outline-none focus:border-[#15803d]"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="flex-1 py-3 border border-[#d2dfd5] text-gray-700 font-bold text-sm rounded-xl hover:bg-gray-50 transition-colors"
+                >
                   Cancel
                 </button>
-                <button className="flex-1 py-3 bg-primary text-on-primary font-label-md text-label-md rounded-xl hover:opacity-90 transition-colors shadow-sm" type="submit">
-                  Create Item
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="flex-1 py-3 bg-[#15803d] hover:bg-[#166534] text-white font-bold text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-70"
+                >
+                  {submitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Saving...
+                    </>
+                  ) : (
+                    "Save Product"
+                  )}
                 </button>
               </div>
             </form>
           </div>
+        </div>
+      )}
+
+      {/* Toast */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 bg-[#113a1a] text-white px-5 py-3 rounded-xl shadow-lg flex items-center gap-2 text-sm font-bold animate-in fade-in slide-in-from-bottom-2 z-50">
+          <CheckCircle size={18} className="text-emerald-400" />
+          <span>{toastMessage}</span>
         </div>
       )}
     </div>

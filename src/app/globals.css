@@ -94,17 +94,6 @@
   --color-on-error: #ffffff;
   --color-surface-variant: #dde2f6;
 
-  /* Spacing */
-  --spacing-lg: 40px;
-  --spacing-sm: 16px;
-  --spacing-xs: 8px;
-  --spacing-margin-desktop: 48px;
-  --spacing-md: 24px;
-  --spacing-margin-mobile: 16px;
-  --spacing-base: 4px;
-  --spacing-xl: 64px;
-  --spacing-gutter: 20px;
-
   /* Typography */
   --font-headline-lg: "Inter", sans-serif;
   --font-body-lg: "Inter", sans-serif;

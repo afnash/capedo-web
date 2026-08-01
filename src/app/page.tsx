@@ -14,11 +14,6 @@ const categories = [
     slug: "vegetables",
     image: "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/butter-gourd1.png"
   },
-  // {
-  //   name: "Leaves",
-  //   slug: "leaves",
-  //   image: "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/banana-leaf1.png"
-  // },
   {
     name: "Root Vegetables",
     slug: "root-vegetables",
@@ -43,6 +38,8 @@ const categories = [
 
 export default function Home() {
   const [products, setProducts] = useState<any[]>([]);
+  const [banners, setBanners] = useState<any[]>([]);
+  const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
   const [address, setAddress] = useState<any>(null);
   const [contact, setContact] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -53,13 +50,17 @@ export default function Home() {
   useEffect(() => {
     async function loadData() {
       try {
-        const { fetchItems, fetchAddress, fetchContact } = await import("@/app/actions");
-        const [itemsData, addressData, contactData] = await Promise.all([
+        const { fetchItems, fetchBanners, fetchAddress, fetchContact } = await import("@/app/actions");
+        const [itemsData, bannersData, addressData, contactData] = await Promise.all([
           fetchItems(),
+          fetchBanners(),
           fetchAddress(),
           fetchContact()
         ]);
         setProducts(itemsData || []);
+        // Filter only active banners
+        const activeBanners = (bannersData || []).filter((b: any) => b.active !== false);
+        setBanners(activeBanners);
         setAddress(addressData);
         setContact(contactData);
       } catch (err) {
@@ -71,6 +72,15 @@ export default function Home() {
     loadData();
   }, []);
 
+  // Auto slide banners every 5 seconds if multiple active banners exist
+  useEffect(() => {
+    if (banners.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentBannerIndex((prev) => (prev + 1) % banners.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [banners]);
+
   // Featured products (first 4 items in database)
   const featuredProducts = products.slice(0, 4);
 
@@ -78,6 +88,8 @@ export default function Home() {
   const searchedProducts = searchQuery.trim() !== ""
     ? products.filter((p: any) => p.name.toLowerCase().includes(searchQuery.toLowerCase()))
     : [];
+
+  const currentBanner = banners.length > 0 ? banners[currentBannerIndex] : null;
 
   return (
     <div className="min-h-screen bg-[#f3f7f4] flex flex-col">
@@ -100,7 +112,7 @@ export default function Home() {
               {categories.map((cat) => (
                 <Link
                   key={cat.slug}
-                  className="font-body-md text-base text-on-surface-variant hover:text-[#15803d] transition-colors duration-200 py-1 shrink-0"
+                  className="font-body-md text-base text-on-surface-variant hover:text-[#15803d] transition-colors duration-200 py-1 shrink-0 font-medium"
                   href={`/${cat.slug}`}
                 >
                   {cat.name}
@@ -108,7 +120,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="flex items-center shrink-0">
+          <div className="flex items-center gap-4 shrink-0">
             <div className="relative">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#15803d]">search</span>
               <input
@@ -119,6 +131,13 @@ export default function Home() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
+            <Link
+              href="/admin"
+              className="text-xs font-bold text-[#15803d] hover:bg-[#e2ece5] px-3 py-2 rounded-full border border-[#15803d]/30 transition-all flex items-center gap-1"
+            >
+              <span className="material-symbols-outlined text-sm">admin_panel_settings</span>
+              Admin
+            </Link>
           </div>
         </nav>
 
@@ -173,6 +192,13 @@ export default function Home() {
                 >
                   <span className="material-symbols-outlined">search</span>
                 </button>
+                <Link
+                  href="/admin"
+                  className="text-[#15803d] p-2 flex items-center justify-center rounded-full hover:bg-[#f3f7f4] transition-colors"
+                  title="Admin Portal"
+                >
+                  <span className="material-symbols-outlined">admin_panel_settings</span>
+                </Link>
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   className="text-[#15803d] p-2 flex items-center justify-center rounded-full hover:bg-[#f3f7f4] transition-colors"
@@ -256,41 +282,101 @@ export default function Home() {
         ) : (
           /* Normal Home Page Layout */
           <>
-            {/* Hero Section: Festival Offer */}
+            {/* Dynamic Supabase Hero Banner Section */}
             <section className="px-4 md:px-8 py-6 max-w-[1280px] mx-auto w-full">
               <div className="relative w-full h-[320px] md:h-[420px] rounded-[32px] overflow-hidden bg-[#e2ece5] group border border-[#15803d]/10">
-                <div className="absolute inset-0 flex items-center z-20">
-                  <div className="relative px-6 md:px-12 max-w-[500px]">
-                    <span className="bg-[#15803d] text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider inline-block mb-3">
-                      SEASONAL SPECIAL
-                    </span>
-                    <h1 className="text-3xl md:text-4xl font-extrabold text-[#113a1a] mb-3 leading-tight">
-                      Harvest Moon <br />Festival Offer
-                    </h1>
-                    <p className="text-sm md:text-base text-[#113a1a]/80 mb-6 max-w-[360px] leading-relaxed font-medium">
-                      Celebrate the season with 30% off on all Capedo Impex organic farm-fresh selections. Straight from our soil to your doorstep.
-                    </p>
-                    <button
-                      onClick={() => {
-                        const target = document.getElementById("explore-categories");
-                        if (target) target.scrollIntoView({ behavior: "smooth" });
-                      }}
-                      className="bg-[#15803d] text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center gap-2"
-                    >
-                      Shop Now
-                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </button>
+                {currentBanner ? (
+                  <>
+                    <div className="absolute inset-0 flex items-center z-20">
+                      <div className="relative px-6 md:px-12 max-w-[540px]">
+                        <span className="bg-[#15803d] text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider inline-block mb-3">
+                          SPECIAL PROMOTION
+                        </span>
+                        <h1 className="text-3xl md:text-4xl font-extrabold text-[#113a1a] mb-3 leading-tight">
+                          {currentBanner.title}
+                        </h1>
+                        <p className="text-sm md:text-base text-[#113a1a]/80 mb-6 max-w-[420px] leading-relaxed font-medium line-clamp-3">
+                          {currentBanner.subtitle}
+                        </p>
+                        <button
+                          onClick={() => {
+                            if (currentBanner.cta_link && currentBanner.cta_link.startsWith("#")) {
+                              const target = document.getElementById(currentBanner.cta_link.substring(1));
+                              if (target) target.scrollIntoView({ behavior: "smooth" });
+                            } else if (currentBanner.cta_link) {
+                              window.location.href = currentBanner.cta_link;
+                            } else {
+                              const target = document.getElementById("explore-categories");
+                              if (target) target.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }}
+                          className="bg-[#15803d] text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center gap-2"
+                        >
+                          {currentBanner.cta_text || "Shop Now"}
+                          <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                      </div>
+                    </div>
+                    {/* Background visual */}
+                    <div className="absolute top-0 right-0 h-full w-full md:w-2/3 overflow-hidden pointer-events-none z-10">
+                      <img
+                        alt={currentBanner.title}
+                        className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
+                        src={currentBanner.image_url}
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#e2ece5] via-[#e2ece5]/90 to-transparent z-10"></div>
+                  </>
+                ) : (
+                  <>
+                    <div className="absolute inset-0 flex items-center z-20">
+                      <div className="relative px-6 md:px-12 max-w-[500px]">
+                        <span className="bg-[#15803d] text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider inline-block mb-3">
+                          SEASONAL SPECIAL
+                        </span>
+                        <h1 className="text-3xl md:text-4xl font-extrabold text-[#113a1a] mb-3 leading-tight">
+                          Harvest Moon <br />Festival Offer
+                        </h1>
+                        <p className="text-sm md:text-base text-[#113a1a]/80 mb-6 max-w-[360px] leading-relaxed font-medium">
+                          Celebrate the season with 30% off on all Capedo Impex organic farm-fresh selections. Straight from our soil to your doorstep.
+                        </p>
+                        <button
+                          onClick={() => {
+                            const target = document.getElementById("explore-categories");
+                            if (target) target.scrollIntoView({ behavior: "smooth" });
+                          }}
+                          className="bg-[#15803d] text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center gap-2"
+                        >
+                          Shop Now
+                          <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="absolute top-0 right-0 h-full w-full md:w-2/3 overflow-hidden pointer-events-none z-10">
+                      <img
+                        alt="Vibrant organic produce"
+                        className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0ovYpvWpHJewCSCwZqpNQUK728cFh6HhOJMH4PPSxAbJQ3JIz_2re9UXS81vUhZPi4SEh0rtCX1wfVASwj-Tu0Aae1ne6qCFKmWlfJHGLZW7SfSCsYvWqd1-Dfb5pVwToiKfnBrQXkklS0kgdMEFfRDTvW-u_vSsjYkwgVYCL214ZG3aXb43Kr0mvxgWl81r5UQMwA-3yVkaoBjRekPFYtRytp7Ygwfbm36WIlnsuGFUOL_NqiEG5tY4Vm2Qa42XVEZD3CFqA5614"
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#e2ece5] via-[#e2ece5]/90 to-transparent z-10"></div>
+                  </>
+                )}
+
+                {/* Banner Carousel Indicator Dots */}
+                {banners.length > 1 && (
+                  <div className="absolute bottom-4 left-6 md:left-12 z-30 flex items-center gap-2">
+                    {banners.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentBannerIndex(idx)}
+                        className={`h-2 rounded-full transition-all ${
+                          idx === currentBannerIndex ? "w-6 bg-[#15803d]" : "w-2 bg-[#15803d]/40"
+                        }`}
+                      />
+                    ))}
                   </div>
-                </div>
-                {/* Background visual */}
-                <div className="absolute top-0 right-0 h-full w-full md:w-2/3 overflow-hidden pointer-events-none z-10">
-                  <img
-                    alt="Vibrant organic vegetables"
-                    className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0ovYpvWpHJewCSCwZqpNQUK728cFh6HhOJMH4PPSxAbJQ3JIz_2re9UXS81vUhZPi4SEh0rtCX1wfVASwj-Tu0Aae1ne6qCFKmWlfJHGLZW7SfSCsYvWqd1-Dfb5pVwToiKfnBrQXkklS0kgdMEFfRDTvW-u_vSsjYkwgVYCL214ZG3aXb43Kr0mvxgWl81r5UQMwA-3yVkaoBjRekPFYtRytp7Ygwfbm36WIlnsuGFUOL_NqiEG5tY4Vm2Qa42XVEZD3CFqA5614"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#e2ece5] via-[#e2ece5]/90 to-transparent z-10"></div>
+                )}
               </div>
             </section>
 
@@ -302,21 +388,21 @@ export default function Home() {
                   <p className="text-on-surface-variant text-sm mt-1 font-medium">Curated fresh picks for your daily needs at Capedo Impex</p>
                 </div>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
                 {categories.map((cat) => (
                   <Link
                     href={`/${cat.slug}`}
                     key={cat.slug}
                     className="flex flex-col items-center gap-3 p-3 bg-white rounded-2xl shadow-[0_4px_15px_rgba(21,128,61,0.03)] border border-[#15803d]/5 hover:border-[#15803d]/20 hover:shadow-[0_8px_24px_rgba(21,128,61,0.08)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
                   >
-                    <div className="w-full aspect-square bg-[#f3f7f4] rounded-xl flex items-center justify-center overflow-hidden p-2">
+                    <div className="w-16 h-16 md:w-20 md:y-20 rounded-xl bg-[#f3f7f4] flex items-center justify-center p-2 group-hover:scale-105 transition-transform duration-300 overflow-hidden">
                       <img
                         alt={cat.name}
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        className="max-w-full max-h-full object-contain"
                         src={cat.image}
                       />
                     </div>
-                    <span className="font-label-md text-xs md:text-sm text-on-surface group-hover:text-[#15803d] font-bold transition-colors">
+                    <span className="font-label-md text-xs md:text-sm text-on-surface group-hover:text-[#15803d] font-bold transition-colors text-center">
                       {cat.name}
                     </span>
                   </Link>
@@ -328,7 +414,7 @@ export default function Home() {
             <section className="px-4 md:px-8 py-8 max-w-[1280px] mx-auto w-full">
               <div className="mb-6">
                 <h2 className="text-xl md:text-2xl font-extrabold text-[#113a1a]">Weekly Featured</h2>
-                <p className="text-on-surface-variant text-sm mt-1 font-medium font-medium">Handpicked premium selections from Capedo Impex partners</p>
+                <p className="text-on-surface-variant text-sm mt-1 font-medium">Handpicked premium selections from Capedo Impex partners</p>
               </div>
 
               {loading ? (
@@ -383,8 +469,7 @@ export default function Home() {
               />
               <span className="font-headline-sm text-headline-sm font-extrabold text-[#15803d]">Capedo Impex</span>
             </div>
-            {/* Fix width wrapper */}
-            <p className="font-caption text-caption text-on-surface-variant max-w-[320px] leading-relaxed">
+            <p className="font-caption text-caption text-on-surface-variant max-w-[320px] leading-relaxed font-medium">
               Organic Minimalism for Daily Essentials. We deliver the freshest produce straight from local farms to your doorstep.
             </p>
             <p className="font-caption text-caption text-on-surface-variant opacity-70">
@@ -400,22 +485,22 @@ export default function Home() {
             <div className="space-y-3">
               <div className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-[#15803d] text-body-md mt-0.5">location_on</span>
-                <p className="font-caption text-caption text-on-surface-variant leading-relaxed">
-                  {address?.name || "Afnash"}<br />
-                  {address?.address || "Kalpetta"}<br />
-                  Pincode: {address?.pincode || "673572"}
+                <p className="font-caption text-caption text-on-surface-variant leading-relaxed font-medium">
+                  {address?.name || "Capedo Impex Ltd"}<br />
+                  {address?.address || "124 City Road, London"}<br />
+                  Pincode: {address?.pincode || "EC1V 2NX"}
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[#15803d] text-body-md">call</span>
-                <p className="font-caption text-caption text-on-surface-variant">
-                  Phone: {contact?.phone || address?.phone || "+91 7012509672"}
+                <p className="font-caption text-caption text-on-surface-variant font-medium">
+                  Phone: {contact?.phone || address?.phone || "+44 7767 969365"}
                 </p>
               </div>
               {contact?.whatshapp && (
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-[#15803d] text-body-md">chat</span>
-                  <p className="font-caption text-caption text-on-surface-variant">
+                  <p className="font-caption text-caption text-on-surface-variant font-medium">
                     WhatsApp: {contact.whatshapp}
                   </p>
                 </div>
@@ -428,11 +513,11 @@ export default function Home() {
             <h4 className="font-label-md text-label-md text-[#15803d] uppercase tracking-wider font-extrabold">
               Quick Links
             </h4>
-            <ul className="space-y-2 text-caption text-on-surface-variant">
+            <ul className="space-y-2 text-caption text-on-surface-variant font-medium">
               <li><Link className="hover:text-[#15803d] transition-colors" href="/fruits">Fruits Catalog</Link></li>
               <li><Link className="hover:text-[#15803d] transition-colors" href="/vegetables">Vegetables Catalog</Link></li>
               <li><Link className="hover:text-[#15803d] transition-colors" href="/leafy-greens">Leafy Greens Catalog</Link></li>
-              <li><Link className="hover:text-[#15803d] transition-colors" href="/">Home Page</Link></li>
+              <li><Link className="hover:text-[#15803d] transition-colors" href="/admin">Admin Portal</Link></li>
             </ul>
           </div>
         </div>

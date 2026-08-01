@@ -1,0 +1,22 @@
+[
+  {
+    "title": "test",
+    "subtitle": "tesettee",
+    "cta_text": "Shop Now",
+    "cta_link": "#explore-categories",
+    "image_url": "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/banners/banner-1785620032255-oj6k7.png",
+    "active": true,
+    "id": "banner-1785620033771",
+    "created_at": "2026-08-01T21:33:53.771Z"
+  },
+  {
+    "id": "banner-1",
+    "title": "Harvest Moon Festival Offer",
+    "subtitle": "Celebrate the season with 30% off on all Capedo Impex organic farm-fresh selections. Straight from our soil to your doorstep.",
+    "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuD0ovYpvWpHJewCSCwZqpNQUK728cFh6HhOJMH4PPSxAbJQ3JIz_2re9UXS81vUhZPi4SEh0rtCX1wfVASwj-Tu0Aae1ne6qCFKmWlfJHGLZW7SfSCsYvWqd1-Dfb5pVwToiKfnBrQXkklS0kgdMEFfRDTvW-u_vSsjYkwgVYCL214ZG3aXb43Kr0mvxgWl81r5UQMwA-3yVkaoBjRekPFYtRytp7Ygwfbm36WIlnsuGFUOL_NqiEG5tY4Vm2Qa42XVEZD3CFqA5614",
+    "cta_text": "Shop Now",
+    "cta_link": "#explore-categories",
+    "active": false,
+    "created_at": "2026-08-02T00:00:00.000Z"
+  }
+]
