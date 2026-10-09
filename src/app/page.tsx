@@ -100,12 +100,12 @@ export default function Home() {
           <div className="flex items-center gap-8 overflow-hidden">
             <Link className="flex items-center gap-2 group shrink-0" href="/">
               <img
-                alt="Capedo Impex Logo"
+                alt="Heva Impex Logo"
                 className="w-10 h-10 object-contain"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"
               />
               <span className="font-headline-md text-headline-md font-extrabold text-[#15803d] whitespace-nowrap">
-                Capedo Impex
+                Heva Impex
               </span>
             </Link>
             <div className="flex items-center gap-6 py-2 px-1 whitespace-nowrap">
@@ -177,12 +177,12 @@ export default function Home() {
             <>
               <Link className="flex items-center gap-2 group shrink-0" href="/">
                 <img
-                  alt="Capedo Impex Logo"
+                  alt="Heva Impex Logo"
                   className="w-8 h-8 object-contain"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"
                 />
                 <span className="font-bold text-[#15803d] text-base whitespace-nowrap">
-                  Capedo Impex
+                  Heva Impex
                 </span>
               </Link>
               <div className="flex items-center gap-1">
@@ -338,7 +338,7 @@ export default function Home() {
                           Harvest Moon <br />Festival Offer
                         </h1>
                         <p className="text-sm md:text-base text-[#113a1a]/80 mb-6 max-w-[360px] leading-relaxed font-medium">
-                          Celebrate the season with 30% off on all Capedo Impex organic farm-fresh selections. Straight from our soil to your doorstep.
+                          Celebrate the season with 30% off on all Heva Impex organic farm-fresh selections. Straight from our soil to your doorstep.
                         </p>
                         <button
                           onClick={() => {
@@ -385,7 +385,7 @@ export default function Home() {
               <div className="flex justify-between items-end mb-6">
                 <div>
                   <h2 className="text-xl md:text-2xl font-extrabold text-[#113a1a]">Explore Categories</h2>
-                  <p className="text-on-surface-variant text-sm mt-1 font-medium">Curated fresh picks for your daily needs at Capedo Impex</p>
+                  <p className="text-on-surface-variant text-sm mt-1 font-medium">Curated fresh picks for your daily needs at Heva Impex</p>
                 </div>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
@@ -414,7 +414,7 @@ export default function Home() {
             <section className="px-4 md:px-8 py-8 max-w-[1280px] mx-auto w-full">
               <div className="mb-6">
                 <h2 className="text-xl md:text-2xl font-extrabold text-[#113a1a]">Weekly Featured</h2>
-                <p className="text-on-surface-variant text-sm mt-1 font-medium">Handpicked premium selections from Capedo Impex partners</p>
+                <p className="text-on-surface-variant text-sm mt-1 font-medium">Handpicked premium selections from Heva Impex partners</p>
               </div>
 
               {loading ? (
@@ -463,17 +463,17 @@ export default function Home() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <img
-                alt="Capedo Impex Logo"
+                alt="Heva Impex Logo"
                 className="w-8 h-8 object-contain"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"
               />
-              <span className="font-headline-sm text-headline-sm font-extrabold text-[#15803d]">Capedo Impex</span>
+              <span className="font-headline-sm text-headline-sm font-extrabold text-[#15803d]">Heva Impex</span>
             </div>
             <p className="font-caption text-caption text-on-surface-variant max-w-[320px] leading-relaxed font-medium">
               Organic Minimalism for Daily Essentials. We deliver the freshest produce straight from local farms to your doorstep.
             </p>
             <p className="font-caption text-caption text-on-surface-variant opacity-70">
-              © 2026 Capedo Impex. All rights reserved.
+              © 2026 Heva Impex. All rights reserved.
             </p>
           </div>
 
@@ -486,7 +486,7 @@ export default function Home() {
               <div className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-[#15803d] text-body-md mt-0.5">location_on</span>
                 <p className="font-caption text-caption text-on-surface-variant leading-relaxed font-medium">
-                  {address?.name || "Capedo Impex Ltd"}<br />
+                  {address?.name || "Heva Impex Ltd"}<br />
                   {address?.address || "124 City Road, London"}<br />
                   Pincode: {address?.pincode || "EC1V 2NX"}
                 </p>

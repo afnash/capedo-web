@@ -12,10 +12,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://capedoimpex.co.uk"),
 
-  title: "Capedo Impex | Fresh Fruits, Vegetables & Export Products",
+  title: "Heva Impex | Fresh Fruits, Vegetables & Export Products",
 
   description:
-    "Capedo Impex supplies premium fruits, vegetables, herbs, leafy greens, flowers and agricultural products for wholesale and export markets.",
+    "Heva Impex supplies premium fruits, vegetables, herbs, leafy greens, flowers and agricultural products for wholesale and export markets.",
 
   icons: {
     icon: "/icon.png",
@@ -24,17 +24,17 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Capedo Impex",
+    title: "Heva Impex",
     description:
       "Premium fruits, vegetables, herbs, flowers and agricultural products for export and wholesale distribution.",
     url: "https://capedoimpex.co.uk",
-    siteName: "Capedo Impex",
+    siteName: "Heva Impex",
     images: [
       {
         url: "https://ngxvldjiebyuuamxcpwi.supabase.co/storage/v1/object/public/items/capedo-logo.png",
         width: 1200,
         height: 630,
-        alt: "Capedo Impex",
+        alt: "Heva Impex",
       },
     ],
     type: "website",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Capedo Impex",
+    title: "Heva Impex",
     description:
       "Premium fruits, vegetables, herbs, flowers and agricultural products for export and wholesale distribution.",
     images: [

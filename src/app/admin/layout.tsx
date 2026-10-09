@@ -90,14 +90,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex flex-col items-center mb-6 sm:mb-8 text-center">
             <div className="w-16 h-16 rounded-2xl bg-[#e2ece5] flex items-center justify-center p-3 mb-4 border border-[#15803d]/20">
               <img
-                alt="Capedo Impex Logo"
+                alt="Heva Impex Logo"
                 className="w-full h-full object-contain"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"
               />
             </div>
             <h1 className="font-extrabold text-xl sm:text-2xl text-[#113a1a]">Admin Portal Login</h1>
             <p className="text-on-surface-variant text-xs sm:text-sm mt-1">
-              Enter your admin credentials to access Capedo Impex management.
+              Enter your admin credentials to access Heva Impex management.
             </p>
           </div>
 
@@ -185,11 +185,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <header className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-[#d2dfd5] z-30 px-4 flex items-center justify-between shadow-sm">
         <Link href="/" className="flex items-center gap-2">
           <img
-            alt="Capedo Impex Logo"
+            alt="Heva Impex Logo"
             className="w-8 h-8 object-contain"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"
           />
-          <span className="font-extrabold text-[#113a1a] text-base">Capedo Admin</span>
+          <span className="font-extrabold text-[#113a1a] text-base">Heva Admin</span>
         </Link>
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -217,12 +217,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="p-6 border-b border-[#f0f4f1] flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <img
-              alt="Capedo Impex Logo"
+              alt="Heva Impex Logo"
               className="w-10 h-10 object-contain"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh"
             />
             <div>
-              <h1 className="font-extrabold text-[#113a1a] text-lg leading-tight">Capedo Impex</h1>
+              <h1 className="font-extrabold text-[#113a1a] text-lg leading-tight">Heva Impex</h1>
               <p className="text-xs text-[#15803d] font-bold">Admin Panel</p>
             </div>
           </Link>
@@ -263,7 +263,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
             <div className="overflow-hidden">
               <p className="font-bold text-sm text-[#113a1a] truncate">Admin User</p>
-              <p className="text-xs text-gray-500 truncate">Capedo Manager</p>
+              <p className="text-xs text-gray-500 truncate">Heva Manager</p>
             </div>
           </div>
           <button

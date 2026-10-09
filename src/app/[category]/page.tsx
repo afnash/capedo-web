@@ -66,12 +66,12 @@ export default function CategoryPage({ params }: { params: any }) {
           <div className="flex items-center gap-8 overflow-hidden">
             <Link className="flex items-center gap-2 group shrink-0" href="/">
               <img 
-                alt="Capedo Impex Logo" 
+                alt="Heva Impex Logo" 
                 className="w-10 h-10 object-contain" 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh" 
               />
               <span className="font-headline-md text-headline-md font-extrabold text-[#15803d] whitespace-nowrap">
-                Capedo Impex
+                Heva Impex
               </span>
             </Link>
             <div className="flex items-center gap-6 py-2 px-1 whitespace-nowrap">
@@ -140,12 +140,12 @@ export default function CategoryPage({ params }: { params: any }) {
             <>
               <Link className="flex items-center gap-2 group shrink-0" href="/">
                 <img 
-                  alt="Capedo Impex Logo" 
+                  alt="Heva Impex Logo" 
                   className="w-8 h-8 object-contain" 
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh" 
                 />
                 <span className="font-bold text-[#15803d] text-base whitespace-nowrap">
-                  Capedo Impex
+                  Heva Impex
                 </span>
               </Link>
               <div className="flex items-center gap-1">
@@ -253,18 +253,18 @@ export default function CategoryPage({ params }: { params: any }) {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <img 
-                alt="Capedo Impex Logo" 
+                alt="Heva Impex Logo" 
                 className="w-8 h-8 object-contain" 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1scmpnuL34IXeQ5fOAEZBDYkfJBJMy4dSmdVOuqCKOatdCr4oawuJzdKRo1k1-JYC1iCSEnyxBSKfZwV2dAedOXX25cYWfhg55JDO_aE-jNvKEON9pt9Wg2JDjceGAEYPXiHqlhmOqETJD9761qgBIFud62X-O09hn2N4SRPBAxqevclzvxSeaXE2hVWvWlA_m9tzMSEVdKFPy2dk-eQa7A0YU1FVa5lt884cni4bL-feaT0Iiz-7Yxdw5mu4JdXpwLw4-pcmoKjh" 
               />
-              <span className="font-headline-sm text-headline-sm font-extrabold text-[#15803d]">Capedo Impex</span>
+              <span className="font-headline-sm text-headline-sm font-extrabold text-[#15803d]">Heva Impex</span>
             </div>
             {/* Fix width wrapper */}
             <p className="font-caption text-caption text-on-surface-variant max-w-[320px] leading-relaxed">
               Organic Minimalism for Daily Essentials. We deliver the freshest produce straight from local farms to your doorstep.
             </p>
             <p className="font-caption text-caption text-on-surface-variant opacity-70">
-              © 2026 Capedo Impex. All rights reserved.
+              © 2026 Heva Impex. All rights reserved.
             </p>
           </div>
 

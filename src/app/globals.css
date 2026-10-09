@@ -48,7 +48,7 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  /* Capedo Impex Colors */
+  /* Heva Impex Colors */
   --color-on-secondary-fixed-variant: #444749;
   --color-on-tertiary: #ffffff;
   --color-surface-container-high: #e2e8fc;
@@ -140,7 +140,7 @@
 }
 
 :root {
-  /* Adjusted core colors to match Capedo */
+  /* Adjusted core colors to match Heva */
   --background: oklch(0.98 0 0); /* #faf8ff approx */
   --foreground: oklch(0.2 0 0);  /* #151b29 approx */
   --card: oklch(1 0 0);
@@ -221,7 +221,7 @@
   }
 }
 
-/* Custom Utilities for Capedo */
+/* Custom Utilities for Heva */
 @layer utilities {
   .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';

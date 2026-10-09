@@ -60,7 +60,7 @@ export default function AdminDashboard() {
         <div>
           <h1 className="text-2xl font-extrabold text-[#113a1a]">Dashboard Overview</h1>
           <p className="text-sm text-[#113a1a]/70 font-medium mt-1">
-            Monitor Capedo Impex store metrics, inventory status, and promotional banners.
+            Monitor Heva Impex store metrics, inventory status, and promotional banners.
           </p>
         </div>
         <div className="flex gap-3">
