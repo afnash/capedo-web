@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { ImageWithSkeleton } from "@/components/ui/image-with-skeleton";
 
 const categories = [
@@ -318,17 +319,17 @@ export default function Home() {
                   {/* Text Content Overlay */}
                   {(currentBanner.title || currentBanner.subtitle || currentBanner.description) && (
                     <div className="absolute inset-0 flex items-center z-20">
-                      <div className="relative px-4 sm:px-8 md:px-12 max-w-[75%] sm:max-w-[540px]">
-                        <span className="hidden sm:inline-block bg-[#15803d] text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold tracking-wider mb-1 sm:mb-2 md:mb-3 shadow-xs">
+                      <div className="relative px-5 sm:px-8 md:px-12 max-w-[75%] sm:max-w-[540px] flex flex-col items-start gap-1.5 sm:gap-2.5 md:gap-3.5">
+                        <span className="hidden sm:inline-block bg-[#15803d] text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold tracking-wider shadow-xs">
                           SPECIAL PROMOTION
                         </span>
                         {currentBanner.title && (
-                          <h1 className="text-sm sm:text-2xl md:text-4xl font-extrabold text-white mb-1 sm:mb-2 md:mb-3 leading-tight drop-shadow-md line-clamp-1 sm:line-clamp-2">
+                          <h1 className="text-base sm:text-2xl md:text-4xl font-extrabold text-white leading-tight drop-shadow-md line-clamp-1 sm:line-clamp-2">
                             {currentBanner.title}
                           </h1>
                         )}
                         {(currentBanner.description || currentBanner.subtitle) && (
-                          <p className="hidden sm:block text-xs sm:text-sm md:text-base text-white/90 mb-2 sm:mb-4 md:mb-6 max-w-[420px] leading-relaxed font-medium line-clamp-2 drop-shadow-xs">
+                          <p className="hidden sm:block text-xs sm:text-sm md:text-base text-white/90 max-w-[420px] leading-relaxed font-medium line-clamp-2 drop-shadow-xs">
                             {currentBanner.description || currentBanner.subtitle}
                           </p>
                         )}
@@ -346,10 +347,10 @@ export default function Home() {
                               if (target) target.scrollIntoView({ behavior: "smooth" });
                             }
                           }}
-                          className="bg-[#15803d] text-white px-3 py-1 sm:px-5 sm:py-2 md:px-6 md:py-2.5 rounded-full text-[11px] sm:text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center gap-1.5 sm:gap-2"
+                          className="bg-[#15803d] text-white px-3.5 py-1.5 sm:px-5 sm:py-2 md:px-6 md:py-2.5 rounded-full text-xs sm:text-sm font-bold shadow-md hover:bg-[#166534] transition-all inline-flex items-center justify-center gap-1.5 sm:gap-2 leading-none"
                         >
-                          {currentBanner.button_text || currentBanner.cta_text || "Shop Now"}
-                          <span className="material-symbols-outlined text-xs sm:text-sm">arrow_forward</span>
+                          <span>{currentBanner.button_text || currentBanner.cta_text || "Shop Now"}</span>
+                          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 stroke-[2.5]" />
                         </button>
                       </div>
                     </div>
