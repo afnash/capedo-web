@@ -83,6 +83,7 @@ export default function AdminBanners() {
 
     try {
       let finalImageUrl = formImageUrl;
+      let uploadedFileName = editingBanner ? editingBanner.file_name : undefined;
 
       // If a file was selected, upload to Supabase storage bucket 'banners'
       if (selectedFile) {
@@ -93,19 +94,21 @@ export default function AdminBanners() {
         const uploadRes = await uploadBannerFile(formData, user, pass);
         if (uploadRes && uploadRes.publicUrl) {
           finalImageUrl = uploadRes.publicUrl;
+          uploadedFileName = uploadRes.fileName;
         }
       }
 
       if (!finalImageUrl) {
-        throw new Error("Please upload a banner image or specify an image URL.");
+        throw new Error("Please select an image file to upload or enter a banner image URL.");
       }
 
       const bannerPayload = {
         id: editingBanner ? editingBanner.id : undefined,
-        title: formTitle,
-        subtitle: formSubtitle,
-        cta_text: formCtaText,
-        cta_link: formCtaLink,
+        file_name: uploadedFileName,
+        title: formTitle.trim(),
+        subtitle: formSubtitle.trim(),
+        cta_text: formCtaText || "Shop Now",
+        cta_link: formCtaLink || "#explore-categories",
         image_url: finalImageUrl,
         active: formActive,
       };
@@ -113,7 +116,7 @@ export default function AdminBanners() {
       const { saveBanner } = await import("@/app/actions");
       await saveBanner(bannerPayload, user, pass);
 
-      showToast(editingBanner ? "Banner updated successfully!" : "New banner created in 'banners' bucket!");
+      showToast(editingBanner ? "Banner updated successfully!" : "New banner uploaded & saved to 'banners' bucket!");
       closeModal();
       await loadBanners();
     } catch (err: any) {
@@ -163,7 +166,7 @@ export default function AdminBanners() {
         <div>
           <h1 className="text-2xl font-extrabold text-[#113a1a]">Banner Management</h1>
           <p className="text-sm text-[#113a1a]/70 font-medium mt-1">
-            Manage promotional hero banners saved in Supabase table and &apos;banners&apos; bucket.
+            Manage promotional hero banners saved directly in Supabase Storage bucket &apos;banners&apos;.
           </p>
         </div>
         <button
@@ -179,13 +182,13 @@ export default function AdminBanners() {
       {loading ? (
         <div className="bg-white rounded-2xl border border-[#d2dfd5] p-12 text-center text-gray-500 font-medium">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#15803d] mx-auto mb-3"></div>
-          Loading banners from Supabase...
+          Loading banners from Supabase storage bucket...
         </div>
       ) : banners.length === 0 ? (
         <div className="bg-white rounded-2xl border border-[#d2dfd5] p-12 text-center text-gray-500 font-medium space-y-3">
           <ImageIcon size={40} className="mx-auto text-[#15803d]/40" />
-          <p className="text-lg font-bold text-[#113a1a]">No Hero Banners Found</p>
-          <p className="text-xs text-gray-500">Create your first banner to feature seasonal offers on the homepage.</p>
+          <p className="text-lg font-bold text-[#113a1a]">No Hero Banners in Bucket</p>
+          <p className="text-xs text-gray-500">Upload your first promotional banner directly to the Supabase storage bucket.</p>
           <button
             onClick={openAddModal}
             className="inline-flex items-center gap-2 bg-[#15803d] text-white px-4 py-2 rounded-xl text-xs font-bold"
@@ -213,7 +216,7 @@ export default function AdminBanners() {
                   <span className="text-[10px] font-extrabold uppercase tracking-wider bg-[#15803d] text-white px-2 py-0.5 rounded-md inline-block w-max mb-1">
                     {banner.cta_text || "Featured"}
                   </span>
-                  <h3 className="font-extrabold text-lg leading-tight line-clamp-1">{banner.title}</h3>
+                  <h3 className="font-extrabold text-lg leading-tight line-clamp-1">{banner.title || "Graphic Banner"}</h3>
                 </div>
                 <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-[#113a1a] shadow-sm">
                   <span className={`w-2 h-2 rounded-full ${banner.active ? 'bg-emerald-500' : 'bg-gray-400'}`}></span>
@@ -225,7 +228,7 @@ export default function AdminBanners() {
               <div className="p-5 flex-1 flex flex-col justify-between gap-4">
                 <div>
                   <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed font-medium">
-                    {banner.subtitle || "No description provided."}
+                    {banner.subtitle || "No description text (full-card visual display)."}
                   </p>
                   <p className="text-xs font-bold text-[#15803d] mt-2">
                     CTA Link: <span className="text-gray-700 font-normal">{banner.cta_link || "#explore-categories"}</span>
@@ -288,24 +291,23 @@ export default function AdminBanners() {
             <form onSubmit={handleSaveBanner} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-[#113a1a] uppercase tracking-wider mb-1">
-                  Banner Headline Title
+                  Banner Headline Title <span className="text-gray-400 font-normal lowercase">(optional)</span>
                 </label>
                 <input
-                  required
                   type="text"
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
-                  placeholder="e.g. Fresh Produce Direct from Farms"
+                  placeholder="e.g. Fresh Seasonal Harvest (leave empty for graphic banner)"
                   className="w-full px-4 py-2.5 bg-[#f8faf8] border border-[#d2dfd5] rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#15803d]/30 focus:border-[#15803d]"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-bold text-[#113a1a] uppercase tracking-wider mb-1">
-                  Banner Subtitle / Description
+                  Banner Subtitle / Description <span className="text-gray-400 font-normal lowercase">(optional)</span>
                 </label>
                 <textarea
-                  rows={3}
+                  rows={2}
                   value={formSubtitle}
                   onChange={(e) => setFormSubtitle(e.target.value)}
                   placeholder="Enter attractive banner description..."
@@ -319,7 +321,6 @@ export default function AdminBanners() {
                     CTA Button Text
                   </label>
                   <input
-                    required
                     type="text"
                     value={formCtaText}
                     onChange={(e) => setFormCtaText(e.target.value)}
@@ -333,7 +334,6 @@ export default function AdminBanners() {
                     CTA Button Link
                   </label>
                   <input
-                    required
                     type="text"
                     value={formCtaLink}
                     onChange={(e) => setFormCtaLink(e.target.value)}
@@ -345,7 +345,7 @@ export default function AdminBanners() {
 
               <div>
                 <label className="block text-xs font-bold text-[#113a1a] uppercase tracking-wider mb-1">
-                  Banner Image (Upload to &apos;banners&apos; bucket or Image URL)
+                  Banner Image (Upload to Supabase &apos;banners&apos; bucket)
                 </label>
                 <div className="space-y-2">
                   <input
@@ -358,9 +358,23 @@ export default function AdminBanners() {
                     type="url"
                     value={formImageUrl}
                     onChange={(e) => setFormImageUrl(e.target.value)}
-                    placeholder="Or paste public banner image URL"
+                    placeholder="Or enter existing public Supabase image URL"
                     className="w-full px-4 py-2 bg-[#f8faf8] border border-[#d2dfd5] rounded-xl text-xs outline-none focus:border-[#15803d]"
                   />
+
+                  {/* Image Live Preview */}
+                  {(selectedFile || formImageUrl) && (
+                    <div className="mt-2 relative rounded-xl overflow-hidden h-28 bg-[#e2ece5] border border-[#d2dfd5]">
+                      <img
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                        src={selectedFile ? URL.createObjectURL(selectedFile) : formImageUrl}
+                      />
+                      <span className="absolute bottom-1 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded font-medium">
+                        Image Preview
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
 

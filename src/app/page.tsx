@@ -283,102 +283,102 @@ export default function Home() {
           /* Normal Home Page Layout */
           <>
             {/* Dynamic Supabase Hero Banner Section */}
-            <section className="px-4 md:px-8 py-6 max-w-[1280px] mx-auto w-full">
-              <div className="relative w-full h-[320px] md:h-[420px] rounded-[32px] overflow-hidden bg-[#e2ece5] group border border-[#15803d]/10">
-                {currentBanner ? (
-                  <>
-                    <div className="absolute inset-0 flex items-center z-20">
-                      <div className="relative px-6 md:px-12 max-w-[540px]">
-                        <span className="bg-[#15803d] text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider inline-block mb-3">
-                          SPECIAL PROMOTION
-                        </span>
-                        <h1 className="text-3xl md:text-4xl font-extrabold text-[#113a1a] mb-3 leading-tight">
-                          {currentBanner.title}
-                        </h1>
-                        <p className="text-sm md:text-base text-[#113a1a]/80 mb-6 max-w-[420px] leading-relaxed font-medium line-clamp-3">
-                          {currentBanner.subtitle}
-                        </p>
-                        <button
-                          onClick={() => {
-                            if (currentBanner.cta_link && currentBanner.cta_link.startsWith("#")) {
-                              const target = document.getElementById(currentBanner.cta_link.substring(1));
-                              if (target) target.scrollIntoView({ behavior: "smooth" });
-                            } else if (currentBanner.cta_link) {
-                              window.location.href = currentBanner.cta_link;
-                            } else {
-                              const target = document.getElementById("explore-categories");
-                              if (target) target.scrollIntoView({ behavior: "smooth" });
-                            }
-                          }}
-                          className="bg-[#15803d] text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center gap-2"
-                        >
-                          {currentBanner.cta_text || "Shop Now"}
-                          <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                        </button>
+            {currentBanner && (
+              <section className="px-4 md:px-8 py-6 max-w-[1280px] mx-auto w-full">
+                <div 
+                  onClick={() => {
+                    if (!currentBanner.title && currentBanner.cta_link) {
+                      if (currentBanner.cta_link.startsWith("#")) {
+                        const target = document.getElementById(currentBanner.cta_link.substring(1));
+                        if (target) target.scrollIntoView({ behavior: "smooth" });
+                      } else {
+                        window.location.href = currentBanner.cta_link;
+                      }
+                    }
+                  }}
+                  className={`relative w-full h-[320px] md:h-[420px] rounded-[32px] overflow-hidden bg-[#e2ece5] group border border-[#15803d]/10 ${
+                    !currentBanner.title && currentBanner.cta_link ? "cursor-pointer" : ""
+                  }`}
+                >
+                  {/* Text Content Overlay (if banner has title or subtitle) */}
+                  {(currentBanner.title || currentBanner.subtitle) ? (
+                    <>
+                      <div className="absolute inset-0 flex items-center z-20">
+                        <div className="relative px-6 md:px-12 max-w-[540px]">
+                          <span className="bg-[#15803d] text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider inline-block mb-3 shadow-xs">
+                            SPECIAL PROMOTION
+                          </span>
+                          {currentBanner.title && (
+                            <h1 className="text-3xl md:text-4xl font-extrabold text-[#113a1a] mb-3 leading-tight drop-shadow-xs">
+                              {currentBanner.title}
+                            </h1>
+                          )}
+                          {currentBanner.subtitle && (
+                            <p className="text-sm md:text-base text-[#113a1a]/80 mb-6 max-w-[420px] leading-relaxed font-medium line-clamp-3">
+                              {currentBanner.subtitle}
+                            </p>
+                          )}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (currentBanner.cta_link && currentBanner.cta_link.startsWith("#")) {
+                                const target = document.getElementById(currentBanner.cta_link.substring(1));
+                                if (target) target.scrollIntoView({ behavior: "smooth" });
+                              } else if (currentBanner.cta_link) {
+                                window.location.href = currentBanner.cta_link;
+                              } else {
+                                const target = document.getElementById("explore-categories");
+                                if (target) target.scrollIntoView({ behavior: "smooth" });
+                              }
+                            }}
+                            className="bg-[#15803d] text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center gap-2"
+                          >
+                            {currentBanner.cta_text || "Shop Now"}
+                            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                    {/* Background visual */}
-                    <div className="absolute top-0 right-0 h-full w-full md:w-2/3 overflow-hidden pointer-events-none z-10">
+                      {/* Background Visual (right aligned for text readability) */}
+                      <div className="absolute top-0 right-0 h-full w-full md:w-2/3 overflow-hidden pointer-events-none z-10">
+                        <img
+                          alt={currentBanner.title || "Promotional Banner"}
+                          className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
+                          src={currentBanner.image_url}
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#e2ece5] via-[#e2ece5]/90 to-transparent z-10"></div>
+                    </>
+                  ) : (
+                    /* Full-width Image Banner when no title text is set */
+                    <div className="absolute inset-0 w-full h-full overflow-hidden">
                       <img
-                        alt={currentBanner.title}
+                        alt="Promotional Banner"
                         className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
                         src={currentBanner.image_url}
                       />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#e2ece5] via-[#e2ece5]/90 to-transparent z-10"></div>
-                  </>
-                ) : (
-                  <>
-                    <div className="absolute inset-0 flex items-center z-20">
-                      <div className="relative px-6 md:px-12 max-w-[500px]">
-                        <span className="bg-[#15803d] text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider inline-block mb-3">
-                          SEASONAL SPECIAL
-                        </span>
-                        <h1 className="text-3xl md:text-4xl font-extrabold text-[#113a1a] mb-3 leading-tight">
-                          Harvest Moon <br />Festival Offer
-                        </h1>
-                        <p className="text-sm md:text-base text-[#113a1a]/80 mb-6 max-w-[360px] leading-relaxed font-medium">
-                          Celebrate the season with 30% off on all Heva Impex organic farm-fresh selections. Straight from our soil to your doorstep.
-                        </p>
-                        <button
-                          onClick={() => {
-                            const target = document.getElementById("explore-categories");
-                            if (target) target.scrollIntoView({ behavior: "smooth" });
-                          }}
-                          className="bg-[#15803d] text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center gap-2"
-                        >
-                          Shop Now
-                          <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="absolute top-0 right-0 h-full w-full md:w-2/3 overflow-hidden pointer-events-none z-10">
-                      <img
-                        alt="Vibrant organic produce"
-                        className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0ovYpvWpHJewCSCwZqpNQUK728cFh6HhOJMH4PPSxAbJQ3JIz_2re9UXS81vUhZPi4SEh0rtCX1wfVASwj-Tu0Aae1ne6qCFKmWlfJHGLZW7SfSCsYvWqd1-Dfb5pVwToiKfnBrQXkklS0kgdMEFfRDTvW-u_vSsjYkwgVYCL214ZG3aXb43Kr0mvxgWl81r5UQMwA-3yVkaoBjRekPFYtRytp7Ygwfbm36WIlnsuGFUOL_NqiEG5tY4Vm2Qa42XVEZD3CFqA5614"
-                      />
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#e2ece5] via-[#e2ece5]/90 to-transparent z-10"></div>
-                  </>
-                )}
+                  )}
 
-                {/* Banner Carousel Indicator Dots */}
-                {banners.length > 1 && (
-                  <div className="absolute bottom-4 left-6 md:left-12 z-30 flex items-center gap-2">
-                    {banners.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setCurrentBannerIndex(idx)}
-                        className={`h-2 rounded-full transition-all ${
-                          idx === currentBannerIndex ? "w-6 bg-[#15803d]" : "w-2 bg-[#15803d]/40"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </section>
+                  {/* Banner Carousel Indicator Dots */}
+                  {banners.length > 1 && (
+                    <div className="absolute bottom-4 left-6 md:left-12 z-30 flex items-center gap-2">
+                      {banners.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCurrentBannerIndex(idx);
+                          }}
+                          className={`h-2 rounded-full transition-all ${
+                            idx === currentBannerIndex ? "w-6 bg-[#15803d]" : "w-2 bg-[#15803d]/40"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
 
             {/* Categories Grid */}
             <section id="explore-categories" className="px-4 md:px-8 py-8 max-w-[1280px] mx-auto w-full">
