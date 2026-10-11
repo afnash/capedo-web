@@ -59,7 +59,7 @@ export default function Home() {
         ]);
         setProducts(itemsData || []);
         // Filter only active, non-deleted banners
-        const activeBanners = (bannersData || []).filter((b: any) => 
+        const activeBanners = (bannersData || []).filter((b: any) =>
           !b.deleted_at && (b.status ? b.status === "active" : b.active !== false)
         );
         setBanners(activeBanners);
@@ -194,13 +194,13 @@ export default function Home() {
                 >
                   <span className="material-symbols-outlined">search</span>
                 </button>
-                <Link
+                {/* <Link
                   href="/admin"
                   className="text-[#15803d] p-2 flex items-center justify-center rounded-full hover:bg-[#f3f7f4] transition-colors"
                   title="Admin Portal"
                 >
                   <span className="material-symbols-outlined">admin_panel_settings</span>
-                </Link>
+                </Link> */}
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   className="text-[#15803d] p-2 flex items-center justify-center rounded-full hover:bg-[#f3f7f4] transition-colors"
@@ -287,7 +287,7 @@ export default function Home() {
             {/* Dynamic Supabase Hero Banner Section */}
             {currentBanner && (
               <section className="px-4 md:px-8 py-6 max-w-[1280px] mx-auto w-full">
-                <div 
+                <div
                   onClick={() => {
                     if (!currentBanner.title && !currentBanner.subtitle && !currentBanner.description && currentBanner.cta_link) {
                       const link = currentBanner.cta_link;
@@ -299,9 +299,8 @@ export default function Home() {
                       }
                     }
                   }}
-                  className={`relative w-full h-[320px] md:h-[420px] rounded-[32px] overflow-hidden group border border-black/10 shadow-sm ${
-                    !currentBanner.title && !currentBanner.subtitle && !currentBanner.description && currentBanner.cta_link ? "cursor-pointer" : ""
-                  }`}
+                  className={`relative w-full h-[320px] md:h-[420px] rounded-[32px] overflow-hidden group border border-black/10 shadow-sm ${!currentBanner.title && !currentBanner.subtitle && !currentBanner.description && currentBanner.cta_link ? "cursor-pointer" : ""
+                    }`}
                 >
                   {/* Text Content Overlay */}
                   <div className="absolute inset-0 flex items-center z-20">
@@ -363,9 +362,8 @@ export default function Home() {
                             e.stopPropagation();
                             setCurrentBannerIndex(idx);
                           }}
-                          className={`h-2 rounded-full transition-all ${
-                            idx === currentBannerIndex ? "w-6 bg-white" : "w-2 bg-white/50"
-                          }`}
+                          className={`h-2 rounded-full transition-all ${idx === currentBannerIndex ? "w-6 bg-white" : "w-2 bg-white/50"
+                            }`}
                         />
                       ))}
                     </div>
