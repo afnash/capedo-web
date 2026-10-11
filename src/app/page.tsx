@@ -133,13 +133,13 @@ export default function Home() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <Link
+            {/* <Link
               href="/admin"
               className="text-xs font-bold text-[#15803d] hover:bg-[#e2ece5] px-3 py-2 rounded-full border border-[#15803d]/30 transition-all flex items-center gap-1"
             >
               <span className="material-symbols-outlined text-sm">admin_panel_settings</span>
               Admin
-            </Link>
+            </Link> */}
           </div>
         </nav>
 
