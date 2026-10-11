@@ -62,11 +62,11 @@ export default function AdminBanners() {
   const openEditModal = (banner: any) => {
     setEditingBanner(banner);
     setFormTitle(banner.title || "");
-    setFormSubtitle(banner.subtitle || "");
-    setFormCtaText(banner.cta_text || "Shop Now");
+    setFormSubtitle(banner.description || banner.subtitle || "");
+    setFormCtaText(banner.button_text || banner.cta_text || "Shop Now");
     setFormCtaLink(banner.cta_link || "#explore-categories");
-    setFormImageUrl(banner.image_url || "");
-    setFormActive(banner.active !== undefined ? banner.active : true);
+    setFormImageUrl(banner.banner_url || banner.image_url || "");
+    setFormActive(banner.status ? banner.status === "active" : (banner.active !== false));
     setSelectedFile(null);
     setIsModalOpen(true);
   };
@@ -106,17 +106,21 @@ export default function AdminBanners() {
         id: editingBanner ? editingBanner.id : undefined,
         file_name: uploadedFileName,
         title: formTitle.trim(),
+        description: formSubtitle.trim(),
         subtitle: formSubtitle.trim(),
+        button_text: formCtaText || "Shop Now",
         cta_text: formCtaText || "Shop Now",
         cta_link: formCtaLink || "#explore-categories",
+        banner_url: finalImageUrl,
         image_url: finalImageUrl,
+        status: formActive ? "active" : "hidden",
         active: formActive,
       };
 
       const { saveBanner } = await import("@/app/actions");
       await saveBanner(bannerPayload, user, pass);
 
-      showToast(editingBanner ? "Banner updated successfully!" : "New banner uploaded & saved to 'banners' bucket!");
+      showToast(editingBanner ? "Banner updated successfully!" : "New banner saved successfully!");
       closeModal();
       await loadBanners();
     } catch (err: any) {
@@ -132,10 +136,16 @@ export default function AdminBanners() {
     const pass = sessionStorage.getItem("admin_pass") || "";
 
     try {
-      const updated = { ...banner, active: !banner.active };
+      const isCurrentlyActive = banner.status ? banner.status === "active" : (banner.active !== false);
+      const newStatus = isCurrentlyActive ? "hidden" : "active";
+      const updated = { 
+        ...banner, 
+        status: newStatus, 
+        active: newStatus === "active" 
+      };
       const { saveBanner } = await import("@/app/actions");
       await saveBanner(updated, user, pass);
-      showToast(`Banner ${updated.active ? 'activated' : 'hidden'} successfully!`);
+      showToast(`Banner ${newStatus === "active" ? 'activated' : 'hidden'} successfully!`);
       await loadBanners();
     } catch (err: any) {
       console.error("Failed to toggle banner status:", err);
@@ -210,17 +220,17 @@ export default function AdminBanners() {
                 <img
                   alt={banner.title || "Banner"}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  src={banner.image_url}
+                  src={banner.banner_url || banner.image_url}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-4 text-white">
                   <span className="text-[10px] font-extrabold uppercase tracking-wider bg-[#15803d] text-white px-2 py-0.5 rounded-md inline-block w-max mb-1">
-                    {banner.cta_text || "Featured"}
+                    {banner.button_text || banner.cta_text || "Featured"}
                   </span>
                   <h3 className="font-extrabold text-lg leading-tight line-clamp-1">{banner.title || "Graphic Banner"}</h3>
                 </div>
                 <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-[#113a1a] shadow-sm">
-                  <span className={`w-2 h-2 rounded-full ${banner.active ? 'bg-emerald-500' : 'bg-gray-400'}`}></span>
-                  {banner.active ? 'Active' : 'Hidden'}
+                  <span className={`w-2 h-2 rounded-full ${(banner.status ? banner.status === 'active' : banner.active) ? 'bg-emerald-500' : 'bg-gray-400'}`}></span>
+                  {(banner.status ? banner.status === 'active' : banner.active) ? 'Active' : 'Hidden'}
                 </div>
               </div>
 
@@ -228,7 +238,7 @@ export default function AdminBanners() {
               <div className="p-5 flex-1 flex flex-col justify-between gap-4">
                 <div>
                   <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed font-medium">
-                    {banner.subtitle || "No description text (full-card visual display)."}
+                    {banner.description || banner.subtitle || "No description text (full-card visual display)."}
                   </p>
                   <p className="text-xs font-bold text-[#15803d] mt-2">
                     CTA Link: <span className="text-gray-700 font-normal">{banner.cta_link || "#explore-categories"}</span>

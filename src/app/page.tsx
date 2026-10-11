@@ -58,8 +58,10 @@ export default function Home() {
           fetchContact()
         ]);
         setProducts(itemsData || []);
-        // Filter only active banners
-        const activeBanners = (bannersData || []).filter((b: any) => b.active !== false);
+        // Filter only active, non-deleted banners
+        const activeBanners = (bannersData || []).filter((b: any) => 
+          !b.deleted_at && (b.status ? b.status === "active" : b.active !== false)
+        );
         setBanners(activeBanners);
         setAddress(addressData);
         setContact(contactData);
@@ -287,77 +289,69 @@ export default function Home() {
               <section className="px-4 md:px-8 py-6 max-w-[1280px] mx-auto w-full">
                 <div 
                   onClick={() => {
-                    if (!currentBanner.title && currentBanner.cta_link) {
-                      if (currentBanner.cta_link.startsWith("#")) {
-                        const target = document.getElementById(currentBanner.cta_link.substring(1));
+                    if (!currentBanner.title && !currentBanner.subtitle && !currentBanner.description && currentBanner.cta_link) {
+                      const link = currentBanner.cta_link;
+                      if (link.startsWith("#")) {
+                        const target = document.getElementById(link.substring(1));
                         if (target) target.scrollIntoView({ behavior: "smooth" });
                       } else {
-                        window.location.href = currentBanner.cta_link;
+                        window.location.href = link;
                       }
                     }
                   }}
-                  className={`relative w-full h-[320px] md:h-[420px] rounded-[32px] overflow-hidden bg-[#e2ece5] group border border-[#15803d]/10 ${
-                    !currentBanner.title && currentBanner.cta_link ? "cursor-pointer" : ""
+                  className={`relative w-full h-[320px] md:h-[420px] rounded-[32px] overflow-hidden group border border-black/10 shadow-sm ${
+                    !currentBanner.title && !currentBanner.subtitle && !currentBanner.description && currentBanner.cta_link ? "cursor-pointer" : ""
                   }`}
                 >
-                  {/* Text Content Overlay (if banner has title or subtitle) */}
-                  {(currentBanner.title || currentBanner.subtitle) ? (
-                    <>
-                      <div className="absolute inset-0 flex items-center z-20">
-                        <div className="relative px-6 md:px-12 max-w-[540px]">
-                          <span className="bg-[#15803d] text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider inline-block mb-3 shadow-xs">
-                            SPECIAL PROMOTION
-                          </span>
-                          {currentBanner.title && (
-                            <h1 className="text-3xl md:text-4xl font-extrabold text-[#113a1a] mb-3 leading-tight drop-shadow-xs">
-                              {currentBanner.title}
-                            </h1>
-                          )}
-                          {currentBanner.subtitle && (
-                            <p className="text-sm md:text-base text-[#113a1a]/80 mb-6 max-w-[420px] leading-relaxed font-medium line-clamp-3">
-                              {currentBanner.subtitle}
-                            </p>
-                          )}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              if (currentBanner.cta_link && currentBanner.cta_link.startsWith("#")) {
-                                const target = document.getElementById(currentBanner.cta_link.substring(1));
-                                if (target) target.scrollIntoView({ behavior: "smooth" });
-                              } else if (currentBanner.cta_link) {
-                                window.location.href = currentBanner.cta_link;
-                              } else {
-                                const target = document.getElementById("explore-categories");
-                                if (target) target.scrollIntoView({ behavior: "smooth" });
-                              }
-                            }}
-                            className="bg-[#15803d] text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center gap-2"
-                          >
-                            {currentBanner.cta_text || "Shop Now"}
-                            <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                          </button>
-                        </div>
-                      </div>
-                      {/* Background Visual (right aligned for text readability) */}
-                      <div className="absolute top-0 right-0 h-full w-full md:w-2/3 overflow-hidden pointer-events-none z-10">
-                        <img
-                          alt={currentBanner.title || "Promotional Banner"}
-                          className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
-                          src={currentBanner.image_url}
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#e2ece5] via-[#e2ece5]/90 to-transparent z-10"></div>
-                    </>
-                  ) : (
-                    /* Full-width Image Banner when no title text is set */
-                    <div className="absolute inset-0 w-full h-full overflow-hidden">
-                      <img
-                        alt="Promotional Banner"
-                        className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
-                        src={currentBanner.image_url}
-                      />
+                  {/* Text Content Overlay */}
+                  <div className="absolute inset-0 flex items-center z-20">
+                    <div className="relative px-6 md:px-12 max-w-[540px]">
+                      <span className="bg-[#15803d] text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider inline-block mb-3 shadow-xs">
+                        SPECIAL PROMOTION
+                      </span>
+                      {currentBanner.title && (
+                        <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-3 leading-tight drop-shadow-md">
+                          {currentBanner.title}
+                        </h1>
+                      )}
+                      {(currentBanner.description || currentBanner.subtitle) && (
+                        <p className="text-sm md:text-base text-white/90 mb-6 max-w-[420px] leading-relaxed font-medium line-clamp-3 drop-shadow-xs">
+                          {currentBanner.description || currentBanner.subtitle}
+                        </p>
+                      )}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const link = currentBanner.cta_link;
+                          if (link && link.startsWith("#")) {
+                            const target = document.getElementById(link.substring(1));
+                            if (target) target.scrollIntoView({ behavior: "smooth" });
+                          } else if (link) {
+                            window.location.href = link;
+                          } else {
+                            const target = document.getElementById("explore-categories");
+                            if (target) target.scrollIntoView({ behavior: "smooth" });
+                          }
+                        }}
+                        className="bg-[#15803d] text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center gap-2"
+                      >
+                        {currentBanner.button_text || currentBanner.cta_text || "Shop Now"}
+                        <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                      </button>
                     </div>
-                  )}
+                  </div>
+
+                  {/* Full-width Background Banner Image (not pushed to right) */}
+                  <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-10">
+                    <img
+                      alt={currentBanner.title || "Promotional Banner"}
+                      className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
+                      src={currentBanner.banner_url || currentBanner.image_url}
+                    />
+                  </div>
+
+                  {/* Soft transparent gradient for text contrast (no white background) */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-transparent z-15 pointer-events-none"></div>
 
                   {/* Banner Carousel Indicator Dots */}
                   {banners.length > 1 && (
@@ -370,7 +364,7 @@ export default function Home() {
                             setCurrentBannerIndex(idx);
                           }}
                           className={`h-2 rounded-full transition-all ${
-                            idx === currentBannerIndex ? "w-6 bg-[#15803d]" : "w-2 bg-[#15803d]/40"
+                            idx === currentBannerIndex ? "w-6 bg-white" : "w-2 bg-white/50"
                           }`}
                         />
                       ))}

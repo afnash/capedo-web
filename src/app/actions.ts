@@ -242,7 +242,7 @@ export async function updateOffers(offersData: any, user: string, pass: string) 
 }
 
 // -------------------------------------------------------------
-// BANNERS ACTIONS (Stored directly in Supabase Storage Bucket 'banners')
+// BANNERS ACTIONS (Supabase 'banners' Table + Storage Bucket Fallback)
 // -------------------------------------------------------------
 
 const BANNERS_BUCKET = 'banners';
@@ -288,32 +288,63 @@ async function saveStorageBannersManifest(manifest: any[]): Promise<void> {
 }
 
 export async function fetchBanners() {
+  // 1. Try querying the Supabase 'banners' SQL table
   try {
-    // 1. List all files currently in the Supabase 'banners' bucket
+    const { data: tableData, error: tableError } = await supabase
+      .from('banners')
+      .select('*')
+      .is('deleted_at', null)
+      .order('created_at', { ascending: false });
+
+    if (!tableError && Array.isArray(tableData) && tableData.length > 0) {
+      return tableData.map((b: any) => ({
+        id: b.id,
+        title: b.title || "",
+        description: b.description || "",
+        subtitle: b.description || "",
+        button_text: b.button_text || "Shop Now",
+        cta_text: b.button_text || "Shop Now",
+        cta_link: b.cta_link || "#explore-categories",
+        banner_url: b.banner_url,
+        image_url: b.banner_url,
+        status: b.status || "active",
+        active: b.status === "active",
+        deleted_at: b.deleted_at,
+        created_at: b.created_at,
+        updated_at: b.updated_at,
+      }));
+    }
+  } catch (_) {
+    // Falls back gracefully if table does not exist yet
+  }
+
+  // 2. Fallback to Supabase Storage Bucket 'banners' manifest
+  try {
     const { data: files, error: filesError } = await supabase.storage.from(BANNERS_BUCKET).list();
 
     if (!filesError && Array.isArray(files)) {
-      // Filter out non-image files such as banners_manifest.json, folders, etc.
       const imageFiles = files.filter(f => 
         f.name !== MANIFEST_FILE && 
         /\.(png|jpe?g|webp|avif|gif|svg)$/i.test(f.name)
       );
 
-      // 2. Fetch the stored manifest from the bucket
       let manifest = await getStorageBannersManifest();
 
       // Filter out any stale dummy mock items (like old googleusercontent.com URLs or 'banner-1')
       manifest = manifest.filter(b => 
-        b && b.image_url && !b.image_url.includes('googleusercontent.com') && b.id !== 'banner-1'
+        b && (b.banner_url || b.image_url) && 
+        !((b.banner_url || b.image_url).includes('googleusercontent.com')) && 
+        b.id !== 'banner-1' &&
+        !b.deleted_at
       );
 
       let manifestChanged = false;
 
-      // 3. For any image present in the bucket that isn't yet in the manifest, add it automatically
       for (const file of imageFiles) {
         const publicUrl = supabase.storage.from(BANNERS_BUCKET).getPublicUrl(file.name).data.publicUrl;
         const existing = manifest.find((b: any) => 
           b.file_name === file.name || 
+          b.banner_url?.includes(file.name) ||
           b.image_url?.includes(file.name)
         );
 
@@ -322,11 +353,16 @@ export async function fetchBanners() {
             id: `banner-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
             file_name: file.name,
             title: "",
+            description: "",
             subtitle: "",
+            button_text: "Shop Now",
             cta_text: "Shop Now",
             cta_link: "#explore-categories",
+            banner_url: publicUrl,
             image_url: publicUrl,
+            status: "active",
             active: true,
+            deleted_at: null,
             created_at: file.created_at || new Date().toISOString(),
           });
           manifestChanged = true;
@@ -335,21 +371,41 @@ export async function fetchBanners() {
             existing.file_name = file.name;
             manifestChanged = true;
           }
-          if (!existing.image_url) {
+          if (!existing.banner_url) {
+            existing.banner_url = publicUrl;
             existing.image_url = publicUrl;
             manifestChanged = true;
           }
         }
       }
 
-      // 4. Remove manifest items whose image files no longer exist in the bucket
+      // Deduplicate manifest by file_name / banner_url
+      const uniqueManifest: any[] = [];
+      const seenFiles = new Set<string>();
+      for (const b of manifest) {
+        const key = b.file_name || ((b.banner_url || b.image_url) ? (b.banner_url || b.image_url).split('/').pop() : b.id);
+        if (!seenFiles.has(key)) {
+          seenFiles.add(key);
+          uniqueManifest.push(b);
+        } else {
+          const prevIdx = uniqueManifest.findIndex(item => 
+            (item.file_name && item.file_name === key) || 
+            ((item.banner_url || item.image_url) && (item.banner_url || item.image_url).endsWith('/' + key))
+          );
+          if (prevIdx !== -1 && !uniqueManifest[prevIdx].title && b.title) {
+            uniqueManifest[prevIdx] = b;
+          }
+          manifestChanged = true;
+        }
+      }
+      manifest = uniqueManifest;
+
       const validFileNames = new Set(imageFiles.map(f => f.name));
       const filteredManifest = manifest.filter((b: any) => {
-        if (b.file_name) {
-          return validFileNames.has(b.file_name);
-        }
-        if (b.image_url && b.image_url.includes(`/storage/v1/object/public/${BANNERS_BUCKET}/`)) {
-          const parts = b.image_url.split('/');
+        if (b.file_name) return validFileNames.has(b.file_name);
+        const url = b.banner_url || b.image_url;
+        if (url && url.includes(`/storage/v1/object/public/${BANNERS_BUCKET}/`)) {
+          const parts = url.split('/');
           const filename = parts[parts.length - 1];
           return validFileNames.has(filename);
         }
@@ -364,19 +420,21 @@ export async function fetchBanners() {
       return manifest;
     }
   } catch (err) {
-    console.error("Error fetching banners from Supabase storage bucket:", err);
+    console.error("Error fetching banners from storage fallback:", err);
   }
 
-  // Fallback to local data/banners.json (stripping any hardcoded mock banners)
+  // Fallback to local data/banners.json
   try {
     const filePath = path.join(process.cwd(), 'data', 'banners.json');
     const fileContents = await fs.readFile(filePath, 'utf8');
     const data = JSON.parse(fileContents);
     return (data || []).filter((b: any) => 
-      b && b.image_url && !b.image_url.includes('googleusercontent.com') && b.id !== 'banner-1'
+      b && (b.banner_url || b.image_url) && 
+      !((b.banner_url || b.image_url).includes('googleusercontent.com')) && 
+      b.id !== 'banner-1' &&
+      !b.deleted_at
     );
-  } catch (error) {
-    console.error("Error fetching banners from json:", error);
+  } catch (_) {
     return [];
   }
 }
@@ -386,37 +444,93 @@ export async function saveBanner(banner: any, user: string, pass: string) {
     throw new Error("Unauthorized");
   }
 
-  const existingBanners = await fetchBanners();
-  let updatedBanners = [...existingBanners];
+  const bannerUrl = banner.banner_url || banner.image_url;
+  const description = (banner.description || banner.subtitle || "").trim();
+  const buttonText = banner.button_text || banner.cta_text || "Shop Now";
+  const status = banner.status || (banner.active === false ? "hidden" : "active");
 
-  // Extract file_name if present or from image_url
+  // 1. Attempt save to Supabase 'banners' SQL table
+  try {
+    const dbPayload: any = {
+      title: (banner.title || "").trim(),
+      description: description,
+      button_text: buttonText,
+      cta_link: banner.cta_link || "#explore-categories",
+      banner_url: bannerUrl,
+      status: status,
+      updated_at: new Date().toISOString(),
+    };
+
+    // If banner has a valid UUID, include it
+    if (banner.id && !String(banner.id).startsWith('banner-')) {
+      dbPayload.id = banner.id;
+    }
+
+    const { data: savedRow, error: saveError } = await supabase
+      .from('banners')
+      .upsert([dbPayload])
+      .select()
+      .single();
+
+    if (!saveError && savedRow) {
+      return { 
+        success: true, 
+        banner: {
+          ...savedRow,
+          image_url: savedRow.banner_url,
+          subtitle: savedRow.description,
+          cta_text: savedRow.button_text,
+          active: savedRow.status === 'active'
+        }
+      };
+    }
+  } catch (err) {
+    console.log("Supabase banners table upsert skipped/failed, using storage fallback:", err);
+  }
+
+  // 2. Storage Bucket Manifest Fallback
+  let manifest = await getStorageBannersManifest();
+  if (!manifest || manifest.length === 0) {
+    manifest = await fetchBanners();
+  }
+  let updatedBanners = [...manifest];
+
   let fileName = banner.file_name;
-  if (!fileName && banner.image_url && banner.image_url.includes(`/storage/v1/object/public/${BANNERS_BUCKET}/`)) {
-    const parts = banner.image_url.split('/');
+  if (!fileName && bannerUrl && bannerUrl.includes(`/storage/v1/object/public/${BANNERS_BUCKET}/`)) {
+    const parts = bannerUrl.split('/');
     fileName = parts[parts.length - 1];
   }
 
   const bannerToSave = {
-    ...banner,
     id: banner.id || `banner-${Date.now()}`,
     file_name: fileName || banner.file_name,
-    title: banner.title || "",
-    subtitle: banner.subtitle || "",
-    cta_text: banner.cta_text || "Shop Now",
+    title: (banner.title || "").trim(),
+    description: description,
+    subtitle: description,
+    button_text: buttonText,
+    cta_text: buttonText,
     cta_link: banner.cta_link || "#explore-categories",
-    image_url: banner.image_url,
-    active: banner.active !== undefined ? banner.active : true,
+    banner_url: bannerUrl,
+    image_url: bannerUrl,
+    status: status,
+    active: status === "active",
+    deleted_at: null,
     created_at: banner.created_at || new Date().toISOString(),
     updated_at: new Date().toISOString(),
   };
 
-  if (banner.id) {
-    const idx = updatedBanners.findIndex((b: any) => String(b.id) === String(banner.id));
-    if (idx !== -1) {
-      updatedBanners[idx] = bannerToSave;
-    } else {
-      updatedBanners.unshift(bannerToSave);
-    }
+  const existingIdx = updatedBanners.findIndex((b: any) => 
+    (banner.id && String(b.id) === String(banner.id)) ||
+    (fileName && b.file_name === fileName) ||
+    (bannerUrl && (b.banner_url === bannerUrl || b.image_url === bannerUrl))
+  );
+
+  if (existingIdx !== -1) {
+    updatedBanners[existingIdx] = {
+      ...updatedBanners[existingIdx],
+      ...bannerToSave,
+      id: updatedBanners[existingIdx].id || bannerToSave.id,
+    };
   } else {
     updatedBanners.unshift(bannerToSave);
   }
@@ -431,22 +545,38 @@ export async function deleteBanner(id: string, user: string, pass: string) {
     throw new Error("Unauthorized");
   }
 
+  const nowIso = new Date().toISOString();
+
+  // 1. Soft delete in Supabase 'banners' table (sets deleted_at timestamp and status = 'hidden')
+  try {
+    const { error: dbError } = await supabase
+      .from('banners')
+      .update({
+        deleted_at: nowIso,
+        status: 'hidden',
+      })
+      .eq('id', id);
+
+    if (!dbError) {
+      return { success: true };
+    }
+  } catch (_) {}
+
+  // 2. Storage Bucket Manifest soft-delete / remove fallback
   const existingBanners = await fetchBanners();
   const bannerToDelete = existingBanners.find((b: any) => String(b.id) === String(id));
 
-  // If the banner has an image stored in Supabase 'banners' bucket, delete the file from the bucket
   if (bannerToDelete) {
     let fileName = bannerToDelete.file_name;
-    if (!fileName && bannerToDelete.image_url && bannerToDelete.image_url.includes(`/storage/v1/object/public/${BANNERS_BUCKET}/`)) {
-      const parts = bannerToDelete.image_url.split('/');
+    const url = bannerToDelete.banner_url || bannerToDelete.image_url;
+    if (!fileName && url && url.includes(`/storage/v1/object/public/${BANNERS_BUCKET}/`)) {
+      const parts = url.split('/');
       fileName = parts[parts.length - 1];
     }
     if (fileName) {
       try {
         await supabase.storage.from(BANNERS_BUCKET).remove([fileName]);
-      } catch (err) {
-        console.error("Error removing file from Supabase banners bucket:", err);
-      }
+      } catch (_) {}
     }
   }
 
