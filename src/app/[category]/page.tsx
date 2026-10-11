@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { ImageWithSkeleton } from "@/components/ui/image-with-skeleton";
 
 const categoryMap: Record<string, string> = {
   "fruits": "Fruits",
@@ -205,8 +206,24 @@ export default function CategoryPage({ params }: { params: any }) {
 
         {/* Product Grid */}
         {loading ? (
-          <div className="flex justify-center items-center py-24">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#15803d]"></div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(21,128,61,0.04)] border border-[#15803d]/10 flex flex-col animate-pulse"
+              >
+                <div className="aspect-square w-full bg-gradient-to-br from-gray-100 via-gray-200/50 to-gray-100 p-4 border-b border-[#f3f7f4] flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-gray-200/60"></div>
+                </div>
+                <div className="p-4 flex flex-col flex-1 justify-between gap-3 bg-[#fcfdfc]">
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 rounded w-4/5"></div>
+                    <div className="h-3 bg-gray-100 rounded w-1/2"></div>
+                  </div>
+                  <div className="h-5 bg-gray-200 rounded w-1/3 mt-1"></div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : filteredProducts.length === 0 ? (
           <div className="text-center py-24 bg-white rounded-3xl shadow-[0_4px_25px_rgba(21,128,61,0.04)] border border-[#d2dfd5]/40">
@@ -222,7 +239,7 @@ export default function CategoryPage({ params }: { params: any }) {
               >
                 {/* Adjust according to image size - Contain & padded, no cropping */}
                 <div className="relative aspect-square w-full overflow-hidden bg-white p-3 md:p-4 border-b border-[#f3f7f4] flex items-center justify-center">
-                  <img 
+                  <ImageWithSkeleton 
                     alt={product.name} 
                     className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105" 
                     src={product.image_url || "https://placehold.co/400"} 
@@ -277,9 +294,9 @@ export default function CategoryPage({ params }: { params: any }) {
               <div className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-[#15803d] text-body-md mt-0.5">location_on</span>
                 <p className="font-caption text-caption text-on-surface-variant leading-relaxed">
-                  {address?.name || "Afnash"}<br />
-                  {address?.address || "Kalpetta"}<br />
-                  Pincode: {address?.pincode || "673572"}
+                  {address?.name || ""}<br />
+                  {address?.address || ""}<br />
+                  Pincode: {address?.pincode || ""}
                 </p>
               </div>
               <div className="flex items-center gap-2">

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { ImageWithSkeleton } from "@/components/ui/image-with-skeleton";
 
 const categories = [
   {
@@ -46,6 +47,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [loadedBannerUrls, setLoadedBannerUrls] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     async function loadData() {
@@ -258,7 +260,7 @@ export default function Home() {
                     className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(21,128,61,0.04)] hover:shadow-[0_12px_32px_rgba(21,128,61,0.1)] hover:-translate-y-1 transition-all duration-300 flex flex-col group border border-[#15803d]/10 hover:border-[#15803d]/30"
                   >
                     <div className="relative aspect-square w-full overflow-hidden bg-white p-3 md:p-4 border-b border-[#f3f7f4] flex items-center justify-center">
-                      <img
+                      <ImageWithSkeleton
                         alt={product.name}
                         className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
                         src={product.image_url || "https://placehold.co/400"}
@@ -284,13 +286,24 @@ export default function Home() {
         ) : (
           /* Normal Home Page Layout */
           <>
-            {/* Dynamic Supabase Hero Banner Section */}
-            {currentBanner && (
+            {/* Dynamic Supabase Hero Banner Section or Skeleton */}
+            {loading ? (
+              <section className="px-4 md:px-8 py-6 max-w-[1280px] mx-auto w-full">
+                <div className="relative w-full aspect-[1216/420] rounded-2xl md:rounded-[32px] overflow-hidden bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse border border-black/5 shadow-xs flex items-center">
+                  <div className="px-6 md:px-12 w-full max-w-[540px] space-y-3">
+                    <div className="h-4 sm:h-5 w-24 sm:w-28 bg-gray-300/80 rounded-full"></div>
+                    <div className="h-6 sm:h-10 md:h-12 w-3/4 bg-gray-300/80 rounded-xl"></div>
+                    <div className="h-3 sm:h-4 w-1/2 bg-gray-300/60 rounded-md hidden sm:block"></div>
+                    <div className="h-7 sm:h-9 w-24 sm:w-32 bg-gray-300/80 rounded-full mt-3"></div>
+                  </div>
+                </div>
+              </section>
+            ) : currentBanner ? (
               <section className="px-4 md:px-8 py-6 max-w-[1280px] mx-auto w-full">
                 <div
                   onClick={() => {
-                    if (!currentBanner.title && !currentBanner.subtitle && !currentBanner.description && currentBanner.cta_link) {
-                      const link = currentBanner.cta_link;
+                    const link = currentBanner.cta_link;
+                    if (link) {
                       if (link.startsWith("#")) {
                         const target = document.getElementById(link.substring(1));
                         if (target) target.scrollIntoView({ behavior: "smooth" });
@@ -299,62 +312,81 @@ export default function Home() {
                       }
                     }
                   }}
-                  className={`relative w-full h-[320px] md:h-[420px] rounded-[32px] overflow-hidden group border border-black/10 shadow-sm ${!currentBanner.title && !currentBanner.subtitle && !currentBanner.description && currentBanner.cta_link ? "cursor-pointer" : ""
+                  className={`relative w-full aspect-[1216/420] rounded-2xl md:rounded-[32px] overflow-hidden group border border-black/10 shadow-sm ${currentBanner.cta_link ? "cursor-pointer" : ""
                     }`}
                 >
                   {/* Text Content Overlay */}
-                  <div className="absolute inset-0 flex items-center z-20">
-                    <div className="relative px-6 md:px-12 max-w-[540px]">
-                      <span className="bg-[#15803d] text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider inline-block mb-3 shadow-xs">
-                        SPECIAL PROMOTION
-                      </span>
-                      {currentBanner.title && (
-                        <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-3 leading-tight drop-shadow-md">
-                          {currentBanner.title}
-                        </h1>
-                      )}
-                      {(currentBanner.description || currentBanner.subtitle) && (
-                        <p className="text-sm md:text-base text-white/90 mb-6 max-w-[420px] leading-relaxed font-medium line-clamp-3 drop-shadow-xs">
-                          {currentBanner.description || currentBanner.subtitle}
-                        </p>
-                      )}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          const link = currentBanner.cta_link;
-                          if (link && link.startsWith("#")) {
-                            const target = document.getElementById(link.substring(1));
-                            if (target) target.scrollIntoView({ behavior: "smooth" });
-                          } else if (link) {
-                            window.location.href = link;
-                          } else {
-                            const target = document.getElementById("explore-categories");
-                            if (target) target.scrollIntoView({ behavior: "smooth" });
-                          }
-                        }}
-                        className="bg-[#15803d] text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center gap-2"
-                      >
-                        {currentBanner.button_text || currentBanner.cta_text || "Shop Now"}
-                        <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                      </button>
+                  {(currentBanner.title || currentBanner.subtitle || currentBanner.description) && (
+                    <div className="absolute inset-0 flex items-center z-20">
+                      <div className="relative px-4 sm:px-8 md:px-12 max-w-[75%] sm:max-w-[540px]">
+                        <span className="hidden sm:inline-block bg-[#15803d] text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold tracking-wider mb-1 sm:mb-2 md:mb-3 shadow-xs">
+                          SPECIAL PROMOTION
+                        </span>
+                        {currentBanner.title && (
+                          <h1 className="text-sm sm:text-2xl md:text-4xl font-extrabold text-white mb-1 sm:mb-2 md:mb-3 leading-tight drop-shadow-md line-clamp-1 sm:line-clamp-2">
+                            {currentBanner.title}
+                          </h1>
+                        )}
+                        {(currentBanner.description || currentBanner.subtitle) && (
+                          <p className="hidden sm:block text-xs sm:text-sm md:text-base text-white/90 mb-2 sm:mb-4 md:mb-6 max-w-[420px] leading-relaxed font-medium line-clamp-2 drop-shadow-xs">
+                            {currentBanner.description || currentBanner.subtitle}
+                          </p>
+                        )}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            const link = currentBanner.cta_link;
+                            if (link && link.startsWith("#")) {
+                              const target = document.getElementById(link.substring(1));
+                              if (target) target.scrollIntoView({ behavior: "smooth" });
+                            } else if (link) {
+                              window.location.href = link;
+                            } else {
+                              const target = document.getElementById("explore-categories");
+                              if (target) target.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }}
+                          className="bg-[#15803d] text-white px-3 py-1 sm:px-5 sm:py-2 md:px-6 md:py-2.5 rounded-full text-[11px] sm:text-sm font-bold shadow-md hover:bg-[#166534] transition-all flex items-center gap-1.5 sm:gap-2"
+                        >
+                          {currentBanner.button_text || currentBanner.cta_text || "Shop Now"}
+                          <span className="material-symbols-outlined text-xs sm:text-sm">arrow_forward</span>
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  )}
+
+                  {/* Shimmer skeleton behind banner image while loading */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse transition-opacity duration-700 pointer-events-none z-5 ${
+                      loadedBannerUrls[currentBanner.banner_url || currentBanner.image_url] ? "opacity-0" : "opacity-100"
+                    }`}
+                  />
 
                   {/* Full-width Background Banner Image (not pushed to right) */}
                   <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-10">
                     <img
                       alt={currentBanner.title || "Promotional Banner"}
-                      className="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
+                      className={`w-full h-full object-cover object-center transform group-hover:scale-102 transition-all duration-700 ${
+                        loadedBannerUrls[currentBanner.banner_url || currentBanner.image_url] ? "opacity-100" : "opacity-0"
+                      }`}
                       src={currentBanner.banner_url || currentBanner.image_url}
+                      onLoad={() => {
+                        const url = currentBanner.banner_url || currentBanner.image_url;
+                        if (url) {
+                          setLoadedBannerUrls((prev) => ({ ...prev, [url]: true }));
+                        }
+                      }}
                     />
                   </div>
 
-                  {/* Soft transparent gradient for text contrast (no white background) */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-transparent z-15 pointer-events-none"></div>
+                  {/* Soft transparent gradient for text contrast only if text exists (no white background) */}
+                  {(currentBanner.title || currentBanner.subtitle || currentBanner.description) && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-transparent z-15 pointer-events-none"></div>
+                  )}
 
                   {/* Banner Carousel Indicator Dots */}
                   {banners.length > 1 && (
-                    <div className="absolute bottom-4 left-6 md:left-12 z-30 flex items-center gap-2">
+                    <div className="absolute bottom-2 left-4 sm:bottom-4 sm:left-8 md:left-12 z-30 flex items-center gap-1.5 sm:gap-2">
                       {banners.map((_, idx) => (
                         <button
                           key={idx}
@@ -362,7 +394,7 @@ export default function Home() {
                             e.stopPropagation();
                             setCurrentBannerIndex(idx);
                           }}
-                          className={`h-2 rounded-full transition-all ${idx === currentBannerIndex ? "w-6 bg-white" : "w-2 bg-white/50"
+                          className={`h-1.5 sm:h-2 rounded-full transition-all ${idx === currentBannerIndex ? "w-4 sm:w-6 bg-white" : "w-1.5 sm:w-2 bg-white/50"
                             }`}
                         />
                       ))}
@@ -370,7 +402,7 @@ export default function Home() {
                   )}
                 </div>
               </section>
-            )}
+            ) : null}
 
             {/* Categories Grid */}
             <section id="explore-categories" className="px-4 md:px-8 py-8 max-w-[1280px] mx-auto w-full">
@@ -410,8 +442,24 @@ export default function Home() {
               </div>
 
               {loading ? (
-                <div className="flex justify-center items-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#15803d]"></div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
+                  {[...Array(4)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(21,128,61,0.04)] border border-[#15803d]/10 flex flex-col animate-pulse"
+                    >
+                      <div className="aspect-square w-full bg-gradient-to-br from-gray-100 via-gray-200/50 to-gray-100 p-4 border-b border-[#f3f7f4] flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-full bg-gray-200/60"></div>
+                      </div>
+                      <div className="p-4 flex flex-col flex-1 justify-between gap-3 bg-[#fcfdfc]">
+                        <div className="space-y-2">
+                          <div className="h-4 bg-gray-200 rounded w-4/5"></div>
+                          <div className="h-3 bg-gray-100 rounded w-1/2"></div>
+                        </div>
+                        <div className="h-5 bg-gray-200 rounded w-1/3 mt-1"></div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
@@ -421,7 +469,7 @@ export default function Home() {
                       className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(21,128,61,0.04)] hover:shadow-[0_12px_32px_rgba(21,128,61,0.1)] hover:-translate-y-1 transition-all duration-300 flex flex-col group border border-[#15803d]/10 hover:border-[#15803d]/30"
                     >
                       <div className="relative aspect-square w-full overflow-hidden bg-white p-3 md:p-4 border-b border-[#f3f7f4] flex items-center justify-center">
-                        <img
+                        <ImageWithSkeleton
                           alt={product.name}
                           className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
                           src={product.image_url || "https://placehold.co/400"}
